@@ -1,0 +1,487 @@
+/* ========================================
+   DETALLE DE MATRÍCULA - ESTILOS
+   ======================================== */
+
+/* Card de información rápida */
+.quick-info-card {
+    background: linear-gradient(135deg, #8B2724 0%, #FA807C 100%);
+    border-radius: 12px;
+    padding: 1.5rem;
+    color: white;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.quick-info-card .student-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    object-fit: cover;
+}
+
+.quick-info-card .student-name {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.quick-info-card .info-badges .tag {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    font-weight: 600;
+    padding: 0.5em 1em;
+}
+
+/* Navegación de tabs mejorada */
+.tabs-nav-improved {
+    background: white;
+    border-radius: 10px;
+    padding: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    margin-bottom: 1.5rem;
+    display: flex;
+    gap: 0.5rem;
+    overflow-x: auto;
+}
+
+.tabs-nav-improved .tab-btn {
+    flex: 1;
+    min-width: 140px;
+    padding: 0.75rem 1rem;
+    border: none;
+    background: transparent;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #4a5568;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.tabs-nav-improved .tab-btn:hover {
+    background: #f7fafc;
+    color: #2d3748;
+}
+
+.tabs-nav-improved .tab-btn.active {
+    background: linear-gradient(135deg, #8B2724 0%, #FA807C 100%);
+    color: white;
+    box-shadow: 0 4px 10px rgba(102, 126, 234, 0.3);
+}
+
+.tabs-nav-improved .tab-btn .icon {
+    font-size: 1.1rem;
+}
+
+/* Contenedor de contenido de tabs */
+.tab-content-wrapper {
+    background: white;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    min-height: 400px;
+}
+
+/* Header de sección */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e2e8f0;
+}
+
+.section-header .section-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #2d3748;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.section-header .section-title i {
+    color: #8B2724;
+}
+
+/* Tablas de información mejoradas */
+.info-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+}
+
+.info-table tbody tr {
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.info-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.info-table tbody tr:hover {
+    background: #f7fafc;
+}
+
+.info-table tbody td {
+    padding: 0.5rem 0.8rem;
+}
+
+.info-table tbody td:first-child {
+    font-weight: 600;
+    color: #4a5568;
+    width: 200px;
+    background: #f7fafc;
+    font-size: 0.875rem;
+}
+
+.info-table tbody td:last-child {
+    color: #2d3748;
+    font-size: 0.95rem;
+}
+
+.info-table tbody td .copy-btn {
+    margin-left: 0.5rem;
+    cursor: pointer;
+    color: #8B2724;
+    transition: all 0.2s;
+    font-size: 0.9rem;
+}
+
+.info-table tbody td .copy-btn:hover {
+    color: #FA807C;
+    transform: scale(1.1);
+}
+
+/* Secciones de información */
+.info-section {
+    margin-bottom: 2rem;
+}
+
+.info-section-title {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #8B2724;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.info-section-title i {
+    font-size: 0.9rem;
+}
+
+/* Grid de campos de información */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.info-grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+}
+
+.info-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+}
+
+@media (max-width: 768px) {
+    .info-grid-2,
+    .info-grid-3,
+    .info-grid-4 {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Formularios mejorados */
+.form-improved .field {
+    margin-bottom: 1.25rem;
+}
+
+.form-improved .label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+.form-improved .input,
+.form-improved .select select,
+.form-improved .textarea {
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.form-improved .input:focus,
+.form-improved .select select:focus,
+.form-improved .textarea:focus {
+    border-color: #8B2724;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-improved .checkbox {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 500;
+    color: #4a5568;
+    cursor: pointer;
+}
+
+/* Botones de acción */
+.btn-edit {
+    background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(245, 87, 108, 0.3);
+}
+
+.btn-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(245, 87, 108, 0.4);
+}
+
+.btn-save {
+    background: linear-gradient(135deg, #8B2724 0%, #FA807C 100%);
+    border: none;
+    color: white;
+    font-weight: 600;
+    padding: 0.65rem 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.btn-save:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.btn-cancel {
+    background: #e2e8f0;
+    border: none;
+    color: #4a5568;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+    background: #cbd5e0;
+}
+
+/* Cards de padres/apoderados */
+.parent-card {
+    background: #f7fafc;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.parent-card:hover {
+    border-color: #cbd5e0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.parent-card.editing {
+    background: white;
+    border-color: #8B2724;
+}
+
+/* Tabla de pagos mejorada */
+.payments-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.payments-table thead {
+    background: linear-gradient(135deg, #8B2724 0%, #FA807C 100%);
+    color: white;
+}
+
+.payments-table thead th {
+    padding: 1rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    letter-spacing: 0.5px;
+}
+
+.payments-table tbody tr {
+    transition: all 0.2s ease;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.payments-table tbody tr:hover {
+    background: #f7fafc;
+}
+
+.payments-table tbody td {
+    padding: 1rem;
+    font-size: 0.9rem;
+}
+
+.payments-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+/* Tags mejorados */
+.tag-improved {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.tag-improved.success {
+    background: #c6f6d5;
+    color: #22543d;
+}
+
+.tag-improved.warning {
+    background: #fef5e7;
+    color: #975a16;
+}
+
+.tag-improved.danger {
+    background: #fed7d7;
+    color: #742a2a;
+}
+
+.tag-improved.info {
+    background: #bee3f8;
+    color: #2c5282;
+}
+
+.tag-improved.light {
+    background: #e2e8f0;
+    color: #4a5568;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tab-content-wrapper > div {
+    animation: fadeIn 0.3s ease;
+}
+
+/* Horario section */
+.schedule-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1.5rem;
+    align-items: end;
+}
+
+@media (max-width: 768px) {
+    .schedule-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Empty state */
+.empty-state {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: #a0aec0;
+}
+
+.empty-state i {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    opacity: 0.5;
+}
+
+.empty-state p {
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+/* Responsive ajustes */
+@media (max-width: 768px) {
+    .quick-info-card {
+        text-align: center;
+    }
+
+    .tab-content-wrapper {
+        padding: 1.25rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+}
+
+/* Scrollbar personalizado para tabs nav */
+.tabs-nav-improved::-webkit-scrollbar {
+    height: 6px;
+}
+
+.tabs-nav-improved::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.tabs-nav-improved::-webkit-scrollbar-thumb {
+    background: #cbd5e0;
+    border-radius: 10px;
+}
+
+.tabs-nav-improved::-webkit-scrollbar-thumb:hover {
+    background: #a0aec0;
+}

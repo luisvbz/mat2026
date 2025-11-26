@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Teacher extends Model
+{
+    use HasFactory;
+
+    public function getStatusAttribute()
+    {
+        $value = $this->estado;
+        switch ($value) {
+            case 1:
+                return '<i class="fas fa-circle has-text-success"></i>';
+                break;
+            case 0:
+                return '<i class="fas fa-circle has-text-danger"></i>';
+                break;
+        }
+    }
+
+    public function horario()
+    {
+        return $this->belongsTo(Horario::class, 'horario_id');
+    }
+
+    public function permisos()
+    {
+        return $this->hasMany(PermisosPersonal::class, 'teacher_id');
+    }
+
+    public function getFotoAttribute()
+    {
+
+        return "/images/fotos/p/{$this->documento}.jpg";
+    }
+
+
+    public function asistencias()
+    {
+        return $this->hasMany(AsistenciaProfesor::class, 'teacher_id');
+    }
+}
