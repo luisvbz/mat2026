@@ -147,16 +147,13 @@ class Index extends Component
 
     public function render()
     {
-        $pagos = Pago::when($this->estado != '', function ($q) {
+        $pagos = Pago::with('matricula', 'matricula.alumno')->when($this->estado != '', function ($q) {
             $q->where('estado', $this->estado);
         })
-            ->when(auth()->user()->id == 4, function ($q) {
-                $q->where('codigo_matricula', '<>', 'IEPDS-61140703-2026');
-            })
-            ->when($this->search != '', function ($q) {
+        ->when($this->search != '', function ($q) {
                 $q->where('codigo_matricula', 'like', "%{$this->search}%");
-            })
-            ->orderBy('id', 'DESC')->paginate(30);
+        })
+        ->orderBy('id', 'DESC')->paginate(30);
         $totalRegistros = Pago::count();
         $totalPendientes = Pago::whereEstado(0)->count();
         $totalConfirmados = Pago::whereEstado(1)->count();

@@ -144,6 +144,9 @@ class MatricularAntiguo extends Component
                 'grado' => $nuevoGrado['grado'],
                 'anio' => 2026,
                 'estado' => 1, // Pendiente
+                'tipo_documento_dj' => $matriculaOld->tipo_documento_dj,
+                'numero_documento_dj' => $matriculaOld->numero_documento_dj,
+                'nombres_dj' => $matriculaOld->nombres_dj
             ]);
 
             // Registrar en historial
