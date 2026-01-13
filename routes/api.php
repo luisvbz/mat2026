@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\AgendaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +17,27 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/bot-telegram', [\App\Http\Controllers\TelegramController::class, 'updates']);
+
+Route::post('/auth/login', [AuthController::class, 'login']);
+// Rutas protegidas
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/auth/logout', [AuthController::class, 'logout']);
+    Route::get('/auth/me', [AuthController::class, 'me']);
+
+    // Rutas comunes
+    Route::get('/grades/{level}', [\App\Http\Controllers\Api\CommonController::class, 'getGrades']);
+    Route::get('/grades/{gradeId}/students', [\App\Http\Controllers\Api\CommonController::class, 'getStudentsByGrade']);
+
+
+    Route::prefix('teacher')->group(function () {
+        // Agenda
+        Route::get('/students/agendas', [AgendaController::class, 'getMyAgendasTeacher']);
+        Route::post('/students/{studentId}/agenda', [AgendaController::class, 'writeMessage']);
+
+        // Citas
+        /* Route::get('/appointments', [AppointmentController::class, 'teacherIndex']);
+        Route::post('/appointments', [AppointmentController::class, 'teacherStore']);
+        Route::put('/appointments/{id}/confirm', [AppointmentController::class, 'teacherConfirm']);
+        Route::put('/appointments/{id}/reject', [AppointmentController::class, 'teacherReject']); */
+    });
+});

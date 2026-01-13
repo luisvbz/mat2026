@@ -35,7 +35,7 @@ class Teacher extends Model
     public function getFotoAttribute()
     {
 
-        return "/images/fotos/p/{$this->documento}.jpg";
+        return asset("/images/fotos/p/{$this->documento}.jpg");
     }
 
 
