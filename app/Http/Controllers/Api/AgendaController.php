@@ -16,7 +16,7 @@ class AgendaController extends Controller
 
         // Verificar que el hijo pertenece al padre
         $alumno = $padre->alumnos()->findOrFail($childId);
-        $matricula = $alumno->matriculas->where('estado', 1)->first();
+        $matricula = $alumno->matricula->where('estado', 1)->first();
 
         if (!$matricula) {
             return response()->json([
@@ -26,7 +26,7 @@ class AgendaController extends Controller
         }
 
         $query = AgendaMessage::where('matricula_id', $matricula->id)
-            ->with(['teacher', 'replies']);
+            ->with(['teacherUser.teacher', 'replies']);
 
         // Filtros opcionales
         if ($request->has('month')) {
@@ -38,15 +38,17 @@ class AgendaController extends Controller
             return [
                 'id' => $message->id,
                 'date' => $message->date->format('Y-m-d'),
-                'teacher' => $message->teacher->nombres . ' ' . $message->teacher->apellidos,
+                'teacher' => $message->teacherUser->teacher->nombres . ' ' . $message->teacherUser->teacher->apellidos,
                 'subject' => $message->subject,
-                'message' => $message->message,
+                'preview' => substr(strip_tags($message->message), 0, 100),
+                'fullText' => $message->message,
                 'isRead' => $message->is_read,
                 'replies' => $message->replies->map(function ($reply) {
                     return [
                         'id' => $reply->id,
                         'author' => $reply->author_type === 'parent' ? 'Padre' : 'Profesor',
-                        'message' => $reply->message,
+                        'text' => $reply->message,
+                        'isRead' => $reply->is_read,
                         'date' => $reply->created_at->toIso8601String(),
                     ];
                 }),
@@ -73,7 +75,7 @@ class AgendaController extends Controller
 
         // Crear respuesta
         $reply = AgendaReply::create([
-            'message_id' => $messageId,
+            'agenda_message_id' => $messageId,
             'author_type' => 'parent',
             'author_id' => $padre->id,
             'message' => $request->message,

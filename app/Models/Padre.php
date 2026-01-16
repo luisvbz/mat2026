@@ -19,4 +19,8 @@ class Padre extends Model
         return trim("{$this->apellidos}, {$nombres}");
     }
 
+    public function alumnos()
+    {
+        return $this->belongsToMany(Alumno::class, 'alumnos_padres', 'padre_id', 'alumno_id');
+    }
 }

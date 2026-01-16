@@ -24,14 +24,16 @@ class AuthController extends Controller
             $user = ParentUser::where('document_number', $request->document_number)->first();
 
             if (!$user || !Hash::check($request->password, $user->password)) {
-                throw ValidationException::withMessages([
-                    'email' => ['Las credenciales son incorrectas.'],
-                ]);
+                return response()->json([
+                    'success' => false,
+                    'error' =>  ['message' => "Las credenciales son incorrectas."]
+                ], 422);
             }
             if (!$user->is_active) {
-                throw ValidationException::withMessages([
-                    'email' => ['Tu cuenta está desactivada.'],
-                ]);
+                return response()->json([
+                    'success' => false,
+                    'error' =>  ['message' => "Tu cuenta está desactivada."]
+                ], 422);
             }
 
             $user->update(['last_login_at' => now()]);

@@ -28,11 +28,18 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/grades/{level}', [\App\Http\Controllers\Api\CommonController::class, 'getGrades']);
     Route::get('/grades/{gradeId}/students', [\App\Http\Controllers\Api\CommonController::class, 'getStudentsByGrade']);
 
+    Route::prefix('parent')->group(function () {
+        Route::get('/children', [\App\Http\Controllers\Api\ParentController::class, 'children']);
+        Route::get('/children/{childId}/agenda', [AgendaController::class, 'getMessages']);
+        Route::put('/children/{childId}/agenda/{messageId}/read', [AgendaController::class, 'markAsRead']);
+        Route::post('/children/{childId}/agenda/{messageId}/reply', [AgendaController::class, 'replyToMessage']);
+    });
 
     Route::prefix('teacher')->group(function () {
         // Agenda
         Route::get('/students/agendas', [AgendaController::class, 'getMyAgendasTeacher']);
         Route::post('/students/{studentId}/agenda', [AgendaController::class, 'writeMessage']);
+
 
         // Citas
         /* Route::get('/appointments', [AppointmentController::class, 'teacherIndex']);

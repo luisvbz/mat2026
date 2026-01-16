@@ -37,7 +37,7 @@ class AgendaMessage extends Model
 
     public function replies()
     {
-        return $this->hasMany(AgendaReply::class, 'message_id');
+        return $this->hasMany(AgendaReply::class, 'agenda_message_id');
     }
 
     public function markAsRead()
