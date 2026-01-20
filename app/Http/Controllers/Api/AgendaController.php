@@ -34,26 +34,29 @@ class AgendaController extends Controller
             $query->whereYear('date', date('Y', strtotime($request->month)));
         }
 
-        $messages = $query->orderBy('date', 'desc')->get()->map(function ($message) {
-            return [
-                'id' => $message->id,
-                'date' => $message->date->format('Y-m-d'),
-                'teacher' => $message->teacherUser->teacher->nombres . ' ' . $message->teacherUser->teacher->apellidos,
-                'subject' => $message->subject,
-                'preview' => substr(strip_tags($message->message), 0, 100),
-                'fullText' => $message->message,
-                'isRead' => $message->is_read,
-                'replies' => $message->replies->map(function ($reply) {
-                    return [
-                        'id' => $reply->id,
-                        'author' => $reply->author_type === 'parent' ? 'Padre' : 'Profesor',
-                        'text' => $reply->message,
-                        'isRead' => $reply->is_read,
-                        'date' => $reply->created_at->toIso8601String(),
-                    ];
-                }),
-            ];
-        });
+        $messages = $query->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get()->map(function ($message) {
+                return [
+                    'id' => $message->id,
+                    'date' => $message->date->format('Y-m-d'),
+                    'teacher' => $message->teacherUser->teacher->nombres . ' ' . $message->teacherUser->teacher->apellidos,
+                    'subject' => $message->subject,
+                    'preview' => substr(strip_tags($message->message), 0, 100),
+                    'fullText' => $message->message,
+                    'isRead' => $message->is_read,
+                    'time_created' => $message->created_at->format('h:i a'),
+                    'replies' => $message->replies->map(function ($reply) {
+                        return [
+                            'id' => $reply->id,
+                            'author' => $reply->author_type === 'parent' ? 'Padre' : 'Profesor',
+                            'text' => $reply->message,
+                            'isRead' => $reply->is_read,
+                            'date' => $reply->created_at->toIso8601String(),
+                        ];
+                    }),
+                ];
+            });
 
         return response()->json([
             'success' => true,
@@ -152,8 +155,7 @@ class AgendaController extends Controller
 
         $teacher = auth()->user();
 
-
-        $matricula = Matricula::find($studentId)
+        $matricula = Matricula::where('id', $studentId)
             ->where('estado', 1)
             ->firstOrFail();
 

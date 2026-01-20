@@ -1391,7 +1391,7 @@
             new Pikaday({
                 field: document.getElementById('fecha-nacimiento'),
                 format: 'DD/MM/YYYY',
-                yearRange: [1990, 2018],
+                yearRange: [1990, 2020],
                 i18n: {
                     previousMonth: 'Mes Anterior',
                     nextMonth: 'Siguiente Mes',

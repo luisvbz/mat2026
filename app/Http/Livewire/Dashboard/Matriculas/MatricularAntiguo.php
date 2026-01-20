@@ -43,6 +43,7 @@ class MatricularAntiguo extends Component
 
     public function verificarYMostrarDialog($matriculaOldId)
     {
+
         $matriculaOld = MatriculaOld::find($matriculaOldId);
 
         if (!$matriculaOld) {
@@ -94,7 +95,7 @@ class MatricularAntiguo extends Component
 
     private function calcularNuevoGrado($gradoActual, $nivel)
     {
-        // 6to de primaria pasa a 1ero de secundaria
+
         if ($nivel == 'P' && $gradoActual == 6) {
             return ['grado' => 1, 'nivel' => 'S'];
         }
@@ -140,7 +141,7 @@ class MatricularAntiguo extends Component
                 'codigo' => $codigoMatricula,
                 'numero_matricula' => $nuevoNumero,
                 'alumno_id' => $matriculaOld->alumno_id,
-                'nivel' => $matriculaOld->nivel,
+                'nivel' => $nuevoGrado['nivel'],
                 'grado' => $nuevoGrado['grado'],
                 'anio' => 2026,
                 'estado' => 1, // Pendiente
