@@ -129,7 +129,7 @@ class AgendaController extends Controller
                     'photo' => url($matricula->alumno->foto),
                     'grade' => $matricula->grado,
                     'level' => $matricula->nivel,
-                    'replies_unread_count' => AgendaReply::whereHas('agendaMessage', function ($query) use ($matricula) {
+                    'unreadCount' => AgendaReply::whereHas('agendaMessage', function ($query) use ($matricula) {
                         $query->where('matricula_id', $matricula->id)
                             ->where('teacher_user_id', auth()->user()->id);
                     })->where('author_type', 'parent')
@@ -143,6 +143,54 @@ class AgendaController extends Controller
             'data' => $students
         ]);
     }
+
+    public function getAgendaByTeacher(Request $request, $studentId)
+    {
+        $matricula = Matricula::where('id', $studentId)
+            ->where('estado', 1)
+            ->firstOrFail();
+
+        $messages = AgendaMessage::where('matricula_id', $matricula->id)
+            ->where('teacher_user_id', auth()->user()->id)
+            ->with(['teacherUser.teacher', 'replies'])
+            ->orderBy('date', 'desc')
+            ->orderBy('created_at', 'desc')
+            ->get()->map(function ($message) {
+                return [
+                    'id' => $message->id,
+                    'date' => $message->date->format('Y-m-d'),
+                    'teacher' => $message->teacherUser->teacher->nombres . ' ' . $message->teacherUser->teacher->apellidos,
+                    'subject' => $message->subject,
+                    'preview' => substr(strip_tags($message->message), 0, 100),
+                    'fullText' => $message->message,
+                    'isRead' => $message->is_read,
+                    'time_created' => $message->created_at->format('h:i a'),
+                    'replies' => $message->replies->map(function ($reply) {
+                        return [
+                            'id' => $reply->id,
+                            'author' => $reply->author_type === 'parent' ? 'Padre' : 'Profesor',
+                            'text' => $reply->message,
+                            'isRead' => $reply->is_read,
+                            'readAt' => $reply->read_at ? $reply->read_at->toIso8601String() : null,
+                            'date' => $reply->created_at->toIso8601String(),
+                        ];
+                    }),
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'data' => $messages,
+            'student' => [
+                'id' => $matricula->alumno->id,
+                'name' => $matricula->alumno->nombre_completo,
+                'photo' => url($matricula->alumno->foto),
+                'grade' => $matricula->grado,
+                'level' => $matricula->nivel,
+            ],
+        ]);
+    }
+
 
     public function writeMessage(Request $request, $studentId)
     {
@@ -174,5 +222,21 @@ class AgendaController extends Controller
                 'message' => 'Mensaje enviado a la agenda del estudiante',
             ],
         ]);
+    }
+
+    public function markMessageAsRead(Request $request, $messageId)
+    {
+        $message = AgendaMessage::findOrFail($messageId);
+
+        // Marcar todas las respuestas de padres como leídas
+        $message->replies()
+            ->where('author_type', 'parent')
+            ->where('is_read', false)
+            ->update([
+                'is_read' => true,
+                'read_at' => now()
+            ]);
+
+        return response()->json(['success' => true]);
     }
 }
