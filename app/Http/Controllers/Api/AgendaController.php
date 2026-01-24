@@ -152,6 +152,9 @@ class AgendaController extends Controller
 
         $messages = AgendaMessage::where('matricula_id', $matricula->id)
             ->where('teacher_user_id', auth()->user()->id)
+            ->when($request->has('month'), function ($query) use ($request) {
+                $query->whereMonth('date', $request->month);
+            })
             ->with(['teacherUser.teacher', 'replies'])
             ->orderBy('date', 'desc')
             ->orderBy('created_at', 'desc')
@@ -228,7 +231,6 @@ class AgendaController extends Controller
     {
         $message = AgendaMessage::findOrFail($messageId);
 
-        // Marcar todas las respuestas de padres como leídas
         $message->replies()
             ->where('author_type', 'parent')
             ->where('is_read', false)

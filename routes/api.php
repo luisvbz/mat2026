@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->group(function () {
         // Agenda
         Route::get('/students/agendas', [AgendaController::class, 'getMyAgendasTeacher']);
         Route::get('/students/agendas/{studentId}', [AgendaController::class, 'getAgendaByTeacher']);
-        Route::post('/students/{messageId}/agenda/mark-as-read', [AgendaController::class, 'markMessageAsRead']);
+        Route::post('/students/agenda/{messageId}/mark-as-read', [AgendaController::class, 'markMessageAsRead']);
         Route::post('/students/{studentId}/agenda', [AgendaController::class, 'writeMessage']);
 
 
