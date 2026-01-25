@@ -37,6 +37,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('teacher')->group(function () {
         // Agenda
+        Route::get('/agendas/stats', [\App\Http\Controllers\Api\TacherController::class, 'getStats']);
         Route::get('/students/agendas', [AgendaController::class, 'getMyAgendasTeacher']);
         Route::get('/students/agendas/{studentId}', [AgendaController::class, 'getAgendaByTeacher']);
         Route::post('/students/agenda/{messageId}/mark-as-read', [AgendaController::class, 'markMessageAsRead']);

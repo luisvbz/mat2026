@@ -16,7 +16,15 @@ class AgendaController extends Controller
 
         // Verificar que el hijo pertenece al padre
         $alumno = $padre->alumnos()->findOrFail($childId);
-        $matricula = $alumno->matricula->where('estado', 1)->first();
+
+        if (!$alumno) {
+            return response()->json([
+                'success' => false,
+                'error' => ['message' => 'No se encontró matrícula activa'],
+            ], 404);
+        }
+
+        $matricula = Matricula::where('alumno_id', $childId)->where('estado', 1)->first();
 
         if (!$matricula) {
             return response()->json([
@@ -117,6 +125,7 @@ class AgendaController extends Controller
     public function getMyAgendasTeacher(Request $request)
     {
         $students = Matricula::whereIn('id', AgendaMessage::where('teacher_user_id', auth()->user()->id)->pluck('matricula_id'))
+            ->with('alumno')
             ->where('estado', 1)
             ->with('alumno')
             ->orderBy('nivel', 'ASC')
