@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\AgendaController;
+use App\Http\Controllers\Api\CuentasController;
 use App\Http\Controllers\Api\AsistenciasController;
 
 /*
@@ -35,6 +36,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('/children/{childId}/agenda/{messageId}/read', [AgendaController::class, 'markAsRead']);
         Route::post('/children/{childId}/agenda/{messageId}/reply', [AgendaController::class, 'replyToMessage']);
         Route::get('/children/{childId}/asistencia', [AsistenciasController::class, 'getAttendanceByChild']);
+        Route::get('/children/{childId}/cuentas', [CuentasController::class, 'getEstadoCuenta']);
     });
 
     Route::prefix('teacher')->group(function () {

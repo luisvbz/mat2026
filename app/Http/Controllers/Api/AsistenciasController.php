@@ -50,6 +50,11 @@ class AsistenciasController extends Controller
             'success' => true,
             'data' => [
                 'attendances' => $asistencias,
+                'stats' => [
+                    'present' => $asistencias->filter(fn($item) => $item['status'] === 'present')->count(),
+                    'absent' => $asistencias->filter(fn($item) => $item['status'] === 'absent')->count(),
+                    'justified' => $asistencias->filter(fn($item) => $item['status'] === 'justified')->count(),
+                ]
             ],
         ]);
     }
