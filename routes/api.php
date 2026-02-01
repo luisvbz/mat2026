@@ -37,6 +37,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/children/{childId}/agenda/{messageId}/reply', [AgendaController::class, 'replyToMessage']);
         Route::get('/children/{childId}/asistencia', [AsistenciasController::class, 'getAttendanceByChild']);
         Route::get('/children/{childId}/cuentas', [CuentasController::class, 'getEstadoCuenta']);
+
+        Route::get('/communications', [CommunicationController::class, 'index']);
+        Route::get('/communications/{id}', [CommunicationController::class, 'show']);
+        Route::post('/communications/{id}/mark-read', [CommunicationController::class, 'markAsRead']);
+        Route::get('/communications/{id}/stats', [CommunicationController::class, 'readStats']);
     });
 
     Route::prefix('teacher')->group(function () {

@@ -40,4 +40,16 @@ class ParentUser extends Model
     {
         return $this->padre->alumnos();
     }
+
+    public function communicationReads()
+    {
+        return $this->hasMany(CommunicationRead::class, 'parent_user_id');
+    }
+
+    public function hasReadCommunication($communicationId)
+    {
+        return $this->communicationReads()
+            ->where('communication_id', $communicationId)
+            ->exists();
+    }
 }

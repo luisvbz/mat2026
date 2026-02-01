@@ -1,0 +1,151 @@
+<?php
+
+namespace App\Http\Livewire\Dashboard;
+
+use App\Models\Communication;
+use App\Models\CommunicationAttachment;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use Illuminate\Support\Facades\Storage;
+
+class Comunicados extends Component
+{
+    use WithFileUploads;
+
+    // Modal states
+    public $deleteConfirmId = null;
+    public $showStatsModal = false;
+    public $statsData = [];
+
+    // Filters
+    public $filterCategory = '';
+    public $filterPublished = '';
+    public $search = '';
+
+    public function mount()
+    {
+        //
+    }
+
+    public function render()
+    {
+        $communications = Communication::query()
+            ->when($this->search, function ($query) {
+                $query->where('title', 'like', '%' . $this->search . '%')
+                    ->orWhere('content', 'like', '%' . $this->search . '%');
+            })
+            ->when($this->filterCategory, function ($query) {
+                $query->where('category', $this->filterCategory);
+            })
+            ->when($this->filterPublished !== '', function ($query) {
+                $query->where('is_published', $this->filterPublished);
+            })
+            ->with('attachments')
+            ->orderBy('created_at', 'DESC')
+            ->get();
+
+        return view('livewire.dashboard.comunicados', [
+            'communications' => $communications
+        ])
+            ->extends('layouts.dashboard')
+            ->section('content');
+    }
+
+    public function create()
+    {
+        return redirect()->route('dashboard.comunicados.crear');
+    }
+
+    public function edit($id)
+    {
+        return redirect()->route('dashboard.comunicados.editar', $id);
+    }
+
+    public function togglePublish($id)
+    {
+        try {
+            $communication = Communication::findOrFail($id);
+            $communication->is_published = !$communication->is_published;
+            
+            if ($communication->is_published && !$communication->published_at) {
+                $communication->published_at = now();
+            }
+            
+            $communication->save();
+
+            $status = $communication->is_published ? 'publicado' : 'despublicado';
+            
+            $this->emit('swal:alert', [
+                'icon' => 'success',
+                'title' => "Comunicado {$status} exitosamente",
+                'timeout' => 3000
+            ]);
+        } catch (\Exception $e) {
+            $this->emit('swal:alert', [
+                'icon' => 'error',
+                'title' => 'Error al cambiar el estado',
+                'timeout' => 5000
+            ]);
+        }
+    }
+
+    public function confirmDelete($id)
+    {
+        $this->deleteConfirmId = $id;
+    }
+
+    public function delete()
+    {
+        try {
+            $communication = Communication::findOrFail($this->deleteConfirmId);
+            
+            // Delete all attachments
+            foreach ($communication->attachments as $attachment) {
+                Storage::disk('public')->delete($attachment->url);
+                $attachment->delete();
+            }
+            
+            $communication->delete();
+
+            $this->emit('swal:alert', [
+                'icon' => 'success',
+                'title' => 'Comunicado eliminado exitosamente',
+                'timeout' => 3000
+            ]);
+
+            $this->deleteConfirmId = null;
+        } catch (\Exception $e) {
+            $this->emit('swal:alert', [
+                'icon' => 'error',
+                'title' => 'Error al eliminar el comunicado',
+                'timeout' => 5000
+            ]);
+        }
+    }
+
+    public function viewStats($id)
+    {
+        $communication = Communication::with(['reads.parentUser.padre'])->findOrFail($id);
+        
+        $this->statsData = [
+            'title' => $communication->title,
+            'total_reads' => $communication->reads->count(),
+            'read_percentage' => $communication->read_percentage,
+            'reads' => $communication->reads->map(function ($read) {
+                return [
+                    'parent_name' => $read->parentUser->padre->nombres ?? 'N/A',
+                    'document' => $read->parentUser->document_number ?? 'N/A',
+                    'read_at' => $read->read_at->format('d/m/Y H:i'),
+                ];
+            })->toArray()
+        ];
+        
+        $this->showStatsModal = true;
+    }
+
+    public function closeStatsModal()
+    {
+        $this->showStatsModal = false;
+        $this->statsData = [];
+    }
+}

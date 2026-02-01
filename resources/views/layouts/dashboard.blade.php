@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="{{ asset('css/dashboard/dashboard.css') }}">
     <link rel="stylesheet" href="{{ asset('css/dashboard/detalle-matricula.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css" />
+    <link rel="stylesheet" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
 
 
     @stack('css')
@@ -60,6 +61,7 @@
 
     <!-- Scripts -->
     <livewire:scripts />
+    <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <script src="{{ asset('js/globals.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
     <script>
