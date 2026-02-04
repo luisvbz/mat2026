@@ -6,6 +6,7 @@ use App\Models\Grado;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Matricula;
+use App\Models\TeacherUser;
 
 class CommonController extends Controller
 {
@@ -16,6 +17,26 @@ class CommonController extends Controller
         return response()->json([
             'success' => true,
             'data' => $grades
+        ]);
+    }
+
+    public function getTeacherUsers()
+    {
+        $teachers = TeacherUser::with('teacher')
+            ->where('is_active', true)
+            ->get()
+            ->map(function ($teachers) {
+                return [
+                    'id' => $teachers->teacher->id,
+                    'name' => $teachers->teacher->nombres . ' ' . $teachers->teacher->apellidos,
+                    'email' => $teachers->email,
+                    'photo' => $teachers->teacher->foto,
+                ];
+            });
+
+        return response()->json([
+            'success' => true,
+            'data' => $teachers
         ]);
     }
 

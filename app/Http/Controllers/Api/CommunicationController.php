@@ -9,9 +9,7 @@ use Illuminate\Http\Request;
 
 class CommunicationController extends Controller
 {
-    /**
-     * Get all published communications
-     */
+
     public function index(Request $request)
     {
         $communications = Communication::published()
@@ -20,23 +18,24 @@ class CommunicationController extends Controller
                 $query->byCategory($category);
             })
             ->orderBy('published_at', 'DESC')
-            ->get()
-            ->map(function ($communication) use ($request) {
-                $data = $communication->toArray();
-                
-                // Check if current user has read this communication
-                if ($request->user()) {
-                    $data['is_read'] = $request->user()->hasReadCommunication($communication->id);
-                }
-                
-                return $data;
-            });
+            ->paginate(15);
+
+        $communications->getCollection()->transform(function ($communication) use ($request) {
+            $data = $communication->toArray();
+
+            $data['is_read'] = $request->user()
+                ? $request->user()->hasReadCommunication($communication->id)
+                : false;
+
+            return $data;
+        });
 
         return response()->json([
             'success' => true,
             'data' => $communications
         ]);
     }
+
 
     /**
      * Get a single communication
@@ -48,7 +47,7 @@ class CommunicationController extends Controller
             ->findOrFail($id);
 
         $data = $communication->toArray();
-        
+
         // Check if current user has read this communication
         if ($request->user()) {
             $data['is_read'] = $request->user()->hasReadCommunication($communication->id);
@@ -66,7 +65,7 @@ class CommunicationController extends Controller
     public function markAsRead(Request $request, $id)
     {
         $communication = Communication::published()->findOrFail($id);
-        
+
         $parentUser = $request->user();
 
         // Check if already marked as read

@@ -43,4 +43,9 @@ class Teacher extends Model
     {
         return $this->hasMany(AsistenciaProfesor::class, 'teacher_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(TeacherUser::class, 'teacher_id');
+    }
 }

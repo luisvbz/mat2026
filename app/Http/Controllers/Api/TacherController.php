@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
-use App\Models\AgendaMessage;
-use App\Models\AgendaReply;
+use Mpdf\Tag\A;
 use App\Models\Matricula;
+use App\Models\AgendaReply;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
+use App\Models\AgendaMessage;
+use App\Http\Controllers\Controller;
 
 class TacherController extends Controller
 {
@@ -45,10 +47,14 @@ class TacherController extends Controller
                 ];
             });
 
+        $totalPendingAppoinements = Appointment::where('teacher_id', auth()->user()->teacher->id)
+            ->where('status', 'pending')
+            ->count();
+
         return response()->json([
             'success' => true,
             'data' => [
-                'totalClasses' => 0,
+                'totalClasses' => $totalPendingAppoinements,
                 'messagesSent' => $allAgendasMessagesCount,
                 'unreadReplies' => $pendingAgendasMessagesCount,
                 'totalStudents' => $allMyAgendas,
