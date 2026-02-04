@@ -8,9 +8,23 @@ use Livewire\Component;
 
 class Index extends Component
 {
+    public $search = '';
+    public $estado = '';
 
-    public $search;
-    protected $queryString = ['search'];
+    protected $queryString = [
+        'search' => ['except' => ''],
+        'estado' => ['except' => '']
+    ];
+
+    public function buscar()
+    {
+        // Manual search trigger for deferred models
+    }
+
+    public function limpiar()
+    {
+        $this->reset(['search', 'estado']);
+    }
 
     public function activar($id)
     {
@@ -65,6 +79,9 @@ class Index extends Component
                 ->orWhere('apellidos', 'like', '%' . $this->search . '%')
                 ->orWhere('documento', 'like', '%' . $this->search . '%');
         })
+            ->when($this->estado !== '', function ($query) {
+                $query->where('estado', $this->estado);
+            })
             ->orderBy('apellidos', 'ASC')
             ->get();
 

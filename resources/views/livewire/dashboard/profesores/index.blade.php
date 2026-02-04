@@ -11,17 +11,45 @@
     </div>
     <div class="content-dashboard-header">
         <div><i class="fas fa-graduation-cap"></i> Profesores</div>
-        <div class="flex-grow">
-            <input type="text" wire:model.debounce.500ms="search" class="input is-small"
-                placeholder="Buscar por nombre, apellido o documento..." style="max-width: 300px; margin-left: 20px;">
-        </div>
         <div class="has-text-right">
-            <a href="{{ route('dashboard.profesores.nuevo') }}" class="button is-primary is-small"><i
-                    class="fas fa-plus mr-2"></i> Nuevo Profesor</a>
-            <button wire:click="getCarnet" class="button is-small ml-2">Generar QR's <i
-                    class="ml-2 fas fa-qrcode"></i></button>
+            <a href="{{ route('dashboard.profesores.horarios') }}" class="button is-info is-small mr-2">
+                <i class="fas fa-clock mr-2"></i> Gestión de Horarios
+            </a>
+            <a href="{{ route('dashboard.profesores.nuevo') }}" class="button is-primary is-small">
+                <i class="fas fa-plus mr-2"></i> Nuevo Profesor
+            </a>
+            <button wire:click="getCarnet" class="button is-small ml-2">
+                Generar QR's <i class="ml-2 fas fa-qrcode"></i>
+            </button>
         </div>
     </div>
+    <div class="content-dashboard-search-bar">
+        <div class="columns">
+            <div class="column is-8">
+                <div class="control has-icons-left">
+                    <input type="text" class="input" wire:model.defer="search"
+                        placeholder="Buscar por nombre o DNI del profesor" />
+                    <span class="icon is-small is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="column is-2">
+                <div class="select is-fullwidth">
+                    <select wire:model.defer="estado">
+                        <option value="" selected>Estado</option>
+                        <option value="0">Inactivo</option>
+                        <option value="1">Activo</option>
+                    </select>
+                </div>
+            </div>
+            <div class="column has-text-centered">
+                <button wire:click="buscar" class="button is-success"><i class="fas fa-search"></i></button>
+                <button wire:click="limpiar" class="button is-danger"><i class="fas fa-eraser"></i></button>
+            </div>
+        </div>
+    </div>
+
     <div class="box-content content-dashboard-content">
         <table class="table">
             <thead>
@@ -50,14 +78,19 @@
                                     <div class="items-option" @click.away="open = false">
                                         <a href="{{ route('dashboard.profesores.detalle', $teacher->id) }}"><i
                                                 class="fas fa-eye"></i> Ver Detalle</a>
-                                        @if ($teacher->estado == 0)
+                                    </div>
+                                    @if ($teacher->estado == 0)
+                                        <div class="items-option" @click.away="open = false">
                                             <a wire:click="activar({{ $teacher->id }})"><i
                                                     class="fas fa-check-double has-text-success"></i> Activar</a>
-                                        @elseif($teacher->estado == 1)
+                                        </div>
+                                    @elseif($teacher->estado == 1)
+                                        <div class="items-option" @click.away="open = false">
                                             <a wire:click="desactivar({{ $teacher->id }})"><i
                                                     class="fas fa-ban has-text-danger"></i> Desactivar</a>
-                                        @endif
-                                    </div>
+                                        </div>
+                                    @endif
+
                                 </div>
                             </div>
                         </td>
