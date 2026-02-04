@@ -6,7 +6,9 @@ use App\Models\Alumno;
 use App\Models\Matricula;
 use App\Models\Padre;
 use App\Models\Apoderado;
+use App\Models\ParentUser;
 use App\Models\Historial;
+use Illuminate\Support\Facades\Hash;
 use Livewire\Component;
 
 class Detalle extends Component
@@ -270,6 +272,99 @@ class Detalle extends Component
                 'type'  => 'success',
                 'title' => 'Éxito!',
                 'text'  => "Los datos se actualizaron correctamente",
+            ]);
+        } catch (\Exception $e) {
+            $this->emit('swal:modal', [
+                'type'  => 'error',
+                'title' => 'Error!',
+                'text'  => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function crearUsuarioPadre($padreId)
+    {
+        try {
+            $padre = Padre::findOrFail($padreId);
+
+            if (ParentUser::where('padre_id', $padre->id)->exists()) {
+                throw new \Exception("Este padre ya tiene un usuario asociado.");
+            }
+
+            ParentUser::create([
+                'padre_id' => $padre->id,
+                'document_number' => $padre->numero_documento,
+                'password' => Hash::make($padre->numero_documento),
+                'is_active' => true,
+            ]);
+
+            Historial::create([
+                'user_id' => auth()->user()->id,
+                'accion' => "Crear usuario para padre: {$padre->nombre_completo} - Alumno: {$this->matricula->alumno->nombre_completo}"
+            ]);
+
+            $this->matricula->refresh();
+
+            $this->emit('swal:modal', [
+                'type'  => 'success',
+                'title' => 'Éxito!',
+                'text'  => "Usuario creado correctamente con el DNI como contraseña",
+            ]);
+        } catch (\Exception $e) {
+            $this->emit('swal:modal', [
+                'type'  => 'error',
+                'title' => 'Error!',
+                'text'  => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function resetearPasswordPadre($parentUserId)
+    {
+        try {
+            $user = ParentUser::findOrFail($parentUserId);
+            $padre = $user->padre;
+
+            $user->update([
+                'password' => Hash::make($padre->numero_documento)
+            ]);
+
+            Historial::create([
+                'user_id' => auth()->user()->id,
+                'accion' => "Restablecer contraseña de padre: {$padre->nombre_completo}"
+            ]);
+
+            $this->emit('swal:modal', [
+                'type'  => 'success',
+                'title' => 'Éxito!',
+                'text'  => "La contraseña ha sido restablecida al número de documento",
+            ]);
+        } catch (\Exception $e) {
+            $this->emit('swal:modal', [
+                'type'  => 'error',
+                'title' => 'Error!',
+                'text'  => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function toggleUsuarioPadre($parentUserId)
+    {
+        try {
+            $user = ParentUser::findOrFail($parentUserId);
+            $user->update([
+                'is_active' => !$user->is_active
+            ]);
+
+            Historial::create([
+                'user_id' => auth()->user()->id,
+                'accion' => ($user->is_active ? "Activar" : "Desactivar") . " acceso de padre: {$user->padre->nombre_completo}"
+            ]);
+
+            $this->emit('swal:modal', [
+                'type'  => 'success',
+                'title' => 'Estado Actualizado!',
+                'text'  => "El acceso del usuario ha sido " . ($user->is_active ? 'activado' : 'desactivado') . " correctamente",
             ]);
         } catch (\Exception $e) {
             $this->emit('swal:modal', [

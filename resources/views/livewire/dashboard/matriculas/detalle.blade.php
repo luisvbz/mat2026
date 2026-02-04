@@ -65,6 +65,10 @@
             <i class="fas fa-clock"></i>
             <span>Horario</span>
         </button>
+        <button @click="activeTab = 'usuarios'" class="tab-btn" :class="{ 'active': activeTab === 'usuarios' }">
+            <i class="fas fa-user-shield"></i>
+            <span>Usuarios</span>
+        </button>
     </div>
 
     {{-- Tab Content --}}
@@ -851,6 +855,87 @@
                     </div>
                 </div>
             </form>
+        </div>
+
+        {{-- Tab: Usuarios --}}
+        <div x-show="activeTab === 'usuarios'">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-user-shield"></i>
+                    <span>Acceso de Padres al Portal</span>
+                </div>
+            </div>
+
+            <div class="columns is-multiline">
+                @forelse($matricula->alumno->padres as $padre)
+                    <div class="column is-6">
+                        <div class="info-section">
+                            <div class="is-flex is-justify-content-between is-align-items-start mb-3">
+                                <div>
+                                    <h5 class="title is-6 mb-1">{{ $padre->nombre_completo }}</h5>
+                                    <span class="tag is-light is-small">
+                                        {{ $padre->parentesco == 'P' ? 'PADRE' : 'MADRE' }}
+                                    </span>
+                                </div>
+                                @if ($padre->user)
+                                    <span class="tag-improved {{ $padre->user->is_active ? 'success' : 'danger' }}">
+                                        {{ $padre->user->is_active ? 'ACTIVO' : 'INACTIVO' }}
+                                    </span>
+                                @else
+                                    <span class="tag-improved warning">SIN CUENTA</span>
+                                @endif
+                            </div>
+
+                            @if ($padre->user)
+                                <table class="info-table mb-4">
+                                    <tbody>
+                                        <tr>
+                                            <td>Usuario (DNI)</td>
+                                            <td><strong>{{ $padre->user->document_number }}</strong></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Último Acceso</td>
+                                            <td>{{ $padre->user->last_login_at ? $padre->user->last_login_at->diffForHumans() : 'Nunca' }}
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                                <div class="buttons">
+                                    <button wire:click="resetearPasswordPadre({{ $padre->user->id }})"
+                                        class="button is-small is-warning is-light"
+                                        onclick="confirm('¿Estás seguro de restablecer la contraseña al número de documento?') || event.stopImmediatePropagation()">
+                                        <i class="fas fa-key mr-2"></i> Reset Clave
+                                    </button>
+
+                                    <button wire:click="toggleUsuarioPadre({{ $padre->user->id }})"
+                                        class="button is-small {{ $padre->user->is_active ? 'is-danger' : 'is-success' }} is-light">
+                                        <i
+                                            class="fas {{ $padre->user->is_active ? 'fa-user-slash' : 'fa-user-check' }} mr-2"></i>
+                                        {{ $padre->user->is_active ? 'Desactivar' : 'Activar' }}
+                                    </button>
+                                </div>
+                            @else
+                                <div class="empty-state py-4">
+                                    <p class="mb-3 is-size-7">Este padre no tiene un usuario para acceder a la
+                                        aplicación móvil.</p>
+                                    <button wire:click="crearUsuarioPadre({{ $padre->id }})"
+                                        class="button is-small is-success has-text-white is-rounded px-4">
+                                        <i class="fas fa-user-plus mr-2"></i> Crear Usuario de Acceso
+                                    </button>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @empty
+                    <div class="column is-12">
+                        <div class="empty-state">
+                            <i class="fas fa-user-friends"></i>
+                            <p>No hay información de padres registrada para este estudiante.</p>
+                        </div>
+                    </div>
+                @endforelse
+            </div>
         </div>
     </div>
 

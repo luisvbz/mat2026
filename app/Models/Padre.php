@@ -23,4 +23,9 @@ class Padre extends Model
     {
         return $this->belongsToMany(Alumno::class, 'alumnos_padres', 'padre_id', 'alumno_id');
     }
+
+    public function user()
+    {
+        return $this->hasOne(ParentUser::class, 'padre_id');
+    }
 }
