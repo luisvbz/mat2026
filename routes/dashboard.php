@@ -50,6 +50,10 @@ Route::middleware(['auth'])->group(function () {
         ->name('marcacion');
 
     Route::get('/profesores', \App\Http\Livewire\Dashboard\Profesores\Index::class)->name('dashboard.profesores')->middleware('role:Admin|Operador');
+    Route::get('/profesores/nuevo', \App\Http\Livewire\Dashboard\Profesores\Nuevo::class)->name('dashboard.profesores.nuevo')->middleware('role:Admin|Operador');
+    Route::get('/profesores/{id}/editar', \App\Http\Livewire\Dashboard\Profesores\Editar::class)->name('dashboard.profesores.editar')->middleware('role:Admin|Operador');
+    Route::get('/profesores/{id}/detalle', \App\Http\Livewire\Dashboard\Profesores\Detalle::class)->name('dashboard.profesores.detalle')->middleware('role:Admin|Operador');
+    Route::get('/profesores/horarios', \App\Http\Livewire\Dashboard\Profesores\Horarios::class)->name('dashboard.profesores.horarios')->middleware('role:Admin|Operador');
     Route::get('/comunicados', \App\Http\Livewire\Dashboard\Comunicados::class)->name('dashboard.comunicados')->middleware('role:Admin|Operador');
     Route::get('/comunicados/crear', \App\Http\Livewire\Dashboard\Comunicados\Crear::class)->name('dashboard.comunicados.crear')->middleware('role:Admin|Operador');
     Route::get('/comunicados/{id}/editar', \App\Http\Livewire\Dashboard\Comunicados\Editar::class)->name('dashboard.comunicados.editar')->middleware('role:Admin|Operador');
