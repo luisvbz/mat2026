@@ -72,6 +72,16 @@ class Comunicados extends Component
             }
             
             $communication->save();
+            
+            // Send email notifications to parents if toggled to published
+            if ($communication->is_published) {
+                $parents = \App\Models\ParentUser::where('is_active', true)->get();
+                foreach ($parents as $parent) {
+                    if ($parent->padre->correo_electronico) {
+                        \Illuminate\Support\Facades\Mail::to($parent->padre->correo_electronico)->queue(new \App\Mail\NuevoComunicado($communication));
+                    }
+                }   
+            }
 
             $status = $communication->is_published ? 'publicado' : 'despublicado';
             

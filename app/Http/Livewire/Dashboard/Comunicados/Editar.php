@@ -79,7 +79,18 @@ class Editar extends Component
                 'author_name' => auth()->user()->name,
             ];
 
+            $wasPublished = $communication->is_published;
             $communication->update($data);
+
+            // Send email notifications to parents if it just got published
+            if ($communication->is_published && !$wasPublished) {
+                $parents = \App\Models\ParentUser::where('is_active', true)->get();
+                foreach ($parents as $parent) {
+                    if ($parent->email) {
+                        \Illuminate\Support\Facades\Mail::to($parent->email)->queue(new \App\Mail\NuevoComunicado($communication));
+                    }
+                }
+            }
 
             // Delete marked attachments
             if (!empty($this->attachmentsToDelete)) {

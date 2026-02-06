@@ -77,6 +77,17 @@ class Crear extends Component
                 }
             }
 
+            // Send email notifications to parents if published
+            if ($communication->is_published) {
+                $parents = \App\Models\ParentUser::where('is_active', true)
+                    ->get();
+                foreach ($parents as $parent) {
+                    if ($parent->padre->correo_electronico) {
+                        \Illuminate\Support\Facades\Mail::to($parent->padre->correo_electronico)->queue(new \App\Mail\NuevoComunicado($communication));
+                    }
+                }
+            }
+
             $this->emit('swal:alert', [
                 'icon' => 'success',
                 'title' => 'Comunicado creado exitosamente',
