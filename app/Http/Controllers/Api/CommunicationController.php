@@ -17,17 +17,14 @@ class CommunicationController extends Controller
             ->when($request->category, function ($query, $category) {
                 $query->byCategory($category);
             })
-            ->orderBy('published_at', 'DESC')
+            ->orderBy('published_at', 'desc')  // 'desc' en minúsculas
             ->paginate(15);
 
-        $communications->getCollection()->transform(function ($communication) use ($request) {
-            $data = $communication->toArray();
-
-            $data['is_read'] = $request->user()
+        $communications->through(function ($communication) use ($request) {
+            $communication->is_read = $request->user()
                 ? $request->user()->hasReadCommunication($communication->id)
                 : false;
-
-            return $data;
+            return $communication;
         });
 
         return response()->json([

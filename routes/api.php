@@ -38,6 +38,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/teachers', [CommonController::class, 'getTeacherUsers']);
 
     Route::prefix('parent')->group(function () {
+        Route::get('/resumen', [\App\Http\Controllers\Api\ParentController::class, 'resumen']);
         Route::get('/children', [\App\Http\Controllers\Api\ParentController::class, 'children']);
         Route::get('/children/{childId}/agenda', [AgendaController::class, 'getMessages']);
         Route::put('/children/{childId}/agenda/{messageId}/read', [AgendaController::class, 'markAsRead']);
