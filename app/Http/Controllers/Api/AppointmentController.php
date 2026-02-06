@@ -80,7 +80,8 @@ class AppointmentController extends Controller
             'created_by' => 'parent',
         ]);
 
-        Mail::to("ing.luisvasquez89@gmacil.com")->queue(new \App\Mail\NuevaCitaDocente($appointment));
+        $teacherEmail = $appointment->teacher->user->email ?? 'ing.luisvasquez89@gmail.com';
+        Mail::to($teacherEmail)->queue(new \App\Mail\NuevaCitaDocente($appointment));
 
         return response()->json([
             'success' => true,
@@ -224,6 +225,12 @@ class AppointmentController extends Controller
             'date' => $request->date,
             'time' => $request->time,
         ]);
+
+        $parentEmail = $appointment->parent->user->email ?? null;
+        if ($parentEmail) {
+            Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Cita confirmada',
@@ -236,6 +243,12 @@ class AppointmentController extends Controller
     {
         $appointment = Appointment::findOrFail($id);
         $appointment->reject();
+
+        $parentEmail = $appointment->parent->user->email ?? null;
+        if ($parentEmail) {
+            Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
+        }
+
         return response()->json([
             'success' => true,
             'message' => 'Solicitud rechazada',

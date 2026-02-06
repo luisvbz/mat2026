@@ -117,33 +117,35 @@
             <h1>Actualización de Cita</h1>
         </div>
         <div class="content">
-            <p>Estimado(a) <strong>{{ $appointment->parent->name }}</strong>,</p>
+            <p>Estimado(a) <strong>{{ $appointment->parent->nombre_completo }}</strong>,</p>
 
-            @if($appointment->status === 'confirmed')
-            <div class="status-badge status-confirmed">CITA CONFIRMADA</div>
-            <p>El docente ha revisado su solicitud y ha <strong>confirmado</strong> la reunión.</p>
+            @if ($appointment->status === 'confirmed')
+                <div class="status-badge status-confirmed">CITA CONFIRMADA</div>
+                <p>El docente ha revisado su solicitud y ha <strong>confirmado</strong> la reunión.</p>
 
-            <div class="info-box" style="border-left: 5px solid #DA9C64;">
-                <p><span class="label">Fecha Programada:</span><br>{{ $appointment->date->format('l, d de F Y') }}</p>
-                <p><span class="label">Hora:</span><br>{{ $appointment->time }}</p>
-                <p><span class="label">Docente:</span><br>{{ $appointment->teacher->name }}</p>
-            </div>
+                <div class="info-box" style="border-left: 5px solid #DA9C64;">
+                    <p><span class="label">Fecha Programada:</span><br>{{ $appointment->date->format('d/m/Y') }}</p>
+                    <p><span class="label">Hora:</span><br>{{ $appointment->time->format('H:i') }}</p>
+                    <p><span class="label">Docente:</span><br>{{ $appointment->teacher->nombre_completo }}</p>
+                </div>
 
-            <center>
-                <a href="{{ config('app.frontend_url') }}/citas" class="btn btn-confirmed">Ver en Calendario</a>
-            </center>
+                <center>
+                    <a href="{{ config('app.frontend_url') }}/citas" class="btn btn-confirmed">Ver en Calendario</a>
+                </center>
             @else
-            <p>Le informamos que su solicitud de cita con el docente <strong>{{ $appointment->teacher->name }}</strong>
-                ha sido declinada o requiere reprogramación.</p>
+                <p>Le informamos que su solicitud de cita con el docente
+                    <strong>{{ $appointment->teacher->nombre_completo }}</strong>
+                    ha sido declinada o requiere reprogramación.</p>
 
-            <div class="info-box" style="border-left: 5px solid #2f100e;">
-                <p>Si la reunión es urgente, por favor póngase en contacto con la secretaría de la institución o intente
-                    solicitar un nuevo horario a través del portal.</p>
-            </div>
+                <div class="info-box" style="border-left: 5px solid #2f100e;">
+                    <p>Si la reunión es urgente, por favor póngase en contacto con la secretaría de la institución o
+                        intente
+                        solicitar un nuevo horario a través del portal.</p>
+                </div>
 
-            <center>
-                <a href="{{ config('app.frontend_url') }}/citas" class="btn btn-rejected">Ir a Mis Citas</a>
-            </center>
+                <center>
+                    <a href="{{ config('app.frontend_url') }}/citas" class="btn btn-rejected">Ir a Mis Citas</a>
+                </center>
             @endif
         </div>
         <div class="footer">

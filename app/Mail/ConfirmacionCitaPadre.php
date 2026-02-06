@@ -8,17 +8,17 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class NuevaCitaDocente extends Mailable
+class ConfirmacionCitaPadre extends Mailable
 {
     use Queueable, SerializesModels;
+
+    public $appointment;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-
-    public $appointment;
     public function __construct(Appointment $appointment)
     {
         $this->appointment = $appointment;
@@ -31,7 +31,8 @@ class NuevaCitaDocente extends Mailable
      */
     public function build()
     {
-        return $this->subject('Nueva Solicitud de Cita')
-            ->view('emails.app.nueva-cita-docente');
+        $status = $this->appointment->status === 'confirmed' ? 'Confirmada' : 'Actualizada';
+        return $this->subject("Cita {$status} - IEP Divino Salvador")
+            ->view('emails.app.confirmacion-cita-padre');
     }
 }

@@ -97,15 +97,22 @@
             <h1>Nueva Solicitud de Cita</h1>
         </div>
         <div class="content">
-            <p>Estimado(a) docente <strong>{{ $appointment->teacher->name }}</strong>,</p>
+            <p>Estimado(a) docente <strong>{{ $appointment->teacher->nombre_completo }}</strong>,</p>
             <p>Se ha registrado una nueva solicitud de reunión en el portal escolar:</p>
 
             <div class="info-box">
                 <span class="label">Padre / Madre</span>
-                <span class="value">{{ $appointment->parent->name }}</span>
+                <span class="value">{{ $appointment->parent->nombre_completo }}</span>
 
                 <span class="label">Estudiante</span>
-                <span class="value">{{ $appointment->student->name }} ({{ $appointment->student->grade }})</span>
+                <span class="value">{{ $appointment->student->nombre_completo }}
+                    ({{ $appointment->student->matricula->grado ?? 'N/A' }})</span>
+
+                <span class="label">Fecha Propuesta</span>
+                <span class="value">{{ $appointment->date ? $appointment->date->format('d/m/Y') : 'Pendiente' }}</span>
+
+                <span class="label">Hora Propuesta</span>
+                <span class="value">{{ $appointment->time ? $appointment->time->format('H:i') : 'Pendiente' }}</span>
 
                 <span class="label">Motivo de la cita</span>
                 <span class="value">{{ $appointment->subject }}</span>

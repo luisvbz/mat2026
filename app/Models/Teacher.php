@@ -44,6 +44,12 @@ class Teacher extends Model
         return $this->hasMany(AsistenciaProfesor::class, 'teacher_id');
     }
 
+    public function getNombreCompletoAttribute()
+    {
+        $nombres = ucwords(strtolower($this->nombres));
+        return trim("{$this->apellidos}, {$nombres}");
+    }
+
     public function user()
     {
         return $this->hasOne(TeacherUser::class, 'teacher_id');
