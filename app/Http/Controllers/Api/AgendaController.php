@@ -38,8 +38,11 @@ class AgendaController extends Controller
 
         // Filtros opcionales
         if ($request->has('month')) {
-            $query->whereMonth('date', date('m', strtotime($request->month)));
-            $query->whereYear('date', date('Y', strtotime($request->month)));
+            $query->whereMonth('date', $request->month);
+        }
+
+        if ($request->has('year')) {
+            $query->whereYear('date', $request->year);
         }
 
         $messages = $query->orderBy('date', 'desc')

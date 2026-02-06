@@ -17,7 +17,7 @@ class CommunicationController extends Controller
             ->when($request->category, function ($query, $category) {
                 $query->byCategory($category);
             })
-            ->orderBy('published_at', 'desc')  // 'desc' en minúsculas
+            ->orderBy('id', 'desc')
             ->paginate(15);
 
         $communications->through(function ($communication) use ($request) {
