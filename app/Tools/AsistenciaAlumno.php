@@ -19,17 +19,19 @@ class AsistenciaAlumno
     private $hora_entrada;
     private $hora_salida;
     private $salida;
+    private $horaMarcacion;
 
     /* private const HORA_ENTRADA = '07:15:00';
     private const HORA_ENTRADA_TOLERANCIA = '07:30:00';
     private const HORA_SALIDA = '17:00:00';*/
 
-    public function __construct(Alumno $alumno, $date, $hora_entrada, $hora_salida)
+    public function __construct(Alumno $alumno, $date, $hora_entrada, $hora_salida, $horaMarcacion = null)
     {
         $this->alumno = $alumno;
-        $this->date = Carbon::createFromFormat('Y-m-d', $date);
+        $this->date = Carbon::createFromFormat('Y-m-d H:i:s', $date . " " . $horaMarcacion);
         $this->hora_entrada = $hora_entrada;
         $this->hora_salida = $hora_salida;
+        $this->horaMarcacion = $horaMarcacion;
         $this->initializeTiempos($date);
     }
 
@@ -67,7 +69,7 @@ class AsistenciaAlumno
     {
         $tipo = Asistencia::NORMAL;
         $tardanza = null;
-        $entrada = Carbon::now();
+        $entrada = Carbon::createFromFormat('Y-m-d H:i:s', $this->date->format('Y-m-d') . ' ' . $this->horaMarcacion);
 
         $permiso = PermisoAlumno::where('alumno_id', $this->alumno->id)->where('tipo', 'E')
             ->whereDate('hasta', $this->date)
@@ -117,7 +119,7 @@ class AsistenciaAlumno
         }
 
         $marcacion->update([
-            'salida'           => Carbon::now(),
+            'salida'           => Carbon::createFromFormat('Y-m-d H:i:s', $this->date->format('Y-m-d') . ' ' . $this->horaMarcacion),
             'salida_anticipada' => $anticipado,
             'permiso_id'      => $permiso->id ?? null,
         ]);

@@ -17,14 +17,16 @@ class AsistenciaProfesor
     private $entrada_tolerancia;
     private $salida;
     private $dia;
+    private $hora;
     private $registroBase;
     private $feriado = false;
 
 
-    public function __construct($profesor, $date)
+    public function __construct($profesor, $date, $hora = null)
     {
         $this->profesor = $profesor;
         $this->date = $date;
+        $this->hora = $hora;
         $this->getDiaHorario();
         $this->checkHorario();
         if ($this->laboral) {
@@ -161,7 +163,7 @@ class AsistenciaProfesor
     {
         $tardanza = null;
 
-        $entrada = Carbon::now();
+        $entrada = Carbon::createFromFormat('Y-m-d H:i:s', $this->date . ' ' . $this->hora);
 
         $dia = Carbon::createFromFormat('Y-m-d', $this->date);
         $tipo = Profesor::NORMAL;
@@ -172,8 +174,8 @@ class AsistenciaProfesor
             ->first();
 
 
-        if ($dia->gt($this->entrada_tolerancia) && !$permiso) {
-            $tardanza = $dia->diff($this->entrada_tolerancia)->format('%H:%I:%S');
+        if ($entrada->gt($this->entrada_tolerancia) && !$permiso) {
+            $tardanza = $entrada->diff($this->entrada_tolerancia)->format('%H:%I:%S');
             $tipo = Profesor::TARDANZA;
         }
 
@@ -203,7 +205,7 @@ class AsistenciaProfesor
     {
         $anticipado = null;
 
-        $dia = Carbon::createFromFormat('Y-m-d', $this->date);
+        $dia = Carbon::createFromFormat('Y-m-d H:i:s', $this->date . ' ' . $this->hora);
 
         $permiso = $this->profesor->permisos()->where('tipo', 'S')
             ->whereDate('desde', $this->date)
@@ -215,7 +217,7 @@ class AsistenciaProfesor
         }
 
         $marcacion->update([
-            'salida'           => Carbon::now(),
+            'salida'           => Carbon::createFromFormat('Y-m-d H:i:s', $this->date . ' ' . $this->hora),
             'salida_anticipada' => $anticipado,
             'permiso_id' => $permiso->id ?? null
         ]);

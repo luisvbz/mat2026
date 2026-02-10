@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AsistenciaController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 
@@ -39,3 +40,7 @@ Route::get('/enviar-recordatotrio', function () {
     //Artisan::call('test:cron');
     Artisan::call('verificar:deudores');
 })->middleware('auth');
+
+Route::get('/iclock/cdata', [AsistenciaController::class, 'handShake']);
+
+Route::post('/iclock/cdata', [AsistenciaController::class, 'cdata']);
