@@ -57,6 +57,11 @@
             <i class="fas fa-user-tie"></i>
             <span>Apoderados</span>
         </button>
+        <button @click="activeTab = 'responsable_economico'" class="tab-btn"
+            :class="{ 'active': activeTab === 'responsable_economico' }">
+            <i class="fas fa-wallet"></i>
+            <span>Resp. Económico</span>
+        </button>
         <button @click="activeTab = 'pagos'" class="tab-btn" :class="{ 'active': activeTab === 'pagos' }">
             <i class="fas fa-money-bill-wave"></i>
             <span>Pagos</span>
@@ -115,7 +120,12 @@
                             </tr>
                             <tr>
                                 <td>Nombres Completos</td>
-                                <td>{{ $matricula->alumno->nombre_completo }}</td>
+                                <td>
+                                    {{ $matricula->alumno->nombre_completo }}
+                                    <a class="copy-btn" @click="copiar('{{ $matricula->alumno->nombre_completo }}')">
+                                        <i class="fa fa-copy"></i>
+                                    </a>
+                                </td>
                             </tr>
                             <tr>
                                 <td>Fecha de Nacimiento</td>
@@ -776,6 +786,102 @@
             @endforelse
         </div>
 
+        {{-- Tab: Responsable Económico --}}
+        <div x-show="activeTab === 'responsable_economico'">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-wallet"></i>
+                    <span>Responsable Económico</span>
+                </div>
+                @if (!$editMode)
+                    <button wire:click="toggleEditMode" class="btn-edit">
+                        <i class="fas fa-edit"></i> Editar
+                    </button>
+                @else
+                    <button wire:click="cancelEdit" class="btn-cancel">
+                        <i class="fas fa-times"></i> Cancelar
+                    </button>
+                @endif
+            </div>
+
+            @if (!$editMode)
+                {{-- Vista de solo lectura --}}
+                <div class="info-section">
+                    <div class="info-section-title">
+                        <i class="fas fa-id-card"></i>
+                        <span>Datos del Responsable Económico</span>
+                    </div>
+                    <table class="info-table">
+                        <tbody>
+                            <tr>
+                                <td>Tipo de Documento</td>
+                                <td>{{ $matricula->tipo_documento_dj ?? 'N/A' }}</td>
+                            </tr>
+                            <tr>
+                                <td>Número de Documento</td>
+                                <td>
+                                    {{ $matricula->numero_documento_dj ?? 'N/A' }}
+                                    @if ($matricula->numero_documento_dj)
+                                        <a class="copy-btn" @click="copiar('{{ $matricula->numero_documento_dj }}')">
+                                            <i class="fa fa-copy"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Nombres Completos</td>
+                                <td>
+                                    {{ $matricula->nombres_dj ?? 'N/A' }}
+                                    @if ($matricula->nombres_dj)
+                                        <a class="copy-btn" @click="copiar('{{ $matricula->nombres_dj }}')">
+                                            <i class="fa fa-copy"></i>
+                                        </a>
+                                    @endif
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            @else
+                {{-- Formulario de edición --}}
+                <form wire:submit.prevent="actualizarResponsableEconomico" class="form-improved">
+                    <div class="info-grid-3">
+                        <div class="field">
+                            <label class="label">Tipo de Documento</label>
+                            <div class="select is-fullwidth">
+                                <select wire:model="tipo_documento_dj">
+                                    <option value="DNI">DNI</option>
+                                    <option value="CE">CE</option>
+                                    <option value="PTP">PTP</option>
+                                    <option value="PN">PN</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Número de Documento</label>
+                            <input class="input" type="text" wire:model="numero_documento_dj">
+                            @error('numero_documento_dj')
+                                <p class="help is-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                        <div class="field">
+                            <label class="label">Nombres Completos</label>
+                            <input class="input" type="text" wire:model="nombres_dj">
+                            @error('nombres_dj')
+                                <p class="help is-danger">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="mt-4 has-text-right">
+                        <button type="submit" class="btn-save">
+                            <i class="fas fa-save"></i> Guardar Cambios
+                        </button>
+                    </div>
+                </form>
+            @endif
+        </div>
+
         {{-- Tab: Pagos --}}
         <div x-show="activeTab === 'pagos'">
             <div class="section-header">
@@ -940,7 +1046,8 @@
     </div>
 
     {{-- Loading Overlay --}}
-    <div class="loading-matricula" wire:loading wire:target="actualizarAlumno,actualizarPadre,actualizarHoras"
+    <div class="loading-matricula" wire:loading
+        wire:target="actualizarAlumno,actualizarPadre,actualizarHoras,actualizarResponsableEconomico"
         style="display: none;">
         <div class="loading-matricula-body" style="margin: 100px auto;">
             <div class="spinner" style="text-align: center;">

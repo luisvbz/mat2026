@@ -23,19 +23,32 @@ class AsistenciaController extends Controller
     {
         $content = $request->getContent();
         $lineas = explode("\n", trim($content));
+
         foreach ($lineas as $linea) {
             $datos = explode("\t", trim($linea));
 
-            if (count($datos) >= 2) {
-                $usuarioId = trim($datos[0]);
-                $fechaHora = $datos[1];
-                list($fecha, $hora) = explode(" ", trim($fechaHora));
-                $this->proccessAttendance($usuarioId, $fecha, $hora);
+            if (count($datos) < 2) {
+                continue;
             }
+
+            $usuarioId = trim($datos[0]);
+            $fechaHora = trim($datos[1]);
+
+            $parts = explode(" ", $fechaHora);
+
+            if (count($parts) < 2) {
+                \Log::warning('Línea sin fecha y hora', compact('linea'));
+                continue;
+            }
+
+            [$fecha, $hora] = $parts;
+
+            $this->proccessAttendance($usuarioId, $fecha, $hora);
         }
 
         return response("OK")->header('Content-Type', 'text/plain');
     }
+
 
 
     private function proccessAttendance($usuarioId, $fecha, $hora)

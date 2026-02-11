@@ -28,6 +28,7 @@ class Lista extends Component
     {
         // Los meses del año escolar (marzo a diciembre)
         $meses = [
+            2 => 'Febrero',
             3 => 'Marzo',
             4 => 'Abril',
             5 => 'Mayo',
@@ -44,7 +45,7 @@ class Lista extends Component
 
         // Solo habilitar los meses desde marzo hasta el mes actual
         foreach ($meses as $numero => $nombre) {
-            if ($numero >= 3 && $numero <= $mes_actual) {
+            if ($numero >= 2 && $numero <= $mes_actual) {
                 $this->meses[] = ['numero' => $numero, 'nombre' => $nombre];
             }
         }

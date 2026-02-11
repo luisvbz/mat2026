@@ -56,6 +56,11 @@ class Detalle extends Component
     public $padre_apoderado;
     public $padre_vive;
 
+    // Datos del responsable económico
+    public $tipo_documento_dj;
+    public $numero_documento_dj;
+    public $nombres_dj;
+
     public function mount($codigo)
     {
         $this->matricula = Matricula::whereCodigo($codigo)->first();
@@ -96,6 +101,13 @@ class Detalle extends Component
         $this->comunion = $alumno->comunion;
     }
 
+    public function loadResponsableEconomicoData()
+    {
+        $this->tipo_documento_dj = $this->matricula->tipo_documento_dj;
+        $this->numero_documento_dj = $this->matricula->numero_documento_dj;
+        $this->nombres_dj = $this->matricula->nombres_dj;
+    }
+
     public function loadPadreData($padreId)
     {
         $padre = Padre::find($padreId);
@@ -133,6 +145,8 @@ class Detalle extends Component
             // Recargar datos al entrar en modo edición
             if ($this->activeTab == 'estudiante') {
                 $this->loadAlumnoData();
+            } elseif ($this->activeTab == 'responsable_economico') {
+                $this->loadResponsableEconomicoData();
             }
         }
     }
@@ -216,6 +230,42 @@ class Detalle extends Component
                 'type'  => 'success',
                 'title' => 'Éxito!',
                 'text'  => "Los datos del estudiante se actualizaron correctamente",
+            ]);
+        } catch (\Exception $e) {
+            $this->emit('swal:modal', [
+                'type'  => 'error',
+                'title' => 'Error!',
+                'text'  => $e->getMessage(),
+            ]);
+        }
+    }
+
+    public function actualizarResponsableEconomico()
+    {
+        $this->validate([
+            'nombres_dj' => 'required',
+            'numero_documento_dj' => 'required',
+        ]);
+
+        try {
+            Matricula::find($this->matricula->id)->update([
+                'tipo_documento_dj' => $this->tipo_documento_dj,
+                'numero_documento_dj' => $this->numero_documento_dj,
+                'nombres_dj' => strtoupper($this->nombres_dj),
+            ]);
+
+            Historial::create([
+                'user_id' => auth()->user()->id,
+                'accion' => "Actualizar datos de responsable económico: {$this->matricula->codigo} - {$this->nombres_dj}"
+            ]);
+
+            $this->editMode = false;
+            $this->matricula->refresh();
+
+            $this->emit('swal:modal', [
+                'type'  => 'success',
+                'title' => 'Éxito!',
+                'text'  => "Los datos del responsable económico se actualizaron correctamente",
             ]);
         } catch (\Exception $e) {
             $this->emit('swal:modal', [
