@@ -31,6 +31,7 @@ class Kernel extends ConsoleKernel
         $schedule->command('test:cron')->weeklyOn('1', '13:35');
         $schedule->command('asistencia:verificar')->weekdays()->at('20:00');
         $schedule->command('verificar:asistencia-profesores')->weekdays()->at('23:00');
+        $schedule->command('recordatorio:pronto-pago')->dailyAt('08:00');
     }
 
     /**
