@@ -83,6 +83,20 @@ class AppointmentController extends Controller
         $teacherEmail = $appointment->teacher->user->email ?? 'ing.luisvasquez89@gmail.com';
         Mail::to($teacherEmail)->queue(new \App\Mail\NuevaCitaDocente($appointment));
 
+        // Enviar notificación OneSignal
+        $teacherUser = $appointment->teacher->user;
+        if ($teacherUser) {
+            $playerIds = $teacherUser->players()->pluck('player_id')->toArray();
+            if (!empty($playerIds)) {
+                $oneSignal = new \App\Tools\OneSignalService();
+                $oneSignal->sendToPlayers(
+                    $playerIds,
+                    'Nueva Solicitud de Cita',
+                    "El padre {$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}."
+                );
+            }
+        }
+
         return response()->json([
             'success' => true,
             'data' => [

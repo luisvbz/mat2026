@@ -35,4 +35,9 @@ class TeacherUser extends Model
     {
         return $this->belongsTo(Teacher::class, 'teacher_id');
     }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class, 'user_id')->where('role', 'teacher');
+    }
 }

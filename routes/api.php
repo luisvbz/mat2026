@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\CuentasController;
 use App\Http\Controllers\Api\AppointmentController;
 use App\Http\Controllers\Api\AsistenciasController;
 use App\Http\Controllers\Api\CommunicationController;
+use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\TacherController;
 
 /*
@@ -32,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/change-password', [AuthController::class, 'changePassword']);
+    Route::post('/notifications/subscribe', [NotificationController::class, 'subscribe']);
 
     // Rutas comunes
     Route::get('/grades/{level}', [CommonController::class, 'getGrades']);

@@ -52,4 +52,9 @@ class ParentUser extends Model
             ->where('communication_id', $communicationId)
             ->exists();
     }
+
+    public function players()
+    {
+        return $this->hasMany(Player::class, 'user_id')->where('role', 'parent');
+    }
 }
