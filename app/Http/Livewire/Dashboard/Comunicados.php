@@ -111,7 +111,10 @@ class Comunicados extends Component
             
             // Delete all attachments
             foreach ($communication->attachments as $attachment) {
-                Storage::disk('public')->delete($attachment->url);
+                $fullPath = public_path($attachment->url);
+                if (file_exists($fullPath)) {
+                    unlink($fullPath);
+                }
                 $attachment->delete();
             }
             

@@ -31,7 +31,20 @@ class NuevoComunicado extends Mailable
      */
     public function build()
     {
-        return $this->subject("Nuevo comunicado: {$this->communication->title}")
+        $email = $this->subject("Nuevo comunicado: {$this->communication->title}")
             ->view('emails.app.nuevo-comunicado');
+
+        // Attach files if they exist
+        foreach ($this->communication->attachments as $attachment) {
+            $fullPath = public_path($attachment->url);
+            if (file_exists($fullPath)) {
+                $email->attach($fullPath, [
+                    'as' => $attachment->name,
+                    'mime' => $attachment->type,
+                ]);
+            }
+        }
+
+        return $email;
     }
 }

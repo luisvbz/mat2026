@@ -64,8 +64,20 @@ class Crear extends Component
 
             // Handle attachments
             if (!empty($this->attachments)) {
+                $destinationPath = public_path('files-comunications');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+
                 foreach ($this->attachments as $file) {
-                    $path = $file->store('communications', 'public');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->storeAs('public/temp', $filename); // Livewire temp store
+                    
+                    // Move to public directory
+                    copy(storage_path('app/public/temp/' . $filename), $destinationPath . '/' . $filename);
+                    unlink(storage_path('app/public/temp/' . $filename));
+                    
+                    $path = 'files-comunications/' . $filename;
                     
                     CommunicationAttachment::create([
                         'communication_id' => $communication->id,

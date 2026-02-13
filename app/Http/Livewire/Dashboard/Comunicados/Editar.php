@@ -97,7 +97,10 @@ class Editar extends Component
                 foreach ($this->attachmentsToDelete as $attachmentId) {
                     $attachment = CommunicationAttachment::find($attachmentId);
                     if ($attachment) {
-                        Storage::disk('public')->delete($attachment->url);
+                        $fullPath = public_path($attachment->url);
+                        if (file_exists($fullPath)) {
+                            unlink($fullPath);
+                        }
                         $attachment->delete();
                     }
                 }
@@ -105,8 +108,19 @@ class Editar extends Component
 
             // Handle new attachments
             if (!empty($this->attachments)) {
+                $destinationPath = public_path('files-comunications');
+                if (!file_exists($destinationPath)) {
+                    mkdir($destinationPath, 0755, true);
+                }
+
                 foreach ($this->attachments as $file) {
-                    $path = $file->store('communications', 'public');
+                    $filename = time() . '_' . $file->getClientOriginalName();
+                    $file->storeAs('public/temp', $filename);
+                    
+                    copy(storage_path('app/public/temp/' . $filename), $destinationPath . '/' . $filename);
+                    unlink(storage_path('app/public/temp/' . $filename));
+                    
+                    $path = 'files-comunications/' . $filename;
                     
                     CommunicationAttachment::create([
                         'communication_id' => $communication->id,
