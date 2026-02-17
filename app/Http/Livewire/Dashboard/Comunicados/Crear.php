@@ -4,9 +4,10 @@ namespace App\Http\Livewire\Dashboard\Comunicados;
 
 use App\Models\Communication;
 use App\Models\CommunicationAttachment;
+use App\Models\Player;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
 class Crear extends Component
 {
@@ -72,13 +73,13 @@ class Crear extends Component
                 foreach ($this->attachments as $file) {
                     $filename = time() . '_' . $file->getClientOriginalName();
                     $file->storeAs('public/temp', $filename); // Livewire temp store
-                    
+
                     // Move to public directory
                     copy(storage_path('app/public/temp/' . $filename), $destinationPath . '/' . $filename);
                     unlink(storage_path('app/public/temp/' . $filename));
-                    
+
                     $path = 'files-comunications/' . $filename;
-                    
+
                     CommunicationAttachment::create([
                         'communication_id' => $communication->id,
                         'name' => $file->getClientOriginalName(),
@@ -97,6 +98,18 @@ class Crear extends Component
                     if ($parent->padre->correo_electronico) {
                         \Illuminate\Support\Facades\Mail::to($parent->padre->correo_electronico)->queue(new \App\Mail\NuevoComunicado($communication));
                     }
+                }
+
+                $playerIds = Player::all()->pluck('player_id')->toArray();
+
+                if (!empty($playerIds)) {
+                    $oneSignal = new \App\Tools\OneSignalService();
+                    $oneSignal->sendToPlayers(
+                        $playerIds,
+                        'Nuevo Comunicado',
+                        "Nuevo comunicado publicado en la app.",
+                        "https://app.iepdivinosalvador.net.pe/comunicados/{$communication->id}"
+                    );
                 }
             }
 

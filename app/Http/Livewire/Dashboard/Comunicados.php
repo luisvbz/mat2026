@@ -4,9 +4,10 @@ namespace App\Http\Livewire\Dashboard;
 
 use App\Models\Communication;
 use App\Models\CommunicationAttachment;
+use App\Models\Player;
+use Illuminate\Support\Facades\Storage;
 use Livewire\Component;
 use Livewire\WithFileUploads;
-use Illuminate\Support\Facades\Storage;
 
 class Comunicados extends Component
 {
@@ -66,13 +67,13 @@ class Comunicados extends Component
         try {
             $communication = Communication::findOrFail($id);
             $communication->is_published = !$communication->is_published;
-            
+
             if ($communication->is_published && !$communication->published_at) {
                 $communication->published_at = now();
             }
-            
+
             $communication->save();
-            
+
             // Send email notifications to parents if toggled to published
             if ($communication->is_published) {
                 $parents = \App\Models\ParentUser::where('is_active', true)->get();
@@ -80,11 +81,23 @@ class Comunicados extends Component
                     if ($parent->padre->correo_electronico) {
                         \Illuminate\Support\Facades\Mail::to($parent->padre->correo_electronico)->queue(new \App\Mail\NuevoComunicado($communication));
                     }
-                }   
+                }
+
+                $playerIds = Player::all()->pluck('player_id')->toArray();
+
+                if (!empty($playerIds)) {
+                    $oneSignal = new \App\Tools\OneSignalService();
+                    $oneSignal->sendToPlayers(
+                        $playerIds,
+                        'Nuevo Comunicado',
+                        "Nuevo comunicado publicado en la app.",
+                        "https://app.iepdivinosalvador.net.pe/comunicados/{$communication->id}"
+                    );
+                }
             }
 
             $status = $communication->is_published ? 'publicado' : 'despublicado';
-            
+
             $this->emit('swal:alert', [
                 'icon' => 'success',
                 'title' => "Comunicado {$status} exitosamente",
@@ -108,7 +121,7 @@ class Comunicados extends Component
     {
         try {
             $communication = Communication::findOrFail($this->deleteConfirmId);
-            
+
             // Delete all attachments
             foreach ($communication->attachments as $attachment) {
                 $fullPath = public_path($attachment->url);
@@ -117,7 +130,7 @@ class Comunicados extends Component
                 }
                 $attachment->delete();
             }
-            
+
             $communication->delete();
 
             $this->emit('swal:alert', [
@@ -139,7 +152,7 @@ class Comunicados extends Component
     public function viewStats($id)
     {
         $communication = Communication::with(['reads.parentUser.padre'])->findOrFail($id);
-        
+
         $this->statsData = [
             'title' => $communication->title,
             'total_reads' => $communication->reads->count(),
@@ -152,7 +165,7 @@ class Comunicados extends Component
                 ];
             })->toArray()
         ];
-        
+
         $this->showStatsModal = true;
     }
 

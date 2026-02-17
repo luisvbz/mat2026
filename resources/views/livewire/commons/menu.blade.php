@@ -16,6 +16,9 @@
             <li @click='goUrl("{{ route('dashboard.comunicados') }}")'
                 class="item-menu @if ($route == 'dashboard.comunicados') item-active @endif"><i class="fas fa-bullhorn"></i>
                 Comunicados</li>
+            <li @click='goUrl("{{ route('dashboard.eventos') }}")'
+                class="item-menu @if ($route == 'dashboard.eventos') item-active @endif"><i class="fas fa-calendar"></i>
+                Eventos</li>
             <li @click='goUrl("{{ route('dashboard.contabilidad') }}")'
                 class="item-menu @if ($route == 'dashboard.contabilidad') item-active @endif"><i class="fas fa-money-bill"></i>
                 Contabilidad</li>
@@ -33,7 +36,8 @@
                     class="fas fa-alarm-clock"></i> Recordatorios</li>
             @if ($isAdmin)
                 <li @click='goUrl("{{ route('dashboard.configuracion') }}")'
-                    class="item-menu  @if ($route == 'dashboard.configuracion') item-active @endif"><i class="fas fa-cogs"></i>
+                    class="item-menu  @if ($route == 'dashboard.configuracion') item-active @endif"><i
+                        class="fas fa-cogs"></i>
                     Configuración</li>
             @endif
             <li wire:click="logout" class="item-menu"><i class="fas fa-sign-out"></i> Cerrar Sesión</li>

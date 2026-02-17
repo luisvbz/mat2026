@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\AsistenciasController;
 use App\Http\Controllers\Api\CommunicationController;
 use App\Http\Controllers\Api\NotificationController;
 use App\Http\Controllers\Api\TacherController;
+use App\Http\Controllers\Api\EventController;
 
 /*
 |--------------------------------------------------------------------------
@@ -56,6 +57,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/appointments', [AppointmentController::class, 'parentIndex']);
         Route::post('/appointments', [AppointmentController::class, 'parentStore']);
+        Route::get('/events', [EventController::class, 'index']);
     });
 
     Route::prefix('teacher')->group(function () {

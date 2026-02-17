@@ -16,13 +16,11 @@ class NotificationController extends Controller
             'user_id' => 'required|integer',
         ]);
 
-        // Guardamos o actualizamos el player_id para este usuario y rol
-        // Usamos updateOrCreate para evitar duplicados del mismo player_id
         $player = Player::updateOrCreate(
             [
                 'player_id' => $request->player_id,
                 'role' => $request->role,
-                'user_id' => $request->user_id,
+                'user_id' => $request->user()->id,
             ]
         );
 

@@ -92,7 +92,8 @@ class AppointmentController extends Controller
                 $oneSignal->sendToPlayers(
                     $playerIds,
                     'Nueva Solicitud de Cita',
-                    "El padre {$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}."
+                    "El padre {$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}.", 
+                    "https://app.iepdivinosalvador.net.pe/profesor/citas"
                 );
             }
         }

@@ -16,13 +16,11 @@ class ParentController extends Controller
     {
         $padre = $request->user()->padre;
 
-
-
         $children = $padre->alumnos()
             ->with('matricula')
             ->get()
             ->map(function ($alumno) {
-                $matricula = $alumno->matricula->where('estado', 1)->first();
+                $matricula = Matricula::where('alumno_id', $alumno->id)->where('estado', 1)->first();
                 $accountBalance = $this->getAccountBalance($alumno->id);
                 return [
                     'id' => $alumno->id,

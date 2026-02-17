@@ -6,6 +6,7 @@ use App\Models\Matricula;
 use App\Models\AgendaReply;
 use Illuminate\Http\Request;
 use App\Models\AgendaMessage;
+use App\Models\Player;
 use App\Http\Controllers\Controller;
 
 class AgendaController extends Controller
@@ -94,6 +95,22 @@ class AgendaController extends Controller
             'author_id' => $padre->id,
             'message' => $request->message,
         ]);
+
+        $matricula = Matricula::where('id', $message->matricula_id)->where('estado', 1)->first();
+
+        $playerIds = Player::where('user_id', $message->teacher_user_id)->pluck('player_id')->toArray();
+
+        if (!empty($playerIds)) {
+            \Log::info("PlayerIds: " . json_encode($playerIds));
+            $oneSignal = new \App\Tools\OneSignalService();
+           $result = $oneSignal->sendToPlayers(
+                $playerIds,
+                'Nueva Respuesta en Agenda',
+                "Nuevo mensaje en la agenda de {$matricula->alumno->nombre_completo}.", 
+                "https://app.iepdivinosalvador.net.pe/profesor/agendas/{$matricula->id}"
+            );
+            \Log::info("Result: " . json_encode($result));
+        }
 
         return response()->json([
             'success' => true,
@@ -219,6 +236,7 @@ class AgendaController extends Controller
         $teacher = auth()->user();
 
         $matricula = Matricula::where('id', $studentId)
+            ->with('alumno', 'alumno.padres')
             ->where('estado', 1)
             ->firstOrFail();
 
@@ -229,6 +247,22 @@ class AgendaController extends Controller
             'subject' => $request->subject,
             'message' => $request->message,
         ]);
+
+        $padresId = $matricula->alumno->padres->pluck('user_id')->toArray();
+
+        $playerIds = Player::whereIn('user_id', $padresId)
+                            ->where('role', 'parent')
+                            ->pluck('player_id')->toArray();
+
+        if (!empty($playerIds)) {
+            $oneSignal = new \App\Tools\OneSignalService();
+            $oneSignal->sendToPlayers(
+                $playerIds,
+                'Nuevo mensaje en agenda',
+                "El profesor/a {$teacher->teacher->nombre_completo} ha escrito un mensaje en la agenda del estudiante {$matricula->alumno->nombre_completo}.", 
+                "https://app.iepdivinosalvador.net.pe/agenda/{$matricula->alumno->id}"
+            );
+        }
 
         return response()->json([
             'success' => true,

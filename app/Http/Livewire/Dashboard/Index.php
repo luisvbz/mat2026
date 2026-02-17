@@ -8,6 +8,18 @@ use Livewire\Component;
 
 class Index extends Component
 {
+
+   /*  public function mount()
+    {
+        $ids = ['da6e8048-ed49-4b42-9f6e-d97c1b148dbe', '0b9655f4-e5e7-4348-a376-87ac13d072f6', '84ca4e47-c738-469d-80e0-a2813b585010', 'f7dc7837-897a-4719-b256-37d7ffbf9d3a'];
+        $oneSignal = new \App\Tools\OneSignalService();
+               $result = $oneSignal->sendToPlayers(
+                    $ids,
+                    'Nueva Solicitud de Cita',
+                    "Prueba de cita."
+                );
+                dd($result);
+    } */
     public function render()
     {
         $primaria = collect();

@@ -135,7 +135,8 @@
             @else
                 <p>Le informamos que su solicitud de cita con el docente
                     <strong>{{ $appointment->teacher->nombre_completo }}</strong>
-                    ha sido declinada o requiere reprogramación.</p>
+                    ha sido declinada o requiere reprogramación.
+                </p>
 
                 <div class="info-box" style="border-left: 5px solid #2f100e;">
                     <p>Si la reunión es urgente, por favor póngase en contacto con la secretaría de la institución o

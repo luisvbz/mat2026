@@ -32,6 +32,7 @@ Route::get('/clear-cache', function () {
     Artisan::call('config:cache');
     Artisan::call('cache:clear');
     Artisan::call('route:clear');
+    Artisan::call('queue:restart');
 
     //return bcrypt('silvanaiepds2023');
 });
