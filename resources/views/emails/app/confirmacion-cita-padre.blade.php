@@ -130,7 +130,7 @@
                 </div>
 
                 <center>
-                    <a href="{{ config('app.frontend_url') }}/citas" class="btn btn-confirmed">Ver en Calendario</a>
+                    <a href="https://app.iepdivinosalvador.net.pe/citas" class="btn btn-confirmed">Ver en Calendario</a>
                 </center>
             @else
                 <p>Le informamos que su solicitud de cita con el docente
@@ -145,7 +145,7 @@
                 </div>
 
                 <center>
-                    <a href="{{ config('app.frontend_url') }}/citas" class="btn btn-rejected">Ir a Mis Citas</a>
+                    <a href="https://app.iepdivinosalvador.net.pe/citas" class="btn btn-rejected">Ir a Mis Citas</a>
                 </center>
             @endif
         </div>

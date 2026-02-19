@@ -252,21 +252,16 @@ class AppointmentController extends Controller
         ]);
     }
     /**
-     * Rechazar cita (Profesores)
+     * Completar cita (Profesores)
      */
-    public function teacherReject(Request $request, $id)
+    public function teacherComplete($id)
     {
         $appointment = Appointment::findOrFail($id);
-        $appointment->reject();
-
-        $parentEmail = $appointment->parent->user->email ?? null;
-        if ($parentEmail) {
-            Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
-        }
+        $appointment->complete();
 
         return response()->json([
             'success' => true,
-            'message' => 'Solicitud rechazada',
+            'message' => 'Cita marcada como completada',
         ]);
     }
 }

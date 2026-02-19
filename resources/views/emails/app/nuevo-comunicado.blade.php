@@ -128,7 +128,8 @@
                 la plataforma.</p>
 
             <center>
-                <a href="{{ config('app.url') }}comunicados" class="btn">Ver en la Plataforma</a>
+                <a href="https://app.iepdivinosalvador.net.pe/comunicado/{{ $communication->id }}" class="btn">Ver en
+                    la Plataforma</a>
             </center>
         </div>
         <div class="footer">

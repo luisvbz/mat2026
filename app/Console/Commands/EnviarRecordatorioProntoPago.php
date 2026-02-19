@@ -2,13 +2,14 @@
 
 namespace App\Console\Commands;
 
-use App\Models\CronogramaPagos;
-use App\Models\Communication;
-use App\Models\ParentUser;
 use App\Mail\NuevoComunicado;
+use App\Models\Communication;
+use App\Models\CronogramaPagos;
+use App\Models\ParentUser;
+use App\Models\Player;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Mail;
-use Carbon\Carbon;
 
 class EnviarRecordatorioProntoPago extends Command
 {
@@ -40,7 +41,7 @@ class EnviarRecordatorioProntoPago extends Command
         // Buscar cronogramas con fecha de pronto pago en 3 días
         //$targetDate = Carbon::now()->addDays(3)->format('Y-m-d');
         $targetDate = date('Y-m-d');
-        
+
         $cronogramas = CronogramaPagos::whereDate('fecha_pronto_pago', $targetDate)->get();
 
         if ($cronogramas->isEmpty()) {
@@ -79,8 +80,19 @@ class EnviarRecordatorioProntoPago extends Command
                     }
                 }
 
-                $this->info("Emails enviados: {$emailsSent}");
+                $playerIds = Player::where('role', 'parent')->get()->pluck('player_id')->toArray();
 
+                if (!empty($playerIds)) {
+                    $oneSignal = new \App\Tools\OneSignalService();
+                    $oneSignal->sendToPlayers(
+                        $playerIds,
+                        'Recordatorio de Pronto Pago',
+                        'Aproveche el beneficio del pronto pago realizando su pago antes de la fecha de vencimiento.',
+                        "https://app.iepdivinosalvador.net.pe/comunicados/{$communication->id}"
+                    );
+                }
+
+                $this->info("Emails enviados: {$emailsSent}");
             } catch (\Exception $e) {
                 $this->error("Error procesando cronograma {$cronograma->id}: {$e->getMessage()}");
             }
@@ -116,7 +128,7 @@ class EnviarRecordatorioProntoPago extends Command
         $fechaProntoPago = Carbon::parse($cronograma->fecha_pronto_pago)->format('d/m/Y');
         $fechaVencimiento = Carbon::parse($cronograma->fecha_vencimiento)->format('d/m/Y');
         $concepto = "Pensión " . $meses[(int) $cronograma->mes] . " " . date('Y');
-        
+
         return "<p>Estimado padre/madre de familia,</p>
 
 <p>Le recordamos que se aproxima la <strong>fecha de pronto pago</strong> para el siguiente concepto:</p>

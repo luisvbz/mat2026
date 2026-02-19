@@ -62,6 +62,11 @@ class Appointment extends Model
     {
         $this->update(['status' => 'rejected']);
     }
+    
+    public function complete()
+    {
+        $this->update(['status' => 'completed']);
+    }
 
     public function cancel($by, $reason = null)
     {

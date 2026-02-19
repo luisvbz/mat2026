@@ -19,6 +19,7 @@ class Crear extends Component
     public $category = 'general';
     public $is_published = false;
     public $published_at;
+    public $publisher = 'Dirección';
 
     // File uploads
     public $attachments = [];
@@ -29,6 +30,7 @@ class Crear extends Component
         'category' => 'required|in:general,academico,administrativo,evento,urgente,cobro,actividad,otro',
         'is_published' => 'boolean',
         'published_at' => 'nullable|date',
+        'publisher' => 'required|string|max:191',
         'attachments.*' => 'nullable|file|max:10240', // 10MB max
     ];
 
@@ -58,7 +60,7 @@ class Crear extends Component
                 'is_published' => $this->is_published,
                 'published_at' => $this->published_at,
                 'author_id' => auth()->id(),
-                'author_name' => auth()->user()->name,
+                'author_name' => $this->publisher,
             ];
 
             $communication = Communication::create($data);
@@ -100,14 +102,14 @@ class Crear extends Component
                     }
                 }
 
-                $playerIds = Player::all()->pluck('player_id')->toArray();
+                $playerIds = Player::where('role', 'parent')->get()->pluck('player_id')->toArray();
 
                 if (!empty($playerIds)) {
                     $oneSignal = new \App\Tools\OneSignalService();
                     $oneSignal->sendToPlayers(
                         $playerIds,
-                        'Nuevo Comunicado',
-                        "Nuevo comunicado publicado en la app.",
+                        'Nuevo Comunicado: ' . $this->category,
+                        "Se ha publicado un nuevo comunicado. Toca para ver más detalles.",
                         "https://app.iepdivinosalvador.net.pe/comunicados/{$communication->id}"
                     );
                 }

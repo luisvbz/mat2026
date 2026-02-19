@@ -71,6 +71,24 @@
                     </div>
                 </div>
             </div>
+            <div class="column">
+                <div class="field">
+                    <label class="label">Publicado por <span class="has-text-danger">*</span></label>
+                    <div class="control">
+                        <div class="select is-fullwidth">
+                            <select wire:model="publisher">
+                                <option value="Dirección">Dirección</option>
+                                <option value="Coordinación Académica">Coordinación Académica</option>
+                                <option value="Coordinación Administrativa">Coordinación Administrativa</option>
+                                <option value="Secretaria">Secretaria</option>
+                            </select>
+                        </div>
+                    </div>
+                    @error('publisher')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+            </div>
         </div>
 
         <div class="field">

@@ -20,6 +20,7 @@ class Editar extends Component
     public $category = 'general';
     public $is_published = false;
     public $published_at;
+    public $publisher = 'Dirección';
 
     // File uploads
     public $attachments = [];
@@ -32,6 +33,7 @@ class Editar extends Component
         'category' => 'required|in:general,academico,administrativo,evento,urgente,cobro,actividad,otro',
         'is_published' => 'boolean',
         'published_at' => 'nullable|date',
+        'publisher' => 'required|string|max:191',
         'attachments.*' => 'nullable|file|max:10240',
     ];
 
@@ -39,6 +41,7 @@ class Editar extends Component
         'title.required' => 'El título es obligatorio',
         'content.required' => 'El contenido es obligatorio',
         'category.required' => 'La categoría es obligatoria',
+        'publisher.required' => 'El publicador es obligatorio',
         'attachments.*.max' => 'Cada archivo no debe superar 10MB',
     ];
 
@@ -52,6 +55,7 @@ class Editar extends Component
         $this->category = $communication->category;
         $this->is_published = $communication->is_published;
         $this->published_at = $communication->published_at ? $communication->published_at->format('Y-m-d\TH:i') : null;
+        $this->publisher = $communication->author_name;
         $this->existingAttachments = $communication->attachments->toArray();
     }
 
@@ -76,7 +80,7 @@ class Editar extends Component
                 'is_published' => $this->is_published,
                 'published_at' => $this->published_at,
                 'author_id' => auth()->id(),
-                'author_name' => auth()->user()->name,
+                'author_name' => $this->publisher,
             ];
 
             $wasPublished = $communication->is_published;

@@ -74,7 +74,6 @@ class Comunicados extends Component
 
             $communication->save();
 
-            // Send email notifications to parents if toggled to published
             if ($communication->is_published) {
                 $parents = \App\Models\ParentUser::where('is_active', true)->get();
                 foreach ($parents as $parent) {
@@ -83,7 +82,7 @@ class Comunicados extends Component
                     }
                 }
 
-                $playerIds = Player::all()->pluck('player_id')->toArray();
+                $playerIds = Player::where('role', 'parent')->get()->pluck('player_id')->toArray();
 
                 if (!empty($playerIds)) {
                     $oneSignal = new \App\Tools\OneSignalService();

@@ -70,13 +70,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::get('/appointments', [AppointmentController::class, 'teacherIndex']);
         Route::put('/appointments/{id}/confirm', [AppointmentController::class, 'teacherConfirm']);
-        Route::put('/appointments/{id}/reject', [AppointmentController::class, 'teacherReject']);
+        Route::put('/appointments/{id}/complete', [AppointmentController::class, 'teacherComplete']);
 
-
-        // Citas
-        /* Route::get('/appointments', [AppointmentController::class, 'teacherIndex']);
-        Route::post('/appointments', [AppointmentController::class, 'teacherStore']);
-        Route::put('/appointments/{id}/confirm', [AppointmentController::class, 'teacherConfirm']);
-        Route::put('/appointments/{id}/reject', [AppointmentController::class, 'teacherReject']); */
+        Route::get('/events', [EventController::class, 'index']);
     });
 });

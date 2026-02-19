@@ -122,7 +122,7 @@
                 disponibilidad.</p>
 
             <center>
-                <a href="{{ config('app.frontend_url') }}/profesor/citas" class="btn">Gestionar en el Portal</a>
+                <a href="https://app.iepdivinosalvador.net.pe/profesor/citas" class="btn">Gestionar en el Portal</a>
             </center>
         </div>
         <div class="footer">
