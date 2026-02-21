@@ -78,7 +78,7 @@
                         </span>
                     </h6>
                     <p class="subtitle is-7 has-text-grey mt-1">
-                        Genera un informe detallado de asistencias en formato PDF
+                        Genera un informe detallado de asistencias en formato PDF o Excel
                         @if (empty($grado))
                             <br><span class="has-text-info"><i class="fas fa-info-circle"></i> Sin grado seleccionado:
                                 se generará reporte para todos los grados</span>
@@ -128,24 +128,47 @@
                         </div>
                         <div class="control">
                             <label class="label is-size-7">&nbsp;</label>
-                            <button wire:click="generarReporteAsistencia" class="button is-info is-small"
-                                @if (empty($nivel)) disabled title="Seleccione nivel" @endif
-                                wire:loading.attr="disabled" wire:target="generarReporteAsistencia">
-                                <span class="icon is-small" wire:loading.remove wire:target="generarReporteAsistencia">
-                                    <i class="fas fa-download"></i>
-                                </span>
-                                <span class="icon is-small" wire:loading wire:target="generarReporteAsistencia">
-                                    <i class="fas fa-spinner fa-spin"></i>
-                                </span>
-                                <span wire:loading.remove wire:target="generarReporteAsistencia">
-                                    @if (empty($grado))
-                                        Generar PDF (Todos)
-                                    @else
-                                        Generar PDF
-                                    @endif
-                                </span>
-                                <span wire:loading wire:target="generarReporteAsistencia">Generando...</span>
-                            </button>
+                            <div class="buttons">
+                                <button wire:click="generarReporteAsistencia" class="button is-info is-small"
+                                    @if (empty($nivel)) disabled title="Seleccione nivel" @endif
+                                    wire:loading.attr="disabled" wire:target="generarReporteAsistencia">
+                                    <span class="icon is-small" wire:loading.remove
+                                        wire:target="generarReporteAsistencia">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </span>
+                                    <span class="icon is-small" wire:loading wire:target="generarReporteAsistencia">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    </span>
+                                    <span wire:loading.remove wire:target="generarReporteAsistencia">
+                                        @if (empty($grado))
+                                            PDF (Todos)
+                                        @else
+                                            PDF
+                                        @endif
+                                    </span>
+                                    <span wire:loading wire:target="generarReporteAsistencia">Generando...</span>
+                                </button>
+
+                                <button wire:click="exportarExcelAsistencia" class="button is-success is-small"
+                                    @if (empty($nivel)) disabled title="Seleccione nivel" @endif
+                                    wire:loading.attr="disabled" wire:target="exportarExcelAsistencia">
+                                    <span class="icon is-small" wire:loading.remove
+                                        wire:target="exportarExcelAsistencia">
+                                        <i class="fas fa-file-excel"></i>
+                                    </span>
+                                    <span class="icon is-small" wire:loading wire:target="exportarExcelAsistencia">
+                                        <i class="fas fa-spinner fa-spin"></i>
+                                    </span>
+                                    <span wire:loading.remove wire:target="exportarExcelAsistencia">
+                                        @if (empty($grado))
+                                            Excel (Todos)
+                                        @else
+                                            Excel
+                                        @endif
+                                    </span>
+                                    <span wire:loading wire:target="exportarExcelAsistencia">Generando...</span>
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

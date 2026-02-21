@@ -241,6 +241,50 @@ class Index extends Component
         }
     }
 
+    public function exportarExcelAsistencia()
+    {
+        if (empty($this->nivel)) {
+            $this->emit('swal:modal', [
+                'type'  => 'error',
+                'title' => 'Error',
+                'text'  => 'Debe seleccionar el nivel',
+            ]);
+            return;
+        }
+
+        try {
+            if (empty($this->grado)) {
+                $datosReporte = $this->obtenerDatosReporteTodosGrados();
+                $nombreArchivo = "reporte_asistencia_{$this->nivel}_todos_grados_{$this->anio_reporte}_{$this->mes_reporte}.xls";
+                $vista = 'excel.asistencia-todos-grados-mes';
+            } else {
+                $datosReporte = $this->obtenerDatosReporte();
+                $nombreArchivo = "reporte_asistencia_{$this->nivel}_{$this->grado}_{$this->anio_reporte}_{$this->mes_reporte}.xls";
+                $vista = 'excel.asistencia-grado-mes';
+            }
+
+            $feriados = AsistenciaFeriado::whereYear('fecha_feriado', $this->anio_reporte)
+                ->whereMonth('fecha_feriado', $this->mes_reporte)
+                ->orderBy('fecha_feriado', 'ASC')
+                ->get();
+
+            $html = view($vista, compact('datosReporte', 'feriados'))->render();
+
+            return response()->streamDownload(function () use ($html) {
+                echo $html;
+            }, $nombreArchivo, [
+                'Content-Type' => 'application/vnd.ms-excel',
+                'Content-Disposition' => 'attachment; filename="' . $nombreArchivo . '"',
+            ]);
+        } catch (\Exception $e) {
+            $this->emit('swal:modal', [
+                'type'  => 'error',
+                'title' => 'Error',
+                'text'  => 'Error al generar el reporte Excel: ' . $e->getMessage(),
+            ]);
+        }
+    }
+
     private function obtenerDatosReporte()
     {
         $fechaInicio = "{$this->anio_reporte}-{$this->mes_reporte}-01";

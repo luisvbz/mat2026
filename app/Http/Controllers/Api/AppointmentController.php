@@ -92,7 +92,7 @@ class AppointmentController extends Controller
                 $oneSignal->sendToPlayers(
                     $playerIds,
                     'Nueva Solicitud de Cita',
-                    "El padre {$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}.", 
+                    "{$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}.", 
                     "https://app.iepdivinosalvador.net.pe/profesor/citas"
                 );
             }
@@ -244,6 +244,20 @@ class AppointmentController extends Controller
         $parentEmail = $appointment->parent->user->email ?? null;
         if ($parentEmail) {
             Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
+        }
+
+        $parentUser = $appointment->parent->user;
+        if ($parentUser) {
+            $playerIds = $parentUser->players()->pluck('player_id')->toArray();
+            if (!empty($playerIds)) {
+                $oneSignal = new \App\Tools\OneSignalService();
+                $oneSignal->sendToPlayers(
+                    $playerIds,
+                    'Cita Confirmada',
+                    "El profesor {$teacher->nombres} {$teacher->apellidos} ha confirmado la cita para el alumno {$appointment->student->nombres}. Toque para ver los detalles",
+                    "https://app.iepdivinosalvador.net.pe/citas"
+                );
+            }
         }
 
         return response()->json([

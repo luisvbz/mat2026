@@ -31,6 +31,9 @@
             <li @click='goUrl("{{ route('dashboard.solicitudes') }}")'
                 class="item-menu @if ($route == 'dashboard.solicitudes') item-active @endif"><i
                     class="fas fa-clipboard-check"></i> Solicitudes de Documentos</li>
+            <li @click='goUrl("{{ route('dashboard.citas') }}")'
+                class="item-menu @if ($route == 'dashboard.citas') item-active @endif"><i
+                    class="fas fa-calendar-alt"></i> Citas</li>
             <li @click='goUrl("{{ route('dashboard.recordatorios') }}")'
                 class="item-menu @if ($route == 'dashboard.recordatorios') item-active @endif"><i
                     class="fas fa-alarm-clock"></i> Recordatorios</li>

@@ -62,6 +62,8 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/eventos', \App\Http\Livewire\Dashboard\Eventos\Index::class)->name('dashboard.eventos')->middleware('role:Admin|Operador');
     Route::get('/eventos/crear', \App\Http\Livewire\Dashboard\Eventos\Crear::class)->name('dashboard.eventos.crear')->middleware('role:Admin|Operador');
     Route::get('/eventos/{id}/editar', \App\Http\Livewire\Dashboard\Eventos\Editar::class)->name('dashboard.eventos.editar')->middleware('role:Admin|Operador');
+
+    Route::get('/citas', \App\Http\Livewire\Dashboard\Citas\Index::class)->name('dashboard.citas')->middleware('role:Admin|Operador');
 });
 
 Route::get('/login', \App\Http\Livewire\Dashboard\Login::class)->name('admin.login');

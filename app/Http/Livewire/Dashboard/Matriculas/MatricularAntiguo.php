@@ -8,6 +8,7 @@ use App\Models\MatriculaOld;
 use App\Models\Alumno;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Mpdf\Tag\A;
 
 class MatricularAntiguo extends Component
 {
@@ -149,6 +150,9 @@ class MatricularAntiguo extends Component
                 'numero_documento_dj' => $matriculaOld->numero_documento_dj,
                 'nombres_dj' => $matriculaOld->nombres_dj
             ]);
+
+            Alumno::where('id', $matriculaOld->alumno_id)
+                ->update(['colegio_procedencia' => 'IEP "Divino Salvador"']);
 
             // Registrar en historial
             Historial::create([
