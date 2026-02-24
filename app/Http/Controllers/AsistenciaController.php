@@ -66,9 +66,17 @@ class AsistenciaController extends Controller
         }
     }
 
-    private function procesarProfesor($usuarioId, $fecha, $hora)
+   private function procesarProfesor($usuarioId, $fecha, $hora)
     {
         $profesor = Teacher::where('documento', $usuarioId)->first();
+
+        if (!$profesor && strlen($usuarioId) === 9 && str_starts_with($usuarioId, '0')) {
+            $usuarioIdAlt = substr($usuarioId, 1);
+            $profesor = Teacher::where('documento', $usuarioIdAlt)->first();
+            if ($profesor) {
+                $usuarioId = $usuarioIdAlt;
+            }
+        }
 
         if (!$profesor) {
             Log::warning("Documento no encontrado en alumnos ni profesores: {$usuarioId}");
@@ -79,7 +87,6 @@ class AsistenciaController extends Controller
             'fecha' => $fecha,
             'hora'  => $hora
         ]);
-
         $this->marcarEntradaSalidaPersonal($profesor, $fecha, $hora);
     }
 

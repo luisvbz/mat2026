@@ -3,6 +3,11 @@
     <div class="content-dashboard">
         <div class="content-dashboard-header">
             <div><i class="fas fa-calendar-check"></i> Asistencia de Estudiantes</div>
+            <div class="has-text-right">
+                <a href="{{ route('asistencias.feriados') }}" class="button is-info is-small">
+                    <i class="fas fa-calendar-times mr-2"></i> Gestión de Feriados
+                </a>
+            </div>
         </div>
 
         <!-- Barra de filtros principales -->

@@ -102,6 +102,14 @@
                             <td>{{ $teacher->documento }}</td>
                         </tr>
                         <tr>
+                            <th>Correo Electrónico:</th>
+                            <td>{{ $teacher->correo ?? 'No registrado' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Teléfono:</th>
+                            <td>{{ $teacher->telefono ?? 'No registrado' }}</td>
+                        </tr>
+                        <tr>
                             <th>Horario Asignado:</th>
                             <td>{{ $teacher->horario->name ?? 'No asignado' }}</td>
                         </tr>

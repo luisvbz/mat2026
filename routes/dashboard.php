@@ -24,6 +24,8 @@ Route::middleware(['auth'])->group(function () {
         ->name('asistencias.index');
     Route::get('/asistencias/inasistentes', \App\Http\Livewire\Dashboard\Asistencias\Inasistentes::class)
         ->name('asistencias.inasistentes');
+    Route::get('/asistencias/feriados', \App\Http\Livewire\Dashboard\Asistencias\Feriados::class)
+        ->name('asistencias.feriados');
 
     Route::get('/asistencias-profesores', \App\Http\Livewire\Dashboard\Asistencias\Personal\Asistencias\Lista::class)
         ->name('asistencias.profesores.index');

@@ -12,6 +12,8 @@ class Editar extends Component
     public $nombres;
     public $apellidos;
     public $documento;
+    public $correo;
+    public $telefono;
     public $horario_id;
 
     protected $rules = [
@@ -19,6 +21,8 @@ class Editar extends Component
         'apellidos' => 'required|min:3',
         'documento' => 'required|numeric',
         'horario_id' => 'required|exists:schedules,id',
+        'correo' => 'nullable|email',
+        'telefono' => 'nullable|numeric|digits:9',
     ];
 
     public function mount($id)
@@ -28,6 +32,8 @@ class Editar extends Component
         $this->nombres = $teacher->nombres;
         $this->apellidos = $teacher->apellidos;
         $this->documento = $teacher->documento;
+        $this->correo = $teacher->email;
+        $this->telefono = $teacher->telefono;
         $this->horario_id = $teacher->horario_id;
     }
 
@@ -42,6 +48,8 @@ class Editar extends Component
             'nombres' => $this->nombres,
             'apellidos' => $this->apellidos,
             'documento' => $this->documento,
+            'email' => $this->correo,
+            'telefono' => $this->telefono,
             'horario_id' => $this->horario_id,
         ]);
 

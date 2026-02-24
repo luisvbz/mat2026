@@ -9,6 +9,16 @@ class Teacher extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'documento',
+        'nombres',
+        'apellidos',
+        'email',
+        'telefono',
+        'estado',
+        'horario_id',
+    ];
+
     public function getStatusAttribute()
     {
         $value = $this->estado;

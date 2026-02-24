@@ -4,7 +4,13 @@ namespace App\Http\Livewire\Dashboard\Profesores;
 
 use PDF;
 use App\Models\Teacher;
+use App\Models\TeacherUser;
+use App\Models\Appointment;
+use App\Models\AsistenciaProfesor;
+use App\Models\PermisosPersonal;
+use App\Models\Player;
 use Livewire\Component;
+use Illuminate\Support\Facades\DB;
 
 class Index extends Component
 {
@@ -15,6 +21,8 @@ class Index extends Component
         'search' => ['except' => ''],
         'estado' => ['except' => '']
     ];
+
+    protected $listeners = ['eliminar:profesor' => 'eliminar'];
 
     public function buscar()
     {
@@ -47,6 +55,57 @@ class Index extends Component
                 $teacher->user->update(['is_active' => false]);
             }
             session()->flash('success', 'Profesor desactivado exitosamente.');
+        }
+    }
+
+    public function showDialogEliminar($id)
+    {
+        $this->emit("swal:confirm", [
+            'type'        => 'warning',
+            'title'       => '¿Estás seguro?',
+            'text'        => "Esta acción eliminará al profesor y todo rastro relacionado",
+            'confirmText' => 'Sí, Eliminar!',
+            'method'      => 'eliminar:profesor',
+            'params'      => [$id],
+            'callback'    => '',
+        ]);
+    }
+
+    public function eliminar($params)
+    {
+        $id = $params[0];
+        $teacher = Teacher::find($id);
+        if ($teacher) {
+            DB::beginTransaction();
+            try {
+                // Delete Players associated with the TeacherUser
+                if ($teacher->user) {
+                    $teacher->user->players()->delete();
+                    $teacher->user->delete();
+                }
+
+                // Delete related records
+                $teacher->permisos()->delete();
+                $teacher->asistencias()->delete();
+                Appointment::where('teacher_id', $teacher->id)->delete();
+
+                // Delete the teacher
+                $teacher->delete();
+
+                DB::commit();
+                $this->emit('swal:modal', [
+                    'type'  => 'success',
+                    'title' => '¡Éxito!',
+                    'text'  => "El profesor y todo su rastro relacionado han sido eliminados.",
+                ]);
+            } catch (\Exception $e) {
+                DB::rollBack();
+                $this->emit('swal:modal', [
+                    'type'  => 'error',
+                    'title' => '¡Error!',
+                    'text'  => "Ocurrió un error: " . $e->getMessage(),
+                ]);
+            }
         }
     }
 

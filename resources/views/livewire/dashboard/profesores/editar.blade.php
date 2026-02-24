@@ -50,6 +50,30 @@
                 </div>
                 <div class="column is-6">
                     <div class="field">
+                        <label class="label">Correo Electrónico</label>
+                        <div class="control">
+                            <input type="email" wire:model="correo" class="input @error('correo') is-danger @enderror"
+                                placeholder="name@example.com">
+                        </div>
+                        @error('correo')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="field">
+                        <label class="label">Teléfono</label>
+                        <div class="control">
+                            <input type="text" wire:model="telefono"
+                                class="input @error('telefono') is-danger @enderror" placeholder="987654321">
+                        </div>
+                        @error('telefono')
+                            <p class="help is-danger">{{ $message }}</p>
+                        @enderror
+                    </div>
+                </div>
+                <div class="column is-6">
+                    <div class="field">
                         <label class="label">Horario</label>
                         <div class="control">
                             <div class="select is-fullwidth @error('horario_id') is-danger @enderror">

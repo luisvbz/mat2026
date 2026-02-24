@@ -18,9 +18,6 @@
             <a href="{{ route('dashboard.profesores.nuevo') }}" class="button is-primary is-small">
                 <i class="fas fa-plus mr-2"></i> Nuevo Profesor
             </a>
-            <button wire:click="getCarnet" class="button is-small ml-2">
-                Generar QR's <i class="ml-2 fas fa-qrcode"></i>
-            </button>
         </div>
     </div>
     <div class="content-dashboard-search-bar">
@@ -59,6 +56,8 @@
                     <th>Apellidos</th>
                     <th>Nombres</th>
                     <th>Horario</th>
+                    <th>Email</th>
+                    <th>Celular</th>
                     <th></th>
                 </tr>
             </thead>
@@ -70,6 +69,16 @@
                         <td>{{ $teacher->apellidos }}</td>
                         <td>{{ $teacher->nombres }}</td>
                         <td>{{ $teacher->horario->name }}</td>
+                        <td>{{ $teacher->email }}</td>
+                        <td>
+                            {{ $teacher->telefono }}
+                            @if ($teacher->telefono)
+                                <a href="https://wa.me/51{{ $teacher->telefono }}" target="_blank"
+                                    class="has-text-success ml-2" title="Enviar WhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            @endif
+                        </td>
                         <td>
                             <div class="dashboard-menu-opcion" x-data="{ open: false }">
                                 <button class="button is-small" @click="open = true"><i
@@ -78,6 +87,10 @@
                                     <div class="items-option" @click.away="open = false">
                                         <a href="{{ route('dashboard.profesores.detalle', $teacher->id) }}"><i
                                                 class="fas fa-eye"></i> Ver Detalle</a>
+                                    </div>
+                                    <div class="items-option" @click.away="open = false">
+                                        <a href="{{ route('dashboard.profesores.editar', $teacher->id) }}"><i
+                                                class="fas fa-edit"></i> Editar</a>
                                     </div>
                                     @if ($teacher->estado == 0)
                                         <div class="items-option" @click.away="open = false">
@@ -90,6 +103,11 @@
                                                     class="fas fa-ban has-text-danger"></i> Desactivar</a>
                                         </div>
                                     @endif
+                                    <div class="items-option" @click.away="open = false">
+                                        <a wire:click="showDialogEliminar({{ $teacher->id }})">
+                                            <i class="fas fa-trash-alt has-text-danger"></i> Eliminar
+                                        </a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -98,7 +116,7 @@
 
                 @empty
                     <tr>
-                        <td colspan="6" class="has-text-centered">No hay resultados que mostrar</td>
+                        <td colspan="8" class="has-text-centered">No hay resultados que mostrar</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -13,12 +13,16 @@ class Nuevo extends Component
     public $nombres;
     public $apellidos;
     public $documento;
+    public $correo;
+    public $telefono;
     public $horario_id;
 
     protected $rules = [
         'nombres' => 'required|min:3',
         'apellidos' => 'required|min:3',
         'documento' => 'required|numeric|unique:teachers,documento',
+        'correo' => 'nullable|email',
+        'telefono' => 'nullable|numeric|digits:9',
         'horario_id' => 'required|exists:schedules,id',
     ];
 
@@ -30,6 +34,8 @@ class Nuevo extends Component
         $teacher->nombres = $this->nombres;
         $teacher->apellidos = $this->apellidos;
         $teacher->documento = $this->documento;
+        $teacher->email = $this->correo;
+        $teacher->telefono = $this->telefono;
         $teacher->horario_id = $this->horario_id;
         $teacher->estado = 1;
         $teacher->save();
