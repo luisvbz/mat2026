@@ -102,12 +102,11 @@ class Crear extends Component
                     }
                 }
 
-                $playerIds = Player::where('role', 'parent')->get()->pluck('player_id')->toArray();
-
-                if (!empty($playerIds)) {
-                    $oneSignal = new \App\Tools\OneSignalService();
-                    $oneSignal->sendToPlayers(
-                        $playerIds,
+                if (!empty($parents)) {
+                    $parentUserIds = $parents->pluck('id')->toArray();
+                    \App\Jobs\SendPushNotificationJob::dispatch(
+                        $parentUserIds,
+                        'parent',
                         'Nuevo Comunicado: ' . $this->category,
                         "Se ha publicado un nuevo comunicado. Toca para ver más detalles.",
                         "https://app.iepdivinosalvador.net.pe/comunicados/{$communication->id}"

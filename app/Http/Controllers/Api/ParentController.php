@@ -100,6 +100,24 @@ class ParentController extends Controller
             })
             ->count();
 
+        $totalEvents = \App\Models\Event::whereBetween('date', [now()->startOfDay(), now()->endOfMonth()])
+            ->count();
+
+        $nextEvent = \App\Models\Event::where('date', '>=', now()->startOfDay())
+            ->orderBy('date', 'asc')
+            ->first(['description', 'date', 'time']);
+
+        $latestCommunication = Communication::published()
+            ->orderBy('created_at', 'desc')
+            ->first(['id', 'title', 'category', 'created_at']);
+
+        $hasNewEvents = \App\Models\Event::where('created_at', '>=', now()->subDay())->exists();
+
+        $unreadNotifications = \App\Models\PushNotification::where('user_id', $request->user()->id)
+            ->where('role', 'parent')
+            ->whereNull('read_at')
+            ->count();
+
         foreach ($alumnos as $alumno) {
             $accountBalance = $this->getAccountBalance($alumno->id);
             $totalAccountBalance += $accountBalance['accountBalance'];
@@ -113,6 +131,11 @@ class ParentController extends Controller
                 'totalAccountBalance' => $totalAccountBalance,
                 'totalPendingPayments' => $totalPendingPayments,
                 'totalCommunication' => $totalCommunication,
+                'totalEvents' => $totalEvents,
+                'hasNewEvents' => $hasNewEvents,
+                'nextEvent' => $nextEvent,
+                'latestCommunication' => $latestCommunication,
+                'unreadNotifications' => $unreadNotifications,
             ]
         ]);
     }

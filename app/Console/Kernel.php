@@ -25,13 +25,13 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('verificar:deudores')->weeklyOn('1', '15:30');
-        $schedule->command('verificar:deudores')->weeklyOn('4', '15:30');
+       /*  $schedule->command('verificar:deudores')->weeklyOn('1', '15:30');
+        $schedule->command('verificar:deudores')->weeklyOn('4', '15:30'); */
         //$schedule->command('verificar:deudores')->weeklyOn('5', '15:00');
-        $schedule->command('test:cron')->weeklyOn('1', '13:35');
+        $schedule->command('test:cron')->dailyAt('09:00');
         $schedule->command('asistencia:verificar')->weekdays()->at('20:00');
         $schedule->command('verificar:asistencia-profesores')->weekdays()->at('23:00');
-        $schedule->command('recordatorio:pronto-pago')->dailyAt('08:00');
+        $schedule->command('recordatorio:pronto-pago')->dailyAt('10:00');
     }
 
     /**

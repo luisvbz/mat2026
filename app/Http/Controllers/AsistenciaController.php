@@ -24,9 +24,10 @@ class AsistenciaController extends Controller
         $content = $request->getContent();
         $lineas = explode("\n", trim($content));
 
+
         foreach ($lineas as $linea) {
             $datos = explode("\t", trim($linea));
-
+            
             if (count($datos) < 2) {
                 continue;
             }

@@ -80,12 +80,11 @@ class EnviarRecordatorioProntoPago extends Command
                     }
                 }
 
-                $playerIds = Player::where('role', 'parent')->get()->pluck('player_id')->toArray();
-
-                if (!empty($playerIds)) {
-                    $oneSignal = new \App\Tools\OneSignalService();
-                    $oneSignal->sendToPlayers(
-                        $playerIds,
+                if (!empty($padres)) {
+                    $parentUserIds = $padres->pluck('id')->toArray();
+                    \App\Jobs\SendPushNotificationJob::dispatch(
+                        $parentUserIds,
+                        'parent',
                         'Recordatorio de Pronto Pago',
                         'Aproveche el beneficio del pronto pago realizando su pago antes de la fecha de vencimiento.',
                         "https://app.iepdivinosalvador.net.pe/comunicados/{$communication->id}"

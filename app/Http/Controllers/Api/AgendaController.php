@@ -98,19 +98,13 @@ class AgendaController extends Controller
 
         $matricula = Matricula::where('id', $message->matricula_id)->where('estado', 1)->first();
 
-        $playerIds = Player::where('user_id', $message->teacher_user_id)->pluck('player_id')->toArray();
-
-        if (!empty($playerIds)) {
-            \Log::info("PlayerIds: " . json_encode($playerIds));
-            $oneSignal = new \App\Tools\OneSignalService();
-           $result = $oneSignal->sendToPlayers(
-                $playerIds,
-                'Nueva Respuesta en Agenda',
-                "Nuevo mensaje en la agenda de {$matricula->alumno->nombre_completo}.", 
-                "https://app.iepdivinosalvador.net.pe/profesor/agendas/{$matricula->id}"
-            );
-            \Log::info("Result: " . json_encode($result));
-        }
+        \App\Jobs\SendPushNotificationJob::dispatch(
+            [$message->teacher_user_id],
+            'teacher',
+            'Nueva Respuesta en Agenda',
+            "Nuevo mensaje en la agenda de {$matricula->alumno->nombre_completo}.",
+            "https://app.iepdivinosalvador.net.pe/profesor/agendas/{$matricula->id}"
+        );
 
         return response()->json([
             'success' => true,
@@ -248,18 +242,14 @@ class AgendaController extends Controller
             'message' => $request->message,
         ]);
 
-        $padresId = $matricula->alumno->padres->pluck('user_id')->toArray();
+        $padresId = $matricula->alumno->padres->pluck('user.id')->filter()->toArray();
 
-        $playerIds = Player::whereIn('user_id', $padresId)
-                            ->where('role', 'parent')
-                            ->pluck('player_id')->toArray();
-
-        if (!empty($playerIds)) {
-            $oneSignal = new \App\Tools\OneSignalService();
-            $oneSignal->sendToPlayers(
-                $playerIds,
+        if (!empty($padresId)) {
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                $padresId,
+                'parent',
                 'Nuevo mensaje en agenda',
-                "El profesor/a {$teacher->teacher->nombre_completo} ha escrito un mensaje en la agenda del estudiante {$matricula->alumno->nombre_completo}.", 
+                "El profesor/a {$teacher->teacher->nombre_completo} ha escrito un mensaje en la agenda del estudiante {$matricula->alumno->nombre_completo}.",
                 "https://app.iepdivinosalvador.net.pe/agenda/{$matricula->alumno->id}"
             );
         }

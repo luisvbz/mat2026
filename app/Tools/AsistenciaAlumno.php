@@ -102,6 +102,19 @@ class AsistenciaAlumno
             'permiso_id'      => $permiso->id ?? null,
             'tardanza_entrada' => $tardanza,
         ]);
+
+        // Notify parents
+        $padresId = $this->alumno->padres->pluck('user.id')->filter()->toArray();
+        if (!empty($padresId)) {
+            $label = $tipo === Asistencia::NORMAL ? 'A tiempo' : ($tipo === Asistencia::TARDANZA ? 'Tardanza' : 'Asistencia');
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                $padresId,
+                'parent',
+                'Registro de Asistencia',
+                "Se ha registrado la entrada de {$this->alumno->nombre_completo}. Estado: {$label}.",
+                "https://app.iepdivinosalvador.net.pe/asistencias/{$this->alumno->id}"
+            );
+        }
     }
 
     private function registrarSalida($marcacion)
@@ -123,5 +136,16 @@ class AsistenciaAlumno
             'salida_anticipada' => $anticipado,
             'permiso_id'      => $permiso->id ?? null,
         ]);
+
+         $padresId = $this->alumno->padres->pluck('user.id')->filter()->toArray();
+        if (!empty($padresId)) {
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                $padresId,
+                'parent',
+                'Registro de Asistencia',
+                "Se ha registrado la salida de {$this->alumno->nombre_completo}.",
+                "https://app.iepdivinosalvador.net.pe/asistencias/{$this->alumno->id}"
+            );
+        }
     }
 }

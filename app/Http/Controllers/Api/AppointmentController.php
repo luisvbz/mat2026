@@ -83,19 +83,15 @@ class AppointmentController extends Controller
         $teacherEmail = $appointment->teacher->user->email ?? 'ing.luisvasquez89@gmail.com';
         Mail::to($teacherEmail)->queue(new \App\Mail\NuevaCitaDocente($appointment));
 
-        // Enviar notificación OneSignal
-        $teacherUser = $appointment->teacher->user;
+        // Enviar notificación background job
         if ($teacherUser) {
-            $playerIds = $teacherUser->players()->pluck('player_id')->toArray();
-            if (!empty($playerIds)) {
-                $oneSignal = new \App\Tools\OneSignalService();
-                $oneSignal->sendToPlayers(
-                    $playerIds,
-                    'Nueva Solicitud de Cita',
-                    "{$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}.", 
-                    "https://app.iepdivinosalvador.net.pe/profesor/citas"
-                );
-            }
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                [$teacherUser->id],
+                'teacher',
+                'Nueva Solicitud de Cita',
+                "{$padre->nombres} {$padre->apellidos} ha solicitado una cita para el alumno {$appointment->student->nombres}.",
+                "https://app.iepdivinosalvador.net.pe/profesor/citas"
+            );
         }
 
         return response()->json([
@@ -246,18 +242,14 @@ class AppointmentController extends Controller
             Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
         }
 
-        $parentUser = $appointment->parent->user;
         if ($parentUser) {
-            $playerIds = $parentUser->players()->pluck('player_id')->toArray();
-            if (!empty($playerIds)) {
-                $oneSignal = new \App\Tools\OneSignalService();
-                $oneSignal->sendToPlayers(
-                    $playerIds,
-                    'Cita Confirmada',
-                    "El profesor {$teacher->nombres} {$teacher->apellidos} ha confirmado la cita para el alumno {$appointment->student->nombres}. Toque para ver los detalles",
-                    "https://app.iepdivinosalvador.net.pe/citas"
-                );
-            }
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                [$parentUser->id],
+                'parent',
+                'Cita Confirmada',
+                "El profesor {$teacher->nombres} {$teacher->apellidos} ha confirmado la cita para el alumno {$appointment->student->nombres}. Toque para ver los detalles",
+                "https://app.iepdivinosalvador.net.pe/citas"
+            );
         }
 
         return response()->json([

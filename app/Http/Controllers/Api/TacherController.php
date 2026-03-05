@@ -51,6 +51,42 @@ class TacherController extends Controller
             ->where('status', 'pending')
             ->count();
 
+        $totalEvents = \App\Models\Event::whereBetween('date', [now()->startOfDay(), now()->endOfMonth()])
+            ->count();
+
+        $hasNewEvents = \App\Models\Event::where('created_at', '>=', now()->subDay())->exists();
+
+        // Today's attendance summary for teacher's students
+        $teacherUserId = auth()->user()->id;
+        $studentIds = Matricula::whereIn('id', AgendaMessage::where('teacher_user_id', $teacherUserId)->pluck('matricula_id'))
+            ->where('estado', 1)
+            ->pluck('alumno_id');
+
+        $todayAttendance = [
+            'total' => $studentIds->count(),
+            'present' => \App\Models\Asistencia::whereIn('alumno_id', $studentIds)
+                ->where('anio', now()->year)
+                ->where('mes', now()->month)
+                ->where('dia', now()->day)
+                ->whereIn('tipo', ['N', 'T', 'TJ'])
+                ->count(),
+            'absent' => \App\Models\Asistencia::whereIn('alumno_id', $studentIds)
+                ->where('anio', now()->year)
+                ->where('mes', now()->month)
+                ->where('dia', now()->day)
+                ->whereIn('tipo', ['FI', 'FJ'])
+                ->count(),
+        ];
+
+        $nextEvent = \App\Models\Event::where('date', '>=', now()->startOfDay())
+            ->orderBy('date', 'asc')
+            ->first(['description', 'date', 'time']);
+
+        $unreadNotifications = \App\Models\PushNotification::where('user_id', auth()->user()->id)
+            ->where('role', 'teacher')
+            ->whereNull('read_at')
+            ->count();
+
         return response()->json([
             'success' => true,
             'data' => [
@@ -58,6 +94,11 @@ class TacherController extends Controller
                 'messagesSent' => $allAgendasMessagesCount,
                 'unreadReplies' => $pendingAgendasMessagesCount,
                 'totalStudents' => $allMyAgendas,
+                'totalEvents' => $totalEvents,
+                'hasNewEvents' => $hasNewEvents,
+                'todayAttendance' => $todayAttendance,
+                'nextEvent' => $nextEvent,
+                'unreadNotifications' => $unreadNotifications,
             ],
             'lastUnreadReplies' => $lastFiMessageUnread
         ]);

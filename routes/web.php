@@ -3,6 +3,8 @@
 use App\Http\Controllers\AsistenciaController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Mail;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,3 +47,19 @@ Route::get('/enviar-recordatotrio', function () {
 Route::get('/iclock/cdata', [AsistenciaController::class, 'handShake']);
 
 Route::post('/iclock/cdata', [AsistenciaController::class, 'cdata']);
+
+Route::get('/test-total', function () {
+
+    dispatch(function () {
+
+        \Log::info('🔥 JOB EJECUTADO 🔥');
+
+        Mail::raw('La cola funciona correctamente', function ($message) {
+            $message->to('ing.luisvasquez89@gmail.com')
+                    ->subject('Queue OK');
+        });
+
+    });
+
+    return 'Job enviado a la cola';
+});
