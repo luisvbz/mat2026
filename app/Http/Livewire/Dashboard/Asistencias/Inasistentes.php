@@ -93,7 +93,8 @@ class Inasistentes extends Component
                 $mat->alumno,
                 date('Y-m-d'),
                 $mat->hora_entrada,
-                $mat->hora_salida
+                $mat->hora_salida,
+                date('H:i:s')
             );
             $asistencia->setMarcacion();
 
@@ -150,8 +151,8 @@ class Inasistentes extends Component
 
     public function render()
     {
-            
-            $inasistentes = Matricula::with(['alumno'])
+
+        $inasistentes = Matricula::with(['alumno'])
             ->join('alumnos', 'matriculas.alumno_id', '=', 'alumnos.id')
             ->where('matriculas.estado', 1)
             ->whereNotIn('matriculas.alumno_id', Asistencia::where('dia', $this->date)->get()->pluck('alumno_id')->toArray())

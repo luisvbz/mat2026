@@ -38,8 +38,8 @@ class AsistenciasController extends Controller
                     $data['note'] = $asistencia->feriado->descripcion ?? 'Feriado';
                 }
 
-                $data['entryTime'] = date('h:i a', strtotime($asistencia->entrada)) ?? null;
-                $data['exitTime'] = date('h:i a', strtotime($asistencia->salida)) ?? null;
+                $data['entryTime'] = $asistencia->entrada ? date('h:i a', strtotime($asistencia->entrada)) : null;
+                $data['exitTime'] = $asistencia->salida ? date('h:i a', strtotime($asistencia->salida)) : null;
                 $data['exitNote'] = $asistencia->comentario_salida ?? null;
 
 
