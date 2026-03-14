@@ -84,6 +84,7 @@ class AppointmentController extends Controller
         Mail::to($teacherEmail)->queue(new \App\Mail\NuevaCitaDocente($appointment));
 
         // Enviar notificación background job
+        $teacherUser = $appointment->teacher->user;
         if ($teacherUser) {
             \App\Jobs\SendPushNotificationJob::dispatch(
                 [$teacherUser->id],
@@ -169,7 +170,7 @@ class AppointmentController extends Controller
     public function teacherStore(Request $request)
     {
         $request->validate([
-            'studentId' => 'required|exists:alumnos,id',
+            'studentId' => 'required|exists:matriculas,id',
             'date' => 'required|date|after:today',
             'time' => 'required',
             'subject' => 'required|string',
@@ -179,7 +180,7 @@ class AppointmentController extends Controller
         $teacher = $request->user()->teacher;
 
         // Obtener padre del estudiante
-        $matricula = Matricula::where('alumno_id', $request->studentId)
+        $matricula = Matricula::where('id', $request->studentId)
             ->where('estado', 1)
             ->firstOrFail();
 
@@ -190,7 +191,7 @@ class AppointmentController extends Controller
             'status' => 'pending',
             'parent_id' => $padre->id,
             'teacher_id' => $teacher->id,
-            'student_id' => $request->studentId,
+            'student_id' => $alumno->id,
             'date' => $request->date,
             'time' => $request->time,
             'subject' => $request->subject,
@@ -242,6 +243,7 @@ class AppointmentController extends Controller
             Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
         }
 
+        $parentUser = $appointment->parent->user;
         if ($parentUser) {
             \App\Jobs\SendPushNotificationJob::dispatch(
                 [$parentUser->id],
@@ -268,6 +270,82 @@ class AppointmentController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Cita marcada como completada',
+        ]);
+    }
+
+    /**
+     * Crear cita directa y confirmada (Profesores)
+     */
+    public function teacherCreateDirect(Request $request)
+    {
+        $request->validate([
+            'parentId' => 'required|exists:padres,id',
+            'date' => 'required|date',
+            'time' => 'required',
+            'subject' => 'required|string',
+            'notes' => 'nullable|string',
+            'location' => 'nullable|string',
+        ]);
+
+        $teacher = $request->user()->teacher;
+        // Verificar que el padre pertenece al estudiante
+        $matricula = Matricula::where('id', $request->studentId)
+            ->where('estado', 1)
+            ->firstOrFail();
+
+        $alumno = $matricula->alumno;
+        $padre = $alumno->padres()->findOrFail($request->parentId);
+
+        // Verificar conflicto de horario
+        $exists = Appointment::where('teacher_id', $teacher->id)
+            ->where('status', 'confirmed')
+            ->where('date', $request->date)
+            ->where('time', $request->time)
+            ->exists();
+
+        if ($exists) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Ya tienes una cita confirmada en este horario.',
+            ], 422);
+        }
+
+        $appointment = Appointment::create([
+            'type' => 'teacher_invite',
+            'status' => 'confirmed',
+            'parent_id' => $padre->id,
+            'teacher_id' => $teacher->id,
+            'student_id' => $alumno->id,
+            'date' => $request->date,
+            'time' => $request->time,
+            'subject' => $request->subject,
+            'notes' => $request->notes,
+            'created_by' => 'teacher',
+        ]);
+
+        // Enviar notificación al padre por email
+        $parentEmail = $padre->user->email ?? null;
+        if ($parentEmail) {
+            Mail::to($parentEmail)->queue(new \App\Mail\ConfirmacionCitaPadre($appointment));
+        }
+
+        if ($padre->user) {
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                [$padre->user->id],
+                'parent',
+                'Cita Agendada',
+                "El profesor/a {$teacher->nombres} {$teacher->apellidos} ha agendado una cita para el alumno {$alumno->nombre_completo}.",
+                "https://app.iepdivinosalvador.net.pe/citas"
+            );
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'id' => $appointment->id,
+                'status' => 'confirmed',
+                'message' => 'Cita agendada correctamente',
+            ],
         ]);
     }
 }

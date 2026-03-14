@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // Rutas comunes
     Route::get('/grades/{level}', [CommonController::class, 'getGrades']);
     Route::get('/grades/{gradeId}/students', [CommonController::class, 'getStudentsByGrade']);
+    Route::get('/students/{studentId}/parents', [CommonController::class, 'getParentsByStudent']);
     Route::get('/teachers', [CommonController::class, 'getTeacherUsers']);
 
     Route::prefix('parent')->group(function () {
@@ -75,6 +76,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/grade/agenda', [AgendaController::class, 'writeMessageToGrade']);
 
         Route::get('/appointments', [AppointmentController::class, 'teacherIndex']);
+        Route::post('/appointments/direct', [AppointmentController::class, 'teacherCreateDirect']);
         Route::put('/appointments/{id}/confirm', [AppointmentController::class, 'teacherConfirm']);
         Route::put('/appointments/{id}/complete', [AppointmentController::class, 'teacherComplete']);
 

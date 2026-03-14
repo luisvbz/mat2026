@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Models\Grado;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Matricula;
 use App\Models\TeacherUser;
@@ -67,6 +66,45 @@ class CommonController extends Controller
         return response()->json([
             'success' => true,
             'data' => $students
+        ]);
+    }
+
+    public function getParentsByStudent($studentId)
+    {
+        // Find the matricula (enrollment record)
+        $matricula = Matricula::find($studentId);
+
+        if (!$matricula) {
+            return response()->json([
+                'success' => false,
+                'error' => ['message' => 'El estudiante no existe.']
+            ], 422);
+        }
+
+        // Get the student and their parents
+        $alumno = $matricula->alumno;
+        $padres = $alumno->padres()->whereHas('user', function ($query) {
+            $query->where('is_active', true);
+        })->get()->map(function ($padre) {
+            return [
+                'id' => $padre->id,
+                'name' => $padre->nombres . ' ' . $padre->apellidos,
+                'email' => $padre->user->email ?? null,
+                'phone' => $padre->telefono ?? null,
+                'relation' => $padre->pivot->relacion ?? 'Padre/Madre'
+            ];
+        });
+
+        if ($padres->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'error' => ['message' => 'Este estudiante no tiene padres registrados.']
+            ], 422);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $padres
         ]);
     }
 }
