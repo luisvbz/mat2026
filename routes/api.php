@@ -34,7 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
     Route::get('/auth/me', [AuthController::class, 'me']);
     Route::post('/auth/change-password', [AuthController::class, 'changePassword']);
-    
+
     // Notifications & Alert Center
     Route::get('/notifications', [NotificationController::class, 'index']);
     Route::put('/notifications/read-all', [NotificationController::class, 'markAllAsRead']);
@@ -72,6 +72,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('/students/agendas/{studentId}', [AgendaController::class, 'getAgendaByTeacher']);
         Route::post('/students/agenda/{messageId}/mark-as-read', [AgendaController::class, 'markMessageAsRead']);
         Route::post('/students/{studentId}/agenda', [AgendaController::class, 'writeMessage']);
+        Route::post('/grade/agenda', [AgendaController::class, 'writeMessageToGrade']);
 
         Route::get('/appointments', [AppointmentController::class, 'teacherIndex']);
         Route::put('/appointments/{id}/confirm', [AppointmentController::class, 'teacherConfirm']);

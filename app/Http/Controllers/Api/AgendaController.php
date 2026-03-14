@@ -277,4 +277,75 @@ class AgendaController extends Controller
 
         return response()->json(['success' => true]);
     }
+
+    /**
+     * Escribir mensaje en agenda para un grado completo (Profesores)
+     */
+    public function writeMessageToGrade(Request $request)
+    {
+        $request->validate([
+            'level' => 'required|string',
+            'grade' => 'required',
+            'date' => 'required|date',
+            'subject' => 'required|string|max:191',
+            'message' => 'required|string',
+        ]);
+
+        $teacher = auth()->user();
+
+        // Obtener todas las matrículas activas del nivel y grado especificados
+        $matriculas = Matricula::where('nivel', $request->level)
+            ->where('grado', $request->grade)
+            ->where('estado', 1)
+            ->with('alumno', 'alumno.padres')
+            ->get();
+
+        if ($matriculas->isEmpty()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'No se encontraron estudiantes en este grado',
+            ], 404);
+        }
+
+        $createdMessages = [];
+        $allPadresId = [];
+
+        // Crear mensaje para cada estudiante
+        foreach ($matriculas as $matricula) {
+            $agendaMessage = AgendaMessage::create([
+                'matricula_id' => $matricula->id,
+                'teacher_user_id' => $teacher->id,
+                'date' => $request->date,
+                'subject' => $request->subject,
+                'message' => $request->message,
+            ]);
+
+            $createdMessages[] = $agendaMessage->id;
+
+            // Recopilar IDs de padres
+            $padresId = $matricula->alumno->padres->pluck('user.id')->filter()->toArray();
+            $allPadresId = array_merge($allPadresId, $padresId);
+        }
+
+        // Enviar notificación a todos los padres (sin duplicados)
+        $uniquePadresId = array_unique($allPadresId);
+        if (!empty($uniquePadresId)) {
+            \App\Jobs\SendPushNotificationJob::dispatch(
+                array_values($uniquePadresId),
+                'parent',
+                'Nuevo mensaje en agenda',
+                "El profesor/a {$teacher->teacher->nombre_completo} ha escrito un mensaje en la agenda del grado {$request->grade}.",
+                "https://app.iepdivinosalvador.net.pe/"
+            );
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'messagesCreated' => count($createdMessages),
+                'message' => "Mensaje enviado a {$matriculas->count()} estudiante(s) del grado {$request->grade}",
+                'messageIds' => $createdMessages,
+            ],
+        ]);
+    }
 }
