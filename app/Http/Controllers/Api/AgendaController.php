@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Models\Matricula;
-use App\Models\AgendaReply;
-use Illuminate\Http\Request;
-use App\Models\AgendaMessage;
-use App\Models\Player;
 use App\Http\Controllers\Controller;
+use App\Models\AgendaMessage;
+use App\Models\AgendaReply;
+use App\Models\Grado;
+use App\Models\Matricula;
+use App\Models\Player;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 
 class AgendaController extends Controller
 {
@@ -292,10 +294,10 @@ class AgendaController extends Controller
         ]);
 
         $teacher = auth()->user();
-
+        $grado = Grado::find($request->grade);
         // Obtener todas las matrículas activas del nivel y grado especificados
         $matriculas = Matricula::where('nivel', $request->level)
-            ->where('grado', $request->grade)
+            ->where('grado', $grado->numero)
             ->where('estado', 1)
             ->with('alumno', 'alumno.padres')
             ->get();
@@ -329,12 +331,14 @@ class AgendaController extends Controller
 
         // Enviar notificación a todos los padres (sin duplicados)
         $uniquePadresId = array_unique($allPadresId);
+        Log::info("Enviando notificaciones a padres con IDs: " . implode(', ', $uniquePadresId));
         if (!empty($uniquePadresId)) {
+            $nivel = $request->level == 'S' ? 'Secundaria' : 'Primaria';
             \App\Jobs\SendPushNotificationJob::dispatch(
                 array_values($uniquePadresId),
                 'parent',
                 'Nuevo mensaje en agenda',
-                "El profesor/a {$teacher->teacher->nombre_completo} ha escrito un mensaje en la agenda del grado {$request->grade}.",
+                "El profesor/a {$teacher->teacher->nombre_completo} ha escrito un mensaje en la agenda del grado {$grado->numero} .",
                 "https://app.iepdivinosalvador.net.pe/"
             );
         }

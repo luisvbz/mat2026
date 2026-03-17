@@ -46,6 +46,16 @@
     display: flex;
     gap: 0.5rem;
     overflow-x: auto;
+    position: sticky;
+    top: 15px;
+    z-index: 1000;
+}
+
+.tabs-nav-improved.is-scrollable {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .tabs-nav-improved .tab-btn {
@@ -213,6 +223,7 @@
 }
 
 @media (max-width: 768px) {
+
     .info-grid-2,
     .info-grid-3,
     .info-grid-4 {
@@ -408,13 +419,14 @@
         opacity: 0;
         transform: translateY(10px);
     }
+
     to {
         opacity: 1;
         transform: translateY(0);
     }
 }
 
-.tab-content-wrapper > div {
+.tab-content-wrapper>div {
     animation: fadeIn 0.3s ease;
 }
 

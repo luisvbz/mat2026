@@ -80,7 +80,7 @@ class AppointmentController extends Controller
             'created_by' => 'parent',
         ]);
 
-        $teacherEmail = $appointment->teacher->user->email ?? 'ing.luisvasquez89@gmail.com';
+        $teacherEmail = $appointment->teacher->email ?? 'ing.luisvasquez89@gmail.com';
         Mail::to($teacherEmail)->queue(new \App\Mail\NuevaCitaDocente($appointment));
 
         // Enviar notificación background job
@@ -279,6 +279,7 @@ class AppointmentController extends Controller
     public function teacherCreateDirect(Request $request)
     {
         $request->validate([
+            'studentId' => 'required|exists:matriculas,id',
             'parentId' => 'required|exists:padres,id',
             'date' => 'required|date',
             'time' => 'required',
@@ -299,6 +300,7 @@ class AppointmentController extends Controller
         // Verificar conflicto de horario
         $exists = Appointment::where('teacher_id', $teacher->id)
             ->where('status', 'confirmed')
+            ->where('student_id', '!=', $alumno->id)
             ->where('date', $request->date)
             ->where('time', $request->time)
             ->exists();

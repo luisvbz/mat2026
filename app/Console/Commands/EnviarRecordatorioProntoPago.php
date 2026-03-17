@@ -42,7 +42,7 @@ class EnviarRecordatorioProntoPago extends Command
         //$targetDate = Carbon::now()->addDays(3)->format('Y-m-d');
         $targetDate = date('Y-m-d');
 
-        $cronogramas = CronogramaPagos::whereDate('fecha_pronto_pago', $targetDate)->get();
+        $cronogramas = CronogramaPagos::whereDate('fecha_notificacion', $targetDate)->get();
 
         if ($cronogramas->isEmpty()) {
             $this->info('No hay fechas de pronto pago próximas.');
@@ -134,7 +134,8 @@ class EnviarRecordatorioProntoPago extends Command
 
 <ul>
     <li><strong>Concepto:</strong> {$concepto}</li>
-    <li><strong>Monto:</strong> S/. {$cronograma->pronto}</li>
+    <li><strong>Monto Original:</strong> S/. {$cronograma->costo}</li>
+    <li><strong>Monto de Pronto Pago:</strong> S/. {$cronograma->pronto}</li>
     <li><strong>Fecha de Pronto Pago:</strong> {$fechaProntoPago}</li>
     <li><strong>Fecha de Vencimiento:</strong> {$fechaVencimiento}</li>
 </ul>

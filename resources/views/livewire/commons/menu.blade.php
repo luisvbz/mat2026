@@ -10,15 +10,6 @@
             <li @click='goUrl("{{ route('dashboard.matriculas') }}")'
                 class="item-menu @if ($route == 'dashboard.matriculas') item-active @endif"><i
                     class="fas fa-graduation-cap"></i> Matriculas</li>
-            <li @click='goUrl("{{ route('dashboard.profesores') }}")'
-                class="item-menu @if ($route == 'dashboard.profesores') item-active @endif"><i
-                    class="fas fa-graduation-cap"></i> Profesores</li>
-            <li @click='goUrl("{{ route('dashboard.comunicados') }}")'
-                class="item-menu @if ($route == 'dashboard.comunicados') item-active @endif"><i class="fas fa-bullhorn"></i>
-                Comunicados</li>
-            <li @click='goUrl("{{ route('dashboard.eventos') }}")'
-                class="item-menu @if ($route == 'dashboard.eventos') item-active @endif"><i class="fas fa-calendar"></i>
-                Eventos</li>
             <li @click='goUrl("{{ route('dashboard.contabilidad') }}")'
                 class="item-menu @if ($route == 'dashboard.contabilidad') item-active @endif"><i class="fas fa-money-bill"></i>
                 Contabilidad</li>
@@ -28,12 +19,18 @@
             <li @click='goUrl("{{ route('asistencias.inasistentes') }}")'
                 class="item-menu @if ($route == 'asistencias.inasistentes') item-active @endif"><i
                     class="fas fa-calendar-day"></i> Inasistencias HOY</li>
-            <li @click='goUrl("{{ route('dashboard.solicitudes') }}")'
-                class="item-menu @if ($route == 'dashboard.solicitudes') item-active @endif"><i
-                    class="fas fa-clipboard-check"></i> Solicitudes de Documentos</li>
+            <li @click='goUrl("{{ route('dashboard.profesores') }}")'
+                class="item-menu @if ($route == 'dashboard.profesores') item-active @endif"><i
+                    class="fas fa-graduation-cap"></i> Profesores</li>
             <li @click='goUrl("{{ route('dashboard.citas') }}")'
                 class="item-menu @if ($route == 'dashboard.citas') item-active @endif"><i
                     class="fas fa-calendar-alt"></i> Citas</li>
+            <li @click='goUrl("{{ route('dashboard.comunicados') }}")'
+                class="item-menu @if ($route == 'dashboard.comunicados') item-active @endif"><i class="fas fa-bullhorn"></i>
+                Comunicados</li>
+            <li @click='goUrl("{{ route('dashboard.eventos') }}")'
+                class="item-menu @if ($route == 'dashboard.eventos') item-active @endif"><i class="fas fa-calendar"></i>
+                Eventos</li>
             <li @click='goUrl("{{ route('dashboard.recordatorios') }}")'
                 class="item-menu @if ($route == 'dashboard.recordatorios') item-active @endif"><i
                     class="fas fa-alarm-clock"></i> Recordatorios</li>
