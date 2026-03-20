@@ -59,6 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/comunicados', \App\Http\Livewire\Dashboard\Comunicados::class)->name('dashboard.comunicados')->middleware('role:Admin|Operador');
     Route::get('/comunicados/crear', \App\Http\Livewire\Dashboard\Comunicados\Crear::class)->name('dashboard.comunicados.crear')->middleware('role:Admin|Operador');
     Route::get('/comunicados/{id}/editar', \App\Http\Livewire\Dashboard\Comunicados\Editar::class)->name('dashboard.comunicados.editar')->middleware('role:Admin|Operador');
+    Route::get('/comunicados/{id}/stats', \App\Http\Livewire\Dashboard\Comunicados\Stats::class)->name('dashboard.comunicados.stats')->middleware('role:Admin|Operador');
 
     // Eventos
     Route::get('/eventos', \App\Http\Livewire\Dashboard\Eventos\Index::class)->name('dashboard.eventos')->middleware('role:Admin|Operador');

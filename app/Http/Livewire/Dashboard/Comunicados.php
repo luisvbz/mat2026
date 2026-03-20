@@ -15,8 +15,6 @@ class Comunicados extends Component
 
     // Modal states
     public $deleteConfirmId = null;
-    public $showStatsModal = false;
-    public $statsData = [];
 
     // Filters
     public $filterCategory = '';
@@ -148,29 +146,5 @@ class Comunicados extends Component
         }
     }
 
-    public function viewStats($id)
-    {
-        $communication = Communication::with(['reads.parentUser.padre'])->findOrFail($id);
 
-        $this->statsData = [
-            'title' => $communication->title,
-            'total_reads' => $communication->reads->count(),
-            'read_percentage' => $communication->read_percentage,
-            'reads' => $communication->reads->map(function ($read) {
-                return [
-                    'parent_name' => $read->parentUser->padre->nombres ?? 'N/A',
-                    'document' => $read->parentUser->document_number ?? 'N/A',
-                    'read_at' => $read->read_at->format('d/m/Y H:i'),
-                ];
-            })->toArray()
-        ];
-
-        $this->showStatsModal = true;
-    }
-
-    public function closeStatsModal()
-    {
-        $this->showStatsModal = false;
-        $this->statsData = [];
-    }
 }

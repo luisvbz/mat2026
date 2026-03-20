@@ -136,7 +136,7 @@
                                         </a>
                                     </div>
                                     <div class="items-option">
-                                        <a wire:click="viewStats({{ $communication->id }})">
+                                        <a href="{{ route('dashboard.comunicados.stats', $communication->id) }}">
                                             <i class="fas fa-chart-bar has-text-primary"></i> Ver Estadísticas
                                         </a>
                                     </div>
@@ -198,69 +198,5 @@
         </div>
     @endif
 
-    {{-- Statistics Modal --}}
-    @if ($showStatsModal)
-        <div class="modal is-active">
-            <div class="modal-background" wire:click="closeStatsModal"></div>
-            <div class="modal-card" style="width: 90%; max-width: 700px;">
-                <header class="modal-card-head has-background-info">
-                    <p class="modal-card-title has-text-white">
-                        <i class="fas fa-chart-bar"></i> Estadísticas de Lectura
-                    </p>
-                    <button class="delete" wire:click="closeStatsModal"></button>
-                </header>
-                <section class="modal-card-body">
-                    <h4 class="title is-5">{{ $statsData['title'] ?? '' }}</h4>
 
-                    <div class="columns">
-                        <div class="column">
-                            <div class="box has-background-info-light">
-                                <p class="heading">Total de Lecturas</p>
-                                <p class="title is-3">{{ $statsData['total_reads'] ?? 0 }}</p>
-                            </div>
-                        </div>
-                        <div class="column">
-                            <div class="box has-background-success-light">
-                                <p class="heading">Porcentaje Leído</p>
-                                <p class="title is-3">{{ $statsData['read_percentage'] ?? 0 }}%</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    @if (!empty($statsData['reads']))
-                        <div class="mt-4">
-                            <p class="has-text-weight-semibold mb-3">Padres que han leído:</p>
-                            <div class="table-container">
-                                <table class="table is-fullwidth is-striped is-hoverable">
-                                    <thead>
-                                        <tr>
-                                            <th>Padre/Madre</th>
-                                            <th>Documento</th>
-                                            <th>Fecha de Lectura</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach ($statsData['reads'] as $read)
-                                            <tr>
-                                                <td>{{ $read['parent_name'] }}</td>
-                                                <td>{{ $read['document'] }}</td>
-                                                <td>{{ $read['read_at'] }}</td>
-                                            </tr>
-                                        @endforeach
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    @else
-                        <div class="notification is-warning">
-                            <i class="fas fa-info-circle"></i> Aún no hay lecturas registradas para este comunicado.
-                        </div>
-                    @endif
-                </section>
-                <footer class="modal-card-foot">
-                    <button wire:click="closeStatsModal" class="button">Cerrar</button>
-                </footer>
-            </div>
-        </div>
-    @endif
 </div>
