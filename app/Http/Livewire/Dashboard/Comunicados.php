@@ -46,7 +46,7 @@ class Comunicados extends Component
         return view('livewire.dashboard.comunicados', [
             'communications' => $communications
         ])
-            ->extends('layouts.dashboard')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 

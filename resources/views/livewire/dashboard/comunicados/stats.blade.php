@@ -1,153 +1,202 @@
-<div class="content-dashboard">
+<div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
     {{-- Header --}}
-    <div class="content-dashboard-header">
-        <div>
-            <i class="fas fa-chart-bar"></i> Estadísticas: {{ $communication->title }}
+    <div class="sm:flex sm:justify-between sm:items-center mb-8">
+        <div class="mb-4 sm:mb-0">
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
+                <i class="fas fa-chart-bar text-colegio-600 mr-2"></i> Estadísticas: <span
+                    class="text-gray-500 font-normal">{{ $communication->title }}</span>
+            </h1>
         </div>
         <div>
-            <a href="{{ route('dashboard.comunicados') }}" class="button is-small">
-                <i class="fas fa-arrow-left mr-2"></i> Volver
+            <a href="{{ route('dashboard.comunicados') }}"
+                class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
+                <i class="fas fa-arrow-left mr-2"></i> Volver a Comunicados
             </a>
         </div>
     </div>
 
-    {{-- Cards --}}
-    <div class="columns mb-4">
-        <div class="column is-4">
-            <div class="box has-background-info-light">
-                <p class="heading">Total de Lecturas</p>
-                <p class="title is-3">{{ $communication->reads()->count() }}</p>
+    {{-- Info Cards --}}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 flex items-center p-6">
+            <div class="p-3 bg-blue-100 rounded-lg">
+                <i class="fas fa-users text-blue-600 text-2xl"></i>
+            </div>
+            <div class="ml-5">
+                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total de Lecturas</p>
+                <p class="text-3xl font-bold text-gray-900">{{ $communication->reads()->count() }}</p>
             </div>
         </div>
-        <div class="column is-4">
-            <div class="box has-background-success-light">
-                <p class="heading">Porcentaje Leído</p>
-                <p class="title is-3">{{ $communication->read_percentage ?? 0 }}%</p>
+        <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 flex items-center p-6">
+            <div class="p-3 bg-green-100 rounded-lg">
+                <i class="fas fa-percentage text-green-600 text-2xl"></i>
+            </div>
+            <div class="ml-5">
+                <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Porcentaje Leído</p>
+                <div class="flex items-center">
+                    <p class="text-3xl font-bold text-gray-900 mr-3">{{ $communication->read_percentage ?? 0 }}%</p>
+                    <div class="w-24 bg-gray-200 rounded-full h-2.5">
+                        <div class="bg-green-500 h-2.5 rounded-full"
+                            style="width: {{ $communication->read_percentage ?? 0 }}%"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
     {{-- Filters --}}
-    <div class="box-content content-dashboard-content mb-4">
-        <div class="columns is-multiline">
-            <div class="column is-3">
-                <label class="label">Buscar Alumno</label>
-                <div class="control has-icons-left">
-                    <input wire:model.debounce.500ms="searchStudent" class="input" type="text"
-                        placeholder="Nombre o apellido...">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user-graduate"></i>
-                    </span>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Buscar Alumno</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-user-graduate text-gray-400"></i>
+                    </div>
+                    <input wire:model.debounce.500ms="searchStudent" type="text"
+                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
+                        placeholder="Nombre o apellidos...">
                 </div>
             </div>
-            <div class="column is-3">
-                <label class="label">Buscar Padre/Madre</label>
-                <div class="control has-icons-left">
-                    <input wire:model.debounce.500ms="searchParent" class="input" type="text"
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Buscar Padre/Madre</label>
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <i class="fas fa-user text-gray-400"></i>
+                    </div>
+                    <input wire:model.debounce.500ms="searchParent" type="text"
+                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
                         placeholder="Nombre o DNI...">
-                    <span class="icon is-small is-left">
-                        <i class="fas fa-user"></i>
-                    </span>
                 </div>
             </div>
-            <div class="column is-2">
-                <label class="label">Nivel</label>
-                <div class="select is-fullwidth">
-                    <select wire:model="filterNivel">
-                        <option value="">Todos</option>
-                        <option value="P">Primaria</option>
-                        <option value="S">Secundaria</option>
-                    </select>
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Nivel</label>
+                <select wire:model="filterNivel"
+                    class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm">
+                    <option value="">Todos</option>
+                    <option value="I">Inicial</option>
+                    <option value="P">Primaria</option>
+                    <option value="S">Secundaria</option>
+                </select>
             </div>
-            <div class="column is-2">
-                <label class="label">Grado</label>
-                <div class="select is-fullwidth">
-                    <select wire:model="filterGrado">
-                        <option value="">Todos</option>
-                        <option value="1">1ro</option>
-                        <option value="2">2do</option>
-                        <option value="3">3ro</option>
-                        <option value="4">4to</option>
-                        <option value="5">5to</option>
-                        @if ($filterNivel == 'P')
-                            <option value="6">6to</option>
-                        @endif
-                    </select>
-                </div>
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">Grado</label>
+                <select wire:model="filterGrado"
+                    class="block w-full py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm">
+                    <option value="">Todos</option>
+                    <option value="1">1ro</option>
+                    <option value="2">2do</option>
+                    <option value="3">3ro</option>
+                    <option value="4">4to</option>
+                    <option value="5">5to</option>
+                    <option value="6">6to</option>
+                </select>
             </div>
-            <div class="column is-2 d-flex align-items-end" style="display: flex; align-items: flex-end;">
-                <button wire:click="resetFilters" class="button is-light is-fullwidth">
-                    <i class="fas fa-eraser mr-2"></i> Limpiar
+            <div class="flex items-end">
+                <button wire:click="resetFilters"
+                    class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-colegio-500 transition-colors">
+                    <i class="fas fa-eraser mr-2"></i> Limpiar Filtros
                 </button>
             </div>
         </div>
     </div>
 
-    {{-- Table --}}
-    <div class="box-content content-dashboard-content">
-        <table class="table is-fullwidth is-hoverable is-striped">
-            <thead>
-                <tr>
-                    <th>Padre/Madre</th>
-                    <th>Alumno</th>
-                    <th>Nivel</th>
-                    <th>Grado</th>
-                    <th>Fecha de Lectura</th>
-                </tr>
-            </thead>
-            <tbody>
-                @forelse($reads as $read)
+    {{-- Detail Table --}}
+    <div class="bg-white shadow-sm rounded-xl border border-gray-100 overflow-hidden">
+        <div class="overflow-x-auto">
+            <table class="min-w-full divide-y divide-gray-200">
+                <thead class="bg-gray-50">
                     <tr>
-                        <td>
-                            @if ($read->parent_nombres)
-                                {{ ucwords(strtolower($read->parent_nombres)) }}
-                                {{ ucwords(strtolower($read->parent_apellidos)) }}
-                            @else
-                                <span class="has-text-grey-light">N/A</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($read->student_nombres)
-                                {{ mb_strtoupper($read->student_paterno, 'UTF-8') }}
-                                {{ mb_strtoupper($read->student_materno, 'UTF-8') }},
-                                {{ mb_convert_case($read->student_nombres, MB_CASE_TITLE, 'UTF-8') }}
-                            @else
-                                <span class="has-text-grey-light">N/A</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($read->nivel == 'P')
-                                Primaria
-                            @elseif($read->nivel == 'S')
-                                Secundaria
-                            @else
-                                <span class="has-text-grey-light">-</span>
-                            @endif
-                        </td>
-                        <td>
-                            @if ($read->grado)
-                                {{ $read->grado }}°
-                            @else
-                                <span class="has-text-grey-light">-</span>
-                            @endif
-                        </td>
-                        <td>
-                            {{ \Carbon\Carbon::parse($read->read_at)->format('d/m/Y H:i') }}
-                        </td>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Padre/Madre</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Documento</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Alumno</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nivel / Grado</th>
+                        <th scope="col"
+                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha
+                            de Lectura</th>
                     </tr>
-                @empty
-                    <tr>
-                        <td colspan="6" class="has-text-centered has-text-grey py-5">
-                            <i class="fas fa-search fa-3x mb-3"></i>
-                            <p>No se encontraron registros de lectura</p>
-                        </td>
-                    </tr>
-                @endforelse
-            </tbody>
-        </table>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    @forelse($reads as $read)
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                @if ($read->parent_nombres)
+                                    <div class="flex items-center">
+                                        <div
+                                            class="flex-shrink-0 h-8 w-8 rounded-full bg-colegio-100 flex items-center justify-center text-colegio-700 font-bold text-xs uppercase">
+                                            {{ substr($read->parent_nombres, 0, 1) }}{{ substr($read->parent_apellidos, 0, 1) }}
+                                        </div>
+                                        <div class="ml-3">
+                                            {{ ucwords(strtolower($read->parent_nombres)) }}
+                                            {{ ucwords(strtolower($read->parent_apellidos)) }}
+                                        </div>
+                                    </div>
+                                @else
+                                    <span class="text-gray-400">N/A</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $read->document }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                @if ($read->student_nombres)
+                                    <span class="font-medium">{{ mb_strtoupper($read->student_paterno, 'UTF-8') }}
+                                        {{ mb_strtoupper($read->student_materno, 'UTF-8') }}</span>,
+                                    <span
+                                        class="text-gray-600">{{ mb_convert_case($read->student_nombres, MB_CASE_TITLE, 'UTF-8') }}</span>
+                                @else
+                                    <span class="text-gray-400">N/A</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-center">
+                                @php
+                                    $nivelesStr = [
+                                        'I' => 'Inicial',
+                                        'P' => 'Primaria',
+                                        'S' => 'Secundaria',
+                                    ];
+                                    $nivelStr = $nivelesStr[$read->nivel] ?? '-';
+                                    $gradoStr = $read->grado ? $read->grado . '°' : '-';
+                                @endphp
 
-        <div class="mt-4">
+                                @if ($nivelStr != '-')
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                        {{ $nivelStr }} - {{ $gradoStr }}
+                                    </span>
+                                @else
+                                    <span class="text-gray-400">-</span>
+                                @endif
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ \Carbon\Carbon::parse($read->read_at)->format('d/m/Y H:i') }}
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5" class="px-6 py-12 text-center">
+                                <div
+                                    class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4">
+                                    <i class="fas fa-search text-2xl text-gray-400"></i>
+                                </div>
+                                <h3 class="text-lg font-medium text-gray-900">Sin resultados</h3>
+                                <p class="mt-1 text-sm text-gray-500">No se encontraron lecturas que coincidan con los
+                                    filtros aplicados.</p>
+                            </td>
+                        </tr>
+                    @endforelse
+                </tbody>
+            </table>
+        </div>
+
+        <div class="px-6 py-4 border-t border-gray-100">
             {{ $reads->links() }}
         </div>
     </div>

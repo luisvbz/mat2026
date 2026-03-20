@@ -105,6 +105,6 @@ class Stats extends Component
 
         return view('livewire.dashboard.comunicados.stats', [
             'reads' => $reads
-        ])->extends('layouts.dashboard')->section('content');
+        ])->extends('layouts.tailwind')->section('content');
     }
 }
