@@ -25,10 +25,7 @@ class Index extends Component
 
     protected $listeners = ['confirm:pago-matricula' => 'confirmPagoMatricula', 'anular:pago-matricula' => 'anularPagoMatricula'];
 
-    public function paginationView()
-    {
-        return 'bulma-pagination';
-    }
+    protected $paginationTheme = 'tailwind';
 
     public function buscar()
     {
@@ -166,7 +163,7 @@ class Index extends Component
             'confirmados' => $totalConfirmados,
             'anulados' => $totalAnulados
         ])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

@@ -14,7 +14,7 @@
             </div>
             <div
                 class="bg-gradient-to-tr from-colegio-500 to-colegio-400 text-white w-10 h-10 rounded-xl shadow flex items-center justify-center font-bold relative overflow-hidden ring-2 ring-white">
-                <i class="fas fa-user"></i>
+                <i class="ph ph-user text-xl"></i>
             </div>
         </div>
     </div>

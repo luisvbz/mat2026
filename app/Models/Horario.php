@@ -11,6 +11,10 @@ class Horario extends Model
 
     protected $table = "schedules";
 
+    public $timestamps = false;
+
+    protected $guarded = [];
+
 
     public function dias()
     {

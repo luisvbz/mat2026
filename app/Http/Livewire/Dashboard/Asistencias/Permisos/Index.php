@@ -62,7 +62,7 @@ class Index extends Component
             ->paginate(50);
 
         return view('livewire.dashboard.asistencias.permisos.index', ['permisos' => $permisos])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

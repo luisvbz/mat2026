@@ -17,7 +17,7 @@ class Cronograma extends Component
     public function render()
     {
         return view('livewire.dashboard.contabilidad.cronograma')
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

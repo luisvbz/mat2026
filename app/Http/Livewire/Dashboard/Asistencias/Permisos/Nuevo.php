@@ -197,7 +197,7 @@ class Nuevo extends Component
     public function render()
     {
         return view('livewire.dashboard.asistencias.permisos.nuevo')
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

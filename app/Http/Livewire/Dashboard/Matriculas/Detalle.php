@@ -428,7 +428,7 @@ class Detalle extends Component
     public function render()
     {
         return view('livewire.dashboard.matriculas.detalle')
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

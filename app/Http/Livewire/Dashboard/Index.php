@@ -48,7 +48,7 @@ class Index extends Component
         }
 
         return view('livewire.dashboard.index', ['primaria' => $primaria, 'secundaria' => $secundaria])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

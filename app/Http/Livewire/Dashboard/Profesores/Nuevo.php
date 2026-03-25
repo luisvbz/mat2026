@@ -56,7 +56,7 @@ class Nuevo extends Component
     {
         $horarios = Horario::all();
         return view('livewire.dashboard.profesores.nuevo', ['horarios' => $horarios])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

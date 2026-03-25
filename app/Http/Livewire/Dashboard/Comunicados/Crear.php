@@ -44,7 +44,7 @@ class Crear extends Component
     public function render()
     {
         return view('livewire.dashboard.comunicados.crear')
-            ->extends('layouts.dashboard')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 

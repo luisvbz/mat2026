@@ -112,7 +112,7 @@ class Horarios extends Component
     {
         $horarios = Horario::with('dias')->get();
         return view('livewire.dashboard.profesores.horarios', ['horarios' => $horarios])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

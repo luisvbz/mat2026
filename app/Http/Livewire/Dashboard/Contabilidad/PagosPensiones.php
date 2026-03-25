@@ -31,10 +31,7 @@ class PagosPensiones extends Component
         'confirm:todas' => 'confirmarTodas'
     ];
 
-    public function paginationView()
-    {
-        return 'bulma-pagination';
-    }
+    protected $paginationTheme = 'tailwind';
 
     public function buscar()
     {
@@ -203,7 +200,7 @@ class PagosPensiones extends Component
             'confirmados' => $totalConfirmados,
             'anulados' => $totalAnulados
         ])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

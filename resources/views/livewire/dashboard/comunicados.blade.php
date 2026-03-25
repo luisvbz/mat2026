@@ -18,15 +18,15 @@
     {{-- Header --}}
     <div class="sm:flex sm:justify-between sm:items-center mb-8">
         <div class="mb-4 sm:mb-0">
-            <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
-                <i class="fas fa-bullhorn text-colegio-600 mr-2"></i> Comunicados
+            <h1 class="text-2xl md:text-3xl font-bold text-gray-800 flex items-center">
+                <i class="ph ph-megaphone text-colegio-600 mr-3 text-3xl"></i> Comunicados
             </h1>
         </div>
 
         <div class="flex items-center space-x-3">
             <button wire:click="create"
                 class="inline-flex items-center px-4 py-2 bg-colegio-600 border border-transparent rounded-lg font-semibold text-white shadow-sm hover:bg-colegio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-colegio-500 transition-colors">
-                <i class="fas fa-plus mr-2"></i> Nuevo Comunicado
+                <i class="ph ph-plus mr-2 font-bold"></i> Nuevo Comunicado
             </button>
         </div>
     </div>
@@ -37,7 +37,7 @@
             <div class="md:col-span-6">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fas fa-search text-gray-400"></i>
+                        <i class="ph ph-magnifying-glass text-gray-400"></i>
                     </div>
                     <input wire:model.debounce.500ms="search" type="text"
                         class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
@@ -107,12 +107,12 @@
                                 @if ($communication->is_published)
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                        <i class="fas fa-check-circle mr-1"></i> Publicado
+                                        <i class="ph ph-check-circle mr-1 text-base"></i> Publicado
                                     </span>
                                 @else
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
-                                        <i class="fas fa-clock mr-1"></i> Borrador
+                                        <i class="ph ph-clock mr-1 text-base"></i> Borrador
                                     </span>
                                 @endif
                             </td>
@@ -141,7 +141,8 @@
                                 @if ($communication->attachments->count() > 0)
                                     <span
                                         class="inline-flex items-center justify-center bg-blue-50 text-blue-600 rounded-md px-2 py-1 text-xs font-semibold">
-                                        <i class="fas fa-paperclip mr-1"></i> {{ $communication->attachments->count() }}
+                                        <i class="ph ph-paperclip mr-1 text-base"></i>
+                                        {{ $communication->attachments->count() }}
                                     </span>
                                 @else
                                     <span class="text-gray-400">-</span>
@@ -157,7 +158,7 @@
                                 <div class="relative inline-block text-left" x-data="{ open: false }">
                                     <button @click="open = !open" @click.away="open = false"
                                         class="text-gray-400 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors">
-                                        <i class="fas fa-ellipsis-v"></i>
+                                        <i class="ph ph-dots-three-vertical text-xl"></i>
                                     </button>
 
                                     <div x-show="open" x-transition.opacity
@@ -165,24 +166,28 @@
                                         <div class="py-1" role="menu">
                                             <button wire:click="edit({{ $communication->id }})"
                                                 class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
-                                                <i class="fas fa-edit w-5 text-blue-500"></i> Editar
+                                                <i class="ph ph-pencil-simple w-5 text-blue-500 text-lg mr-2"></i>
+                                                Editar
                                             </button>
                                             <a href="{{ route('dashboard.comunicados.stats', $communication->id) }}"
-                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
-                                                <i class="fas fa-chart-bar w-5 text-green-500"></i> Estadísticas
+                                                class="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
+                                                <i class="ph ph-chart-bar w-5 text-green-500 text-lg mr-2"></i>
+                                                Estadísticas
                                             </a>
                                             <button wire:click="togglePublish({{ $communication->id }})"
                                                 class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center">
                                                 @if ($communication->is_published)
-                                                    <i class="fas fa-eye-slash w-5 text-yellow-500"></i> Despublicar
+                                                    <i class="ph ph-eye-slash w-5 text-yellow-500 text-lg mr-2"></i>
+                                                    Despublicar
                                                 @else
-                                                    <i class="fas fa-eye w-5 text-colegio-500"></i> Publicar
+                                                    <i class="ph ph-eye w-5 text-colegio-500 text-lg mr-2"></i>
+                                                    Publicar
                                                 @endif
                                             </button>
-                                            <div class="border-t border-gray-100"></div>
+                                            <div class="border-t border-gray-100 my-1"></div>
                                             <button wire:click="confirmDelete({{ $communication->id }})"
                                                 class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center">
-                                                <i class="fas fa-trash w-5 text-red-500"></i> Eliminar
+                                                <i class="ph ph-trash w-5 text-red-500 text-lg mr-2"></i> Eliminar
                                             </button>
                                         </div>
                                     </div>
@@ -194,7 +199,7 @@
                             <td colspan="7" class="px-6 py-12 text-center">
                                 <div
                                     class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                                    <i class="fas fa-inbox text-2xl text-gray-400"></i>
+                                    <i class="ph ph-tray text-3xl text-gray-400"></i>
                                 </div>
                                 <h3 class="text-lg font-medium text-gray-900">No hay comunicados</h3>
                                 <p class="mt-1 text-sm text-gray-500">Aún no se ha creado ningún comunicado o ninguno
@@ -221,7 +226,7 @@
                         <div class="sm:flex sm:items-start">
                             <div
                                 class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
-                                <i class="fas fa-exclamation-triangle text-red-600"></i>
+                                <i class="ph ph-warning text-red-600 text-2xl"></i>
                             </div>
                             <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">

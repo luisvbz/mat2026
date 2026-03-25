@@ -105,7 +105,7 @@ class Detalle extends Component
             'appointments' => $appointments,
             'messages' => $messages,
         ])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

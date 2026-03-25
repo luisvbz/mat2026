@@ -127,7 +127,7 @@ class Editar extends Component
     public function render()
     {
         return view('livewire.dashboard.asistencias.personal.permisos.editar')
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

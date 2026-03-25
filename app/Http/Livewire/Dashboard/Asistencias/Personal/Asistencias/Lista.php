@@ -107,29 +107,33 @@ class Lista extends Component
             ->where('estado', 1)
             ->get()
             ->transform(function ($t) use ($dia) {
-                $diaTrabajo = $t->horario->dias->where('day_number', $dia->format('N'))->first();
-                $t->asistencia = null;
-                $t->tipo = null;
-                if (is_null($diaTrabajo)) {
+                if (is_null($t->horario)) {
                     $t->tipo = AsistenciaProfesor::NO_LABORABLE;
                 } else {
-                    if ($diaTrabajo && $diaTrabajo->active) {
-                        $asistencia = $t->asistencias()->where('dia', $this->date)->first();
-                        if ($asistencia) {
-                            $t->asistencia = $asistencia;
-                            $t->tipo = $asistencia->tipo;
-                        } else {
-                            $t->tipo = AsistenciaProfesor::FALTA_INJUSTIFICADA;
-                        }
-                    } else {
+                    $diaTrabajo = $t->horario->dias->where('day_number', $dia->format('N'))->first();
+                    $t->asistencia = null;
+                    $t->tipo = null;
+                    if (is_null($diaTrabajo)) {
                         $t->tipo = AsistenciaProfesor::NO_LABORABLE;
+                    } else {
+                        if ($diaTrabajo && $diaTrabajo->active) {
+                            $asistencia = $t->asistencias()->where('dia', $this->date)->first();
+                            if ($asistencia) {
+                                $t->asistencia = $asistencia;
+                                $t->tipo = $asistencia->tipo;
+                            } else {
+                                $t->tipo = AsistenciaProfesor::FALTA_INJUSTIFICADA;
+                            }
+                        } else {
+                            $t->tipo = AsistenciaProfesor::NO_LABORABLE;
+                        }
                     }
                 }
                 return $t;
             });
 
         return view('livewire.dashboard.asistencias.personal.asistencias.lista', ['profesores' => $profesores])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

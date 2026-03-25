@@ -8,6 +8,8 @@ class Edita extends Component
 {
     public function render()
     {
-        return view('livewire.dashboard.asistencias.permisos.edita');
+        return view('livewire.dashboard.asistencias.permisos.edita')
+            ->extends('layouts.tailwind')
+            ->section('content');
     }
 }

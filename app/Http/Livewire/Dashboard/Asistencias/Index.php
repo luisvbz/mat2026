@@ -493,7 +493,7 @@ class Index extends Component
     public function render()
     {
         return view('livewire.dashboard.asistencias.index')
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

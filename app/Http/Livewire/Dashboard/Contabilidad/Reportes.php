@@ -289,7 +289,7 @@ class Reportes extends Component
     public function render()
     {
         return view('livewire.dashboard.contabilidad.reportes')
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

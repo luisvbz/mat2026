@@ -12,7 +12,7 @@ class Index extends Component
 
     public $search = '';
 
-    protected $paginationTheme = 'bootstrap';
+    protected $paginationTheme = 'tailwind';
 
     public function updatingSearch()
     {
@@ -30,7 +30,7 @@ class Index extends Component
         return view('livewire.dashboard.eventos.index', [
             'events' => $events
         ])
-        ->extends('layouts.dashboard')
+        ->extends('layouts.tailwind')
         ->section('content');
     }
 

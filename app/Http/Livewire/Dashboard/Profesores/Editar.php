@@ -68,7 +68,7 @@ class Editar extends Component
     {
         $horarios = Horario::all();
         return view('livewire.dashboard.profesores.editar', ['horarios' => $horarios])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

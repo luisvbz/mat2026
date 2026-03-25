@@ -13,6 +13,8 @@ class Index extends Component
 {
     use WithPagination;
 
+    protected $paginationTheme = 'tailwind';
+
     public $nivel = '';
     public $grado = '';
     public $teacher_id = '';
@@ -167,7 +169,7 @@ class Index extends Component
             'appointments' => $appointments,
             'teachers' => $teachers,
         ])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

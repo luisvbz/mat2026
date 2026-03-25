@@ -45,8 +45,8 @@
     </script>
 
     <!-- Icons & Third-party CSS -->
-    <link rel="stylesheet" href="{{ asset('fontawesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.css" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <link rel="stylesheet" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
 
     @stack('css')
@@ -94,15 +94,14 @@
     <livewire:scripts />
     <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <script src="{{ asset('js/globals.js') }}"></script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
-
-    <!-- SweetAlert Handlers -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const SwalModal = (icon, title, html) => {
             Swal.fire({
                 icon,
                 title,
-                html
+                html,
+                confirmButtonColor: '#6E211F'
             })
         }
 
@@ -112,11 +111,13 @@
                 position: 'top-end',
                 showConfirmButton: false,
                 timer: timeout,
-                onOpen: toast => {
+                timerProgressBar: true,
+                didOpen: (toast) => {
                     toast.addEventListener('mouseenter', Swal.stopTimer)
                     toast.addEventListener('mouseleave', Swal.resumeTimer)
                 }
             });
+
             Toast.fire({
                 icon,
                 title
@@ -124,8 +125,33 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            Livewire.on('swal:modal', data => SwalModal(data.icon, data.title, data.text));
-            Livewire.on('swal:alert', data => SwalAlert(data.icon, data.title, data.timeout));
+            Livewire.on('swal:modal', data => {
+                SwalModal(data.icon, data.title, data.text)
+            });
+
+            Livewire.on('swal:alert', data => {
+                SwalAlert(data.icon, data.title, data.timeout)
+            });
+
+            Livewire.on('swal:confirm', data => {
+                Swal.fire({
+                    title: data.title,
+                    text: data.text,
+                    icon: data.type,
+                    showCancelButton: true,
+                    confirmButtonColor: '#6E211F',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: data.confirmText,
+                    cancelButtonText: 'Cancelar',
+                    reverseButtons: true
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        Livewire.emit(data.method, data.params);
+                    } else if (data.callback) {
+                        Livewire.emit(data.callback);
+                    }
+                })
+            });
         })
     </script>
     @stack('scripts')

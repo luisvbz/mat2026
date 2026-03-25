@@ -43,7 +43,7 @@ class Editar extends Component
     public function render()
     {
         return view('livewire.dashboard.eventos.editar')
-            ->extends('layouts.dashboard')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 

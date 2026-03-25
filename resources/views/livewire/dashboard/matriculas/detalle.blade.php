@@ -1,4 +1,4 @@
-<div class="content-dashboard" x-data="{
+<div class="p-6 max-w-7xl mx-auto space-y-6" x-data="{
     activeTab: 'estudiante',
     copiar(text) {
         Copy(text);
@@ -7,35 +7,40 @@
 }">
 
     {{-- Header --}}
-    <div class="content-dashboard-header">
-        <div>
-            <i class="fas fa-graduation-cap"></i> Detalle Matrícula: {{ $matricula->codigo }}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex justify-between items-center">
+        <div class="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <i class="ph ph-graduation-cap text-colegio-600 text-2xl"></i>
+            Detalle Matrícula: {{ $matricula->codigo }}
             @if ($matricula->numero_matricula != null)
-                <span class="has-text-lighter">#{{ $matricula->numero_matricula }}</span>
+                <span class="text-gray-400 font-normal text-lg">#{{ $matricula->numero_matricula }}</span>
             @endif
         </div>
         <div>{!! $matricula->status !!}</div>
     </div>
 
     {{-- Quick Info Card --}}
-    <div class="mb-4 quick-info-card">
-        <div class="columns is-vcentered">
-            <div class="column is-narrow has-text-centered">
-                <img src="{{ $matricula->alumno->foto }}" class="student-avatar">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+        <div class="flex flex-col md:flex-row items-center gap-6">
+            <div class="flex-shrink-0">
+                <img src="{{ $matricula->alumno->foto }}"
+                    class="w-24 h-24 rounded-full object-cover border-4 border-gray-50 shadow-sm">
             </div>
-            <div class="column">
-                <div class="student-name">{{ $matricula->alumno->nombre_completo }}</div>
-                <div class="info-badges">
-                    <span class="mr-2 tag">
-                        <i class="mr-1 fas fa-id-card"></i>
+            <div class="flex-1 text-center md:text-left">
+                <h2 class="text-2xl font-bold text-gray-800 mb-2">{{ $matricula->alumno->nombre_completo }}</h2>
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-3">
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-50 text-blue-700">
+                        <i class="ph ph-identification-card mr-1.5"></i>
                         {{ $matricula->alumno->tipo_documento }}: {{ $matricula->alumno->numero_documento }}
                     </span>
-                    <span class="mr-2 tag">
-                        <i class="mr-1 fas fa-birthday-cake"></i>
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-purple-50 text-purple-700">
+                        <i class="ph ph-cake mr-1.5"></i>
                         {{ $matricula->alumno->edad }} años
                     </span>
-                    <span class="tag">
-                        <i class="mr-1 fas fa-school"></i>
+                    <span
+                        class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-colegio-50 text-colegio-700">
+                        <i class="ph ph-student mr-1.5"></i>
                         {{ $matricula->nivel == 'P' ? 'PRIMARIA' : 'SECUNDARIA' }} - {{ $matricula->grado }}°
                     </span>
                 </div>
@@ -44,331 +49,323 @@
     </div>
 
     {{-- Tabs Navigation --}}
-    <div class="tabs-nav-improved">
-        <button @click="activeTab = 'estudiante'" class="tab-btn" :class="{ 'active': activeTab === 'estudiante' }">
-            <i class="fas fa-user-graduate"></i>
-            <span>Estudiante</span>
-        </button>
-        <button @click="activeTab = 'padres'" class="tab-btn" :class="{ 'active': activeTab === 'padres' }">
-            <i class="fas fa-users"></i>
-            <span>Padres</span>
-        </button>
-        <button @click="activeTab = 'apoderados'" class="tab-btn" :class="{ 'active': activeTab === 'apoderados' }">
-            <i class="fas fa-user-tie"></i>
-            <span>Apoderados</span>
-        </button>
-        <button @click="activeTab = 'responsable_economico'" class="tab-btn"
-            :class="{ 'active': activeTab === 'responsable_economico' }">
-            <i class="fas fa-wallet"></i>
-            <span>Resp. Económico</span>
-        </button>
-        <button @click="activeTab = 'pagos'" class="tab-btn" :class="{ 'active': activeTab === 'pagos' }">
-            <i class="fas fa-money-bill-wave"></i>
-            <span>Pagos</span>
-        </button>
-        <button @click="activeTab = 'horario'" class="tab-btn" :class="{ 'active': activeTab === 'horario' }">
-            <i class="fas fa-clock"></i>
-            <span>Horario</span>
-        </button>
-        <button @click="activeTab = 'usuarios'" class="tab-btn" :class="{ 'active': activeTab === 'usuarios' }">
-            <i class="fas fa-user-shield"></i>
-            <span>Usuarios</span>
-        </button>
+    <div class="flex gap-2 overflow-x-auto border-b border-gray-200 sticky top-0 z-10 bg-gray-50">
+        @php
+            $tabs = [
+                ['id' => 'estudiante', 'icon' => 'ph-student', 'label' => 'Estudiante'],
+                ['id' => 'padres', 'icon' => 'ph-users-three', 'label' => 'Padres'],
+                ['id' => 'apoderados', 'icon' => 'ph-user-focus', 'label' => 'Apoderados'],
+                ['id' => 'responsable_economico', 'icon' => 'ph-wallet', 'label' => 'Resp. Económico'],
+                ['id' => 'pagos', 'icon' => 'ph-money', 'label' => 'Pagos'],
+                ['id' => 'horario', 'icon' => 'ph-clock', 'label' => 'Horario'],
+                ['id' => 'usuarios', 'icon' => 'ph-shield-check', 'label' => 'Usuarios'],
+            ];
+        @endphp
+        @foreach ($tabs as $tab)
+            <button @click="activeTab = '{{ $tab['id'] }}'"
+                class="px-5 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center gap-2 border-b-2 whitespace-nowrap"
+                :class="activeTab === '{{ $tab['id'] }}' ? 'border-colegio-500 text-colegio-600 bg-white' :
+                    'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300'">
+                <i class="ph {{ $tab['icon'] }} text-lg"></i>
+                <span>{{ $tab['label'] }}</span>
+            </button>
+        @endforeach
     </div>
 
-    {{-- Tab Content --}}
-    <div class="tab-content-wrapper">
+    {{-- Tab Content Container --}}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 min-h-[400px]">
+
         {{-- Tab: Estudiante --}}
-        <div x-show="activeTab === 'estudiante'">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="fas fa-user-graduate"></i>
+        <div x-show="activeTab === 'estudiante'" x-cloak>
+            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                <div class="flex items-center gap-2 text-lg font-bold text-gray-800">
+                    <i class="ph ph-student text-colegio-500"></i>
                     <span>Información del Estudiante</span>
                 </div>
                 @if (!$editMode)
-                    <button wire:click="toggleEditMode" class="btn-edit">
-                        <i class="fas fa-edit"></i> Editar
+                    <button wire:click="toggleEditMode"
+                        class="inline-flex items-center px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-100 transition-colors">
+                        <i class="ph ph-pencil-simple mr-2"></i> Editar
                     </button>
                 @else
-                    <button wire:click="cancelEdit" class="btn-cancel">
-                        <i class="fas fa-times"></i> Cancelar
+                    <button wire:click="cancelEdit"
+                        class="inline-flex items-center px-4 py-2 bg-red-50 border border-red-200 rounded-lg text-sm font-medium text-red-700 hover:bg-red-100 transition-colors">
+                        <i class="ph ph-x mr-2"></i> Cancelar
                     </button>
                 @endif
             </div>
 
             @if (!$editMode)
-                {{-- Vista de solo lectura --}}
-                <div class="info-section">
-                    <div class="info-section-title">
-                        <i class="fas fa-id-card"></i>
-                        <span>Datos Personales</span>
-                    </div>
-                    <table class="info-table">
-                        <tbody>
-                            <tr>
-                                <td>Tipo de Documento</td>
-                                <td>{{ $matricula->alumno->tipo_documento }}</td>
-                            </tr>
-                            <tr>
-                                <td>Número de Documento</td>
-                                <td>
+                {{-- Read Only View --}}
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {{-- Datos Personales --}}
+                    <div>
+                        <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                            <i class="ph ph-identification-card text-gray-500"></i> Datos Personales
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Tipo de Documento</span>
+                                <span class="font-medium text-gray-800">{{ $matricula->alumno->tipo_documento }}</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Número de Documento</span>
+                                <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->numero_documento }}
-                                    <a class="copy-btn" @click="copiar('{{ $matricula->alumno->numero_documento }}')">
-                                        <i class="fa fa-copy"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Nombres Completos</td>
-                                <td>
+                                    <button @click="copiar('{{ $matricula->alumno->numero_documento }}')"
+                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Nombres Completos</span>
+                                <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->nombre_completo }}
-                                    <a class="copy-btn" @click="copiar('{{ $matricula->alumno->nombre_completo }}')">
-                                        <i class="fa fa-copy"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Fecha de Nacimiento</td>
-                                <td>{{ $matricula->alumno->fecha_nacimiento | dateFormat }}
-                                    ({{ $matricula->alumno->edad }} años)</td>
-                            </tr>
-                            <tr>
-                                <td>Género</td>
-                                <td>{{ $matricula->alumno->genero == 'M' ? 'Masculino' : 'Femenino' }}</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="info-section">
-                    <div class="info-section-title">
-                        <i class="fas fa-phone"></i>
-                        <span>Datos de Contacto</span>
+                                    <button @click="copiar('{{ $matricula->alumno->nombre_completo }}')"
+                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Fecha de Nacimiento</span>
+                                <span
+                                    class="font-medium text-gray-800">{{ $matricula->alumno->fecha_nacimiento | dateFormat }}
+                                    ({{ $matricula->alumno->edad }} años)</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Género</span>
+                                <span
+                                    class="font-medium text-gray-800">{{ $matricula->alumno->genero == 'M' ? 'Masculino' : 'Femenino' }}</span>
+                            </div>
+                        </div>
                     </div>
-                    <table class="info-table">
-                        <tbody>
-                            <tr>
-                                <td>Celular</td>
-                                <td>
+
+                    {{-- Datos de Contacto --}}
+                    <div>
+                        <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                            <i class="ph ph-phone text-gray-500"></i> Datos de Contacto
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Celular</span>
+                                <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->celular }}
-                                    <a class="copy-btn" @click="copiar('{{ $matricula->alumno->celular }}')">
-                                        <i class="fa fa-copy"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Teléfono de Emergencia</td>
-                                <td>
+                                    <button @click="copiar('{{ $matricula->alumno->celular }}')"
+                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Teléfono de Emergencia</span>
+                                <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->telefono_emergencia }}
-                                    <a class="copy-btn"
-                                        @click="copiar('{{ $matricula->alumno->telefono_emergencia }}')">
-                                        <i class="fa fa-copy"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Correo Electrónico</td>
-                                <td>
+                                    <button @click="copiar('{{ $matricula->alumno->telefono_emergencia }}')"
+                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Correo Electrónico</span>
+                                <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ strtolower($matricula->alumno->correo) }}
-                                    <a class="copy-btn"
-                                        @click="copiar('{{ strtolower($matricula->alumno->correo) }}')">
-                                        <i class="fa fa-copy"></i>
-                                    </a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="info-section">
-                    <div class="info-section-title">
-                        <i class="fas fa-map-marked-alt"></i>
-                        <span>Datos de Ubicación</span>
+                                    <button @click="copiar('{{ strtolower($matricula->alumno->correo) }}')"
+                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <table class="info-table">
-                        <tbody>
-                            <tr>
-                                <td>Dirección</td>
-                                <td>{{ $matricula->alumno->domicilio }}</td>
-                            </tr>
-                            <tr>
-                                <td>Ubicación</td>
-                                <td>
-                                    {{ $matricula->alumno->departamento->nombre }},
-                                    {{ $matricula->alumno->provincia->nombre }},
-                                    {{ $matricula->alumno->distrito->nombre }}
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
 
-                <div class="info-section">
-                    <div class="info-section-title">
-                        <i class="fas fa-graduation-cap"></i>
-                        <span>Datos Académicos y Religiosos</span>
+                    {{-- Datos de Ubicación --}}
+                    <div>
+                        <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                            <i class="ph ph-map-pin text-gray-500"></i> Datos de Ubicación
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Dirección</span>
+                                <span class="font-medium text-gray-800">{{ $matricula->alumno->domicilio }}</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Lugar</span>
+                                <span class="font-medium text-gray-800">
+                                    {{ $matricula->alumno->departamento->nombre ?? '' }},
+                                    {{ $matricula->alumno->provincia->nombre ?? '' }},
+                                    {{ $matricula->alumno->distrito->nombre ?? '' }}
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                    <table class="info-table">
-                        <tbody>
-                            <tr>
-                                <td>Colegio de Procedencia</td>
-                                <td>{{ $matricula->alumno->colegio_procedencia }}</td>
-                            </tr>
-                            <tr>
-                                <td>Religión</td>
-                                <td>{{ $matricula->alumno->religion ?? 'N/A' }}</td>
-                            </tr>
-                            <tr>
-                                <td>Exonerado de Religión</td>
-                                <td>
+
+                    {{-- Datos Académicos --}}
+                    <div>
+                        <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                            <i class="ph ph-books text-gray-500"></i> Datos Académicos y Religiosos
+                        </h3>
+                        <div class="space-y-3 text-sm">
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Colegio de Procedencia</span>
+                                <span
+                                    class="font-medium text-gray-800">{{ $matricula->alumno->colegio_procedencia }}</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Religión</span>
+                                <span
+                                    class="font-medium text-gray-800">{{ $matricula->alumno->religion ?? 'N/A' }}</span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Exonerado de Religión</span>
+                                <span class="font-medium">
                                     <span
-                                        class="tag-improved {{ $matricula->alumno->exonerado_religion ? 'success' : 'light' }}">
+                                        class="px-2 py-1 rounded text-xs {{ $matricula->alumno->exonerado_religion ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
                                         {{ $matricula->alumno->exonerado_religion ? 'Sí' : 'No' }}
                                     </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Bautizado</td>
-                                <td>
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Bautizado</span>
+                                <span class="font-medium">
                                     <span
-                                        class="tag-improved {{ $matricula->alumno->bautizado ? 'success' : 'light' }}">
+                                        class="px-2 py-1 rounded text-xs {{ $matricula->alumno->bautizado ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
                                         {{ $matricula->alumno->bautizado ? 'Sí' : 'No' }}
                                     </span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Primera Comunión</td>
-                                <td>
+                                </span>
+                            </div>
+                            <div class="flex justify-between py-2 border-b border-gray-50">
+                                <span class="text-gray-500">Primera Comunión</span>
+                                <span class="font-medium">
                                     <span
-                                        class="tag-improved {{ $matricula->alumno->comunion ? 'success' : 'light' }}">
+                                        class="px-2 py-1 rounded text-xs {{ $matricula->alumno->comunion ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
                                         {{ $matricula->alumno->comunion ? 'Sí' : 'No' }}
                                     </span>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @else
-                {{-- Formulario de edición --}}
-                <form wire:submit.prevent="actualizarAlumno" class="form-improved">
-                    <div class="info-grid-4">
-                        <div class="field">
-                            <label class="label">Tipo de Documento</label>
-                            <div class="select is-fullwidth">
-                                <select wire:model="tipo_documento">
-                                    <option value="DNI">DNI</option>
-                                    <option value="CE">CE</option>
-                                    <option value="PTP">PTP</option>
-                                </select>
-                            </div>
+                {{-- Formulario Edición Estudiante --}}
+                <form wire:submit.prevent="actualizarAlumno" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tipo de Documento</label>
+                            <select wire:model="tipo_documento"
+                                class="w-full rounded-lg border-gray-300 focus:border-colegio-500 focus:ring-colegio-500 shadow-sm">
+                                <option value="DNI">DNI</option>
+                                <option value="CE">CE</option>
+                                <option value="PTP">PTP</option>
+                            </select>
                         </div>
-                        <div class="field">
-                            <label class="label">Número de Documento</label>
-                            <input class="input" type="text" wire:model="numero_documento">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Número de Documento</label>
+                            <input type="text" wire:model="numero_documento"
+                                class="w-full rounded-lg border-gray-300 focus:border-colegio-500 focus:ring-colegio-500 shadow-sm">
                             @error('numero_documento')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field">
-                            <label class="label">Fecha de Nacimiento</label>
-                            <input class="input" type="date" wire:model="fecha_nacimiento">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Fecha de Nacimiento</label>
+                            <input type="date" wire:model="fecha_nacimiento"
+                                class="w-full rounded-lg border-gray-300 focus:border-colegio-500 focus:ring-colegio-500 shadow-sm">
                             @error('fecha_nacimiento')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field">
-                            <label class="label">Género</label>
-                            <div class="select is-fullwidth">
-                                <select wire:model="genero">
-                                    <option value="M">Masculino</option>
-                                    <option value="F">Femenino</option>
-                                </select>
-                            </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Género</label>
+                            <select wire:model="genero"
+                                class="w-full rounded-lg border-gray-300 focus:border-colegio-500 focus:ring-colegio-500 shadow-sm">
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
                         </div>
                     </div>
 
-                    <div class="info-grid-3">
-                        <div class="field">
-                            <label class="label">Apellido Paterno</label>
-                            <input class="input" type="text" wire:model="apellido_paterno">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Apellido Paterno</label>
+                            <input type="text" wire:model="apellido_paterno"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                             @error('apellido_paterno')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field">
-                            <label class="label">Apellido Materno</label>
-                            <input class="input" type="text" wire:model="apellido_materno">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Apellido Materno</label>
+                            <input type="text" wire:model="apellido_materno"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                             @error('apellido_materno')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field">
-                            <label class="label">Nombres</label>
-                            <input class="input" type="text" wire:model="nombres">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nombres</label>
+                            <input type="text" wire:model="nombres"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                             @error('nombres')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="info-grid-3">
-                        <div class="field">
-                            <label class="label">Celular</label>
-                            <input class="input" type="text" wire:model="celular">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Celular</label>
+                            <input type="text" wire:model="celular"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                         </div>
-                        <div class="field">
-                            <label class="label">Teléfono de Emergencia</label>
-                            <input class="input" type="text" wire:model="telefono_emergencia">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Teléfono Emergencia</label>
+                            <input type="text" wire:model="telefono_emergencia"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                         </div>
-                        <div class="field">
-                            <label class="label">Correo Electrónico</label>
-                            <input class="input" type="email" wire:model="correo">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Correo Electrónico</label>
+                            <input type="email" wire:model="correo"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                             @error('correo')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
 
-                    <div class="field">
-                        <label class="label">Dirección</label>
-                        <input class="input" type="text" wire:model="domicilio">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Dirección</label>
+                        <input type="text" wire:model="domicilio"
+                            class="w-full rounded-lg border-gray-300 shadow-sm">
                     </div>
 
-                    <div class="info-grid-2">
-                        <div class="field">
-                            <label class="label">Colegio de Procedencia</label>
-                            <input class="input" type="text" wire:model="colegio_procedencia">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Colegio de Procedencia</label>
+                            <input type="text" wire:model="colegio_procedencia"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                         </div>
-                        <div class="field">
-                            <label class="label">Religión</label>
-                            <input class="input" type="text" wire:model="religion">
-                        </div>
-                    </div>
-
-                    <div class="info-grid-3">
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox" wire:model="exonerado_religion">
-                                Exonerado de Religión
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox" wire:model="bautizado">
-                                Bautizado
-                            </label>
-                        </div>
-                        <div class="field">
-                            <label class="checkbox">
-                                <input type="checkbox" wire:model="comunion">
-                                Comunión
-                            </label>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Religión</label>
+                            <input type="text" wire:model="religion"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                         </div>
                     </div>
 
-                    <div class="mt-4 has-text-right">
-                        <button type="submit" class="btn-save">
-                            <i class="fas fa-save"></i> Guardar Cambios
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 bg-gray-50 p-4 rounded-lg">
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" wire:model="exonerado_religion"
+                                class="form-checkbox h-5 w-5 text-colegio-600 rounded">
+                            <span class="text-sm font-medium text-gray-700">Exonerado de Religión</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" wire:model="bautizado"
+                                class="form-checkbox h-5 w-5 text-colegio-600 rounded">
+                            <span class="text-sm font-medium text-gray-700">Bautizado</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer">
+                            <input type="checkbox" wire:model="comunion"
+                                class="form-checkbox h-5 w-5 text-colegio-600 rounded">
+                            <span class="text-sm font-medium text-gray-700">Comunión</span>
+                        </label>
+                    </div>
+
+                    <div class="flex justify-end pt-4 border-t border-gray-100">
+                        <button type="submit"
+                            class="inline-flex items-center px-4 py-2 bg-colegio-600 text-white rounded-lg font-medium hover:bg-colegio-700 transition-colors">
+                            <i class="ph ph-floppy-disk mr-2"></i> Guardar Cambios
                         </button>
                     </div>
                 </form>
@@ -376,506 +373,402 @@
         </div>
 
         {{-- Tab: Padres --}}
-        <div x-show="activeTab === 'padres'">
+        <div x-show="activeTab === 'padres'" x-cloak class="space-y-6">
             @forelse($matricula->alumno->padres as $padre)
-                <div class="parent-card"
-                    :class="{ 'editing': {{ $editMode && $padre_edit_id == $padre->id ? 'true' : 'false' }} }">
-                    <div class="section-header">
-                        <div class="section-title">
-                            <i class="fas fa-user-alt"></i>
+                <div
+                    class="border {{ $editMode && $padre_edit_id == $padre->id ? 'border-colegio-500 bg-blue-50/10 shadow-md' : 'border-gray-200' }} rounded-xl p-6">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                        <div class="flex items-center gap-2 text-lg font-bold text-gray-800">
+                            <i class="ph ph-user text-colegio-500"></i>
                             <span>
-                                @if ($padre->parentesco == 'P')
-                                    Padre
-                                @else
-                                    Madre
-                                @endif
+                                {{ $padre->parentesco == 'P' ? 'Padre' : 'Madre' }}
                                 @if (!$padre->vive)
-                                    <span class="ml-2 tag-improved danger">Fallecido(a)</span>
+                                    <span
+                                        class="ml-2 px-2 py-1 bg-red-100 text-red-700 text-xs rounded font-medium">Fallecido(a)</span>
                                 @endif
                             </span>
                         </div>
                         @if (!$editMode || $padre_edit_id != $padre->id)
-                            <button wire:click="editarPadre({{ $padre->id }})" class="btn-edit">
-                                <i class="fas fa-edit"></i> Editar
+                            <button wire:click="editarPadre({{ $padre->id }})"
+                                class="inline-flex items-center px-3 py-1.5 bg-gray-50 border border-gray-300 rounded text-sm font-medium text-gray-700 hover:bg-gray-100">
+                                <i class="ph ph-pencil-simple mr-2"></i> Editar
                             </button>
                         @else
-                            <button wire:click="cancelEdit" class="btn-cancel">
-                                <i class="fas fa-times"></i> Cancelar
+                            <button wire:click="cancelEdit"
+                                class="inline-flex items-center px-3 py-1.5 bg-red-50 border border-red-200 rounded text-sm font-medium text-red-700 hover:bg-red-100">
+                                <i class="ph ph-x mr-2"></i> Cancelar
                             </button>
                         @endif
                     </div>
 
                     @if (!$editMode || $padre_edit_id != $padre->id)
-                        {{-- Vista de solo lectura --}}
-                        <div class="info-section">
-                            <div class="info-section-title">
-                                <i class="fas fa-id-card"></i>
-                                <span>Datos Personales</span>
-                            </div>
-                            <table class="info-table">
-                                <tbody>
-                                    <tr>
-                                        <td>Tipo y Número de Documento</td>
-                                        <td>
+                        {{-- Lectura Padre --}}
+                        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                            <div>
+                                <h3
+                                    class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                                    <i class="ph ph-identification-card text-gray-500"></i> Datos Personales
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Documento</span>
+                                        <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ $padre->tipo_documento }}: {{ $padre->numero_documento }}
-                                            <a class="copy-btn" @click="copiar('{{ $padre->numero_documento }}')">
-                                                <i class="fa fa-copy"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nombre Completo</td>
-                                        <td>
+                                            <button @click="copiar('{{ $padre->numero_documento }}')"
+                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                    class="ph ph-copy"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Nombre Completo</span>
+                                        <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ $padre->nombre_completo }}
-                                            <a class="copy-btn" @click="copiar('{{ $padre->nombre_completo }}')">
-                                                <i class="fa fa-copy"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estado Civil</td>
-                                        <td>{{ $padre->estado_civil | edoCivil }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Nivel de Escolaridad</td>
-                                        <td>{{ $padre->nivel_escolaridad }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="info-section">
-                            <div class="info-section-title">
-                                <i class="fas fa-phone"></i>
-                                <span>Datos de Contacto</span>
+                                            <button @click="copiar('{{ $padre->nombre_completo }}')"
+                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                    class="ph ph-copy"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Estado Civil</span>
+                                        <span
+                                            class="font-medium text-gray-800">{{ $padre->estado_civil | edoCivil }}</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Nivel Escolaridad</span>
+                                        <span class="font-medium text-gray-800">{{ $padre->nivel_escolaridad }}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <table class="info-table">
-                                <tbody>
-                                    <tr>
-                                        <td>Celular</td>
-                                        <td>
+
+                            <div>
+                                <h3
+                                    class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                                    <i class="ph ph-phone text-gray-500"></i> Datos de Contacto
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Celular</span>
+                                        <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ $padre->telefono_celular }}
-                                            <a class="copy-btn" @click="copiar('{{ $padre->telefono_celular }}')">
-                                                <i class="fa fa-copy"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Correo Electrónico</td>
-                                        <td>
+                                            <button @click="copiar('{{ $padre->telefono_celular }}')"
+                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                    class="ph ph-copy"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Correo</span>
+                                        <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ strtolower($padre->correo_electronico) }}
-                                            <a class="copy-btn"
-                                                @click="copiar('{{ strtolower($padre->correo_electronico) }}')">
-                                                <i class="fa fa-copy"></i>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Dirección</td>
-                                        <td>{{ $padre->domicilio }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                            <button @click="copiar('{{ strtolower($padre->correo_electronico) }}')"
+                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                    class="ph ph-copy"></i></button>
+                                        </span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Dirección</span>
+                                        <span class="font-medium text-gray-800">{{ $padre->domicilio }}</span>
+                                    </div>
+                                </div>
+
+                                <h3
+                                    class="flex items-center gap-2 font-semibold text-gray-700 mt-6 mb-4 bg-gray-50 p-2 rounded-lg">
+                                    <i class="ph ph-briefcase text-gray-500"></i> Laboral
+                                </h3>
+                                <div class="space-y-3 text-sm">
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Centro Trabajo</span>
+                                        <span class="font-medium text-gray-800">{{ $padre->centro_trabajo }}</span>
+                                    </div>
+                                    <div class="flex justify-between py-2 border-b border-gray-50">
+                                        <span class="text-gray-500">Cargo</span>
+                                        <span class="font-medium text-gray-800">{{ $padre->cargo_ocupacion }}</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="info-section">
-                            <div class="info-section-title">
-                                <i class="fas fa-briefcase"></i>
-                                <span>Datos Laborales</span>
-                            </div>
-                            <table class="info-table">
-                                <tbody>
-                                    <tr>
-                                        <td>Centro de Trabajo</td>
-                                        <td>{{ $padre->centro_trabajo }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Cargo/Ocupación</td>
-                                        <td>{{ $padre->cargo_ocupacion }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="info-section">
-                            <div class="info-section-title">
-                                <i class="fas fa-info-circle"></i>
-                                <span>Información Adicional</span>
-                            </div>
-                            <table class="info-table">
-                                <tbody>
-                                    <tr>
-                                        <td>Vive con el Estudiante</td>
-                                        <td>
-                                            <span
-                                                class="tag-improved {{ $padre->vive_estudiante ? 'success' : 'light' }}">
-                                                {{ $padre->vive_estudiante ? 'Sí' : 'No' }}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Responsable Económico</td>
-                                        <td>
-                                            <span
-                                                class="tag-improved {{ $padre->responsable_economico ? 'success' : 'light' }}">
-                                                {{ $padre->responsable_economico ? 'Sí' : 'No' }}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Apoderado</td>
-                                        <td>
-                                            <span class="tag-improved {{ $padre->apoderado ? 'success' : 'light' }}">
-                                                {{ $padre->apoderado ? 'Sí' : 'No' }}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Estado</td>
-                                        <td>
-                                            <span class="tag-improved {{ $padre->vive ? 'success' : 'danger' }}">
-                                                {{ $padre->vive ? 'Vive' : 'Fallecido(a)' }}
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <div class="mt-6 flex flex-wrap gap-3">
+                            <span
+                                class="px-3 py-1 rounded-full text-xs font-medium {{ $padre->vive_estudiante ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700' }}">
+                                <i class="ph ph-house mr-1"></i> Vive Estudiante:
+                                {{ $padre->vive_estudiante ? 'Sí' : 'No' }}
+                            </span>
+                            <span
+                                class="px-3 py-1 rounded-full text-xs font-medium {{ $padre->responsable_economico ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700' }}">
+                                <i class="ph ph-wallet mr-1"></i> Resp. Económico:
+                                {{ $padre->responsable_economico ? 'Sí' : 'No' }}
+                            </span>
+                            <span
+                                class="px-3 py-1 rounded-full text-xs font-medium {{ $padre->apoderado ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-700' }}">
+                                <i class="ph ph-shield-check mr-1"></i> Apoderado:
+                                {{ $padre->apoderado ? 'Sí' : 'No' }}
+                            </span>
+                            <span
+                                class="px-3 py-1 rounded-full text-xs font-medium {{ $padre->vive ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                <i class="ph ph-heart mr-1"></i> Estado: {{ $padre->vive ? 'Vive' : 'Fallecido' }}
+                            </span>
                         </div>
                     @else
-                        {{-- Formulario de edición --}}
-                        <form wire:submit.prevent="actualizarPadre" class="form-improved">
-                            <div class="info-grid-4">
-                                <div class="field">
-                                    <label class="label">Tipo Doc.</label>
-                                    <div class="select is-fullwidth">
-                                        <select wire:model="padre_tipo_documento">
-                                            <option value="DNI">DNI</option>
-                                            <option value="CE">CE</option>
-                                            <option value="PTP">PTP</option>
-                                        </select>
-                                    </div>
+                        {{-- Formulario Edición Padre --}}
+                        <form wire:submit.prevent="actualizarPadre" class="space-y-6">
+                            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Tipo Doc.</label>
+                                    <select wire:model="padre_tipo_documento"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
+                                        <option value="DNI">DNI</option>
+                                        <option value="CE">CE</option>
+                                        <option value="PTP">PTP</option>
+                                    </select>
                                 </div>
-                                <div class="field">
-                                    <label class="label">Número</label>
-                                    <input class="input" type="text" wire:model="padre_numero_documento">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Número</label>
+                                    <input type="text" wire:model="padre_numero_documento"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
                                 </div>
-                                <div class="field">
-                                    <label class="label">Apellidos</label>
-                                    <input class="input" type="text" wire:model="padre_apellidos">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Apellidos</label>
+                                    <input type="text" wire:model="padre_apellidos"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
                                 </div>
-                                <div class="field">
-                                    <label class="label">Nombres</label>
-                                    <input class="input" type="text" wire:model="padre_nombres">
-                                </div>
-                            </div>
-
-                            <div class="info-grid-3">
-                                <div class="field">
-                                    <label class="label">Estado Civil</label>
-                                    <div class="select is-fullwidth">
-                                        <select wire:model="padre_estado_civil">
-                                            <option value="S">Soltero(a)</option>
-                                            <option value="C">Casado(a)</option>
-                                            <option value="V">Viudo(a)</option>
-                                            <option value="D">Divorciado(a)</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label class="label">Escolaridad</label>
-                                    <input class="input" type="text" wire:model="padre_nivel_escolaridad">
-                                </div>
-                                <div class="field">
-                                    <label class="label">Celular</label>
-                                    <input class="input" type="text" wire:model="padre_telefono_celular">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Nombres</label>
+                                    <input type="text" wire:model="padre_nombres"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
                                 </div>
                             </div>
 
-                            <div class="field">
-                                <label class="label">Correo Electrónico</label>
-                                <input class="input" type="email" wire:model="padre_correo_electronico">
-                            </div>
-
-                            <div class="field">
-                                <label class="label">Dirección</label>
-                                <input class="input" type="text" wire:model="padre_domicilio">
-                            </div>
-
-                            <div class="info-grid-2">
-                                <div class="field">
-                                    <label class="label">Centro de Trabajo</label>
-                                    <input class="input" type="text" wire:model="padre_centro_trabajo">
+                            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Estado Civil</label>
+                                    <select wire:model="padre_estado_civil"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
+                                        <option value="S">Soltero(a)</option>
+                                        <option value="C">Casado(a)</option>
+                                        <option value="V">Viudo(a)</option>
+                                        <option value="D">Divorciado(a)</option>
+                                    </select>
                                 </div>
-                                <div class="field">
-                                    <label class="label">Cargo/Ocupación</label>
-                                    <input class="input" type="text" wire:model="padre_cargo_ocupacion">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Escolaridad</label>
+                                    <input type="text" wire:model="padre_nivel_escolaridad"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
                                 </div>
-                            </div>
-
-                            <div class="info-grid-4">
-                                <div class="field">
-                                    <label class="checkbox">
-                                        <input type="checkbox" wire:model="padre_vive_estudiante">
-                                        Vive con estudiante
-                                    </label>
-                                </div>
-                                <div class="field">
-                                    <label class="checkbox">
-                                        <input type="checkbox" wire:model="padre_responsable_economico">
-                                        Resp. Económico
-                                    </label>
-                                </div>
-                                <div class="field">
-                                    <label class="checkbox">
-                                        <input type="checkbox" wire:model="padre_apoderado">
-                                        Apoderado
-                                    </label>
-                                </div>
-                                <div class="field">
-                                    <label class="checkbox">
-                                        <input type="checkbox" wire:model="padre_vive">
-                                        Vive
-                                    </label>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Celular</label>
+                                    <input type="text" wire:model="padre_telefono_celular"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
                                 </div>
                             </div>
 
-                            <div class="mt-4 has-text-right">
-                                <button type="submit" class="btn-save">
-                                    <i class="fas fa-save"></i> Guardar Cambios
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Correo
+                                        Electrónico</label>
+                                    <input type="email" wire:model="padre_correo_electronico"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Dirección</label>
+                                    <input type="text" wire:model="padre_domicilio"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Centro Trabajo</label>
+                                    <input type="text" wire:model="padre_centro_trabajo"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-1">Cargo/Ocupación</label>
+                                    <input type="text" wire:model="padre_cargo_ocupacion"
+                                        class="w-full rounded-lg border-gray-300 shadow-sm">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 bg-gray-50 p-4 rounded-lg">
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" wire:model="padre_vive_estudiante"
+                                        class="form-checkbox text-colegio-600 rounded">
+                                    <span class="text-sm">Vive c/ estudiante</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" wire:model="padre_responsable_economico"
+                                        class="form-checkbox text-colegio-600 rounded">
+                                    <span class="text-sm">Resp. Económico</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" wire:model="padre_apoderado"
+                                        class="form-checkbox text-colegio-600 rounded">
+                                    <span class="text-sm">Apoderado</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer">
+                                    <input type="checkbox" wire:model="padre_vive"
+                                        class="form-checkbox text-colegio-600 rounded">
+                                    <span class="text-sm">Vive</span>
+                                </label>
+                            </div>
+
+                            <div class="flex justify-end pt-4 border-t border-gray-100">
+                                <button type="submit"
+                                    class="inline-flex items-center px-4 py-2 bg-colegio-600 text-white rounded-lg font-medium hover:bg-colegio-700">
+                                    <i class="ph ph-floppy-disk mr-2"></i> Guardar Cambios
                                 </button>
                             </div>
                         </form>
                     @endif
                 </div>
             @empty
-                <div class="empty-state">
-                    <i class="fas fa-users"></i>
-                    <p>No hay información de padres registrada</p>
+                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed mb-4">
+                    <i class="ph ph-users-three text-4xl text-gray-400 mb-2"></i>
+                    <p class="text-gray-500 font-medium">No hay información de padres registrada</p>
                 </div>
             @endforelse
         </div>
 
         {{-- Tab: Apoderados --}}
-        <div x-show="activeTab === 'apoderados'">
+        <div x-show="activeTab === 'apoderados'" x-cloak class="space-y-6">
             @forelse($matricula->alumno->apoderados as $apoderado)
-                <div class="parent-card">
-                    <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-id-card"></i>
-                            <span>Datos Personales</span>
-                        </div>
-                        <table class="info-table">
-                            <tbody>
-                                <tr>
-                                    <td>Tipo y Número de Documento</td>
-                                    <td>
-                                        {{ $apoderado->tipo_documento }}: {{ $apoderado->numero_documento }}
-                                        <a class="copy-btn" @click="copiar('{{ $apoderado->numero_documento }}')">
-                                            <i class="fa fa-copy"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Nombre Completo</td>
-                                    <td>{{ $apoderado->apellidos }}, {{ ucfirst(strtolower($apoderado->nombres)) }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Parentesco</td>
-                                    <td>{{ $apoderado->parentesco }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="border border-gray-200 rounded-xl p-6">
+                    <div
+                        class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+                        <i class="ph ph-user-focus text-colegio-500"></i>
+                        <span>Tutor / Apoderado</span>
                     </div>
 
-                    <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-phone"></i>
-                            <span>Datos de Contacto</span>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <div>
+                            <h3
+                                class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                                <i class="ph ph-identification-card text-gray-500"></i> Datos Personales
+                            </h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between py-2 border-b border-gray-50">
+                                    <span class="text-gray-500">Documento</span>
+                                    <span class="font-medium text-gray-800">{{ $apoderado->tipo_documento }}:
+                                        {{ $apoderado->numero_documento }}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-50">
+                                    <span class="text-gray-500">Nombre Completo</span>
+                                    <span class="font-medium text-gray-800">{{ $apoderado->apellidos }},
+                                        {{ ucfirst(strtolower($apoderado->nombres)) }}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-50">
+                                    <span class="text-gray-500">Parentesco</span>
+                                    <span class="font-medium text-gray-800">{{ $apoderado->parentesco }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <table class="info-table">
-                            <tbody>
-                                <tr>
-                                    <td>Celular</td>
-                                    <td>
-                                        {{ $apoderado->telefono_celular }}
-                                        <a class="copy-btn" @click="copiar('{{ $apoderado->telefono_celular }}')">
-                                            <i class="fa fa-copy"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Correo Electrónico</td>
-                                    <td>
-                                        {{ strtolower($apoderado->correo_electronico) }}
-                                        <a class="copy-btn"
-                                            @click="copiar('{{ strtolower($apoderado->correo_electronico) }}')">
-                                            <i class="fa fa-copy"></i>
-                                        </a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-briefcase"></i>
-                            <span>Datos Académicos y Laborales</span>
+                        <div>
+                            <h3
+                                class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
+                                <i class="ph ph-phone text-gray-500"></i> Contacto
+                            </h3>
+                            <div class="space-y-3 text-sm">
+                                <div class="flex justify-between py-2 border-b border-gray-50">
+                                    <span class="text-gray-500">Celular</span>
+                                    <span class="font-medium text-gray-800">{{ $apoderado->telefono_celular }}</span>
+                                </div>
+                                <div class="flex justify-between py-2 border-b border-gray-50">
+                                    <span class="text-gray-500">Correo</span>
+                                    <span
+                                        class="font-medium text-gray-800">{{ strtolower($apoderado->correo_electronico) }}</span>
+                                </div>
+                            </div>
                         </div>
-                        <table class="info-table">
-                            <tbody>
-                                <tr>
-                                    <td>Centro de Trabajo</td>
-                                    <td>{{ $apoderado->centro_trabajo }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Nivel de Escolaridad</td>
-                                    <td>{{ $apoderado->nivel_escolaridad }}</td>
-                                </tr>
-                                <tr>
-                                    <td>Grado Obtenido</td>
-                                    <td>{{ $apoderado->grado_obtenido ?? 'N/T' }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div class="info-section">
-                        <div class="info-section-title">
-                            <i class="fas fa-info-circle"></i>
-                            <span>Información Adicional</span>
-                        </div>
-                        <table class="info-table">
-                            <tbody>
-                                <tr>
-                                    <td>Vive con el Estudiante</td>
-                                    <td>
-                                        <span
-                                            class="tag-improved {{ $apoderado->vive_estudiante ? 'success' : 'light' }}">
-                                            {{ $apoderado->vive_estudiante ? 'Sí' : 'No' }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Responsable Económico</td>
-                                    <td>
-                                        <span
-                                            class="tag-improved {{ $apoderado->responsable_economico ? 'success' : 'light' }}">
-                                            {{ $apoderado->responsable_economico ? 'Sí' : 'No' }}
-                                        </span>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>Apoderado</td>
-                                    <td>
-                                        <span class="tag-improved {{ $apoderado->apoderado ? 'success' : 'light' }}">
-                                            {{ $apoderado->apoderado ? 'Sí' : 'No' }}
-                                        </span>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             @empty
-                <div class="empty-state">
-                    <i class="fas fa-user-tie"></i>
-                    <p>No hay apoderados registrados</p>
+                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed mb-4">
+                    <i class="ph ph-user-focus text-4xl text-gray-400 mb-2"></i>
+                    <p class="text-gray-500 font-medium">No hay apoderados registrados extra.</p>
                 </div>
             @endforelse
         </div>
 
         {{-- Tab: Responsable Económico --}}
-        <div x-show="activeTab === 'responsable_economico'">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="fas fa-wallet"></i>
+        <div x-show="activeTab === 'responsable_economico'" x-cloak>
+            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+                <div class="flex items-center gap-2 text-lg font-bold text-gray-800">
+                    <i class="ph ph-wallet text-colegio-500"></i>
                     <span>Responsable Económico</span>
                 </div>
                 @if (!$editMode)
-                    <button wire:click="toggleEditMode" class="btn-edit">
-                        <i class="fas fa-edit"></i> Editar
+                    <button wire:click="toggleEditMode"
+                        class="inline-flex items-center px-4 py-2 bg-gray-50 border border-gray-300 rounded text-sm font-medium hover:bg-gray-100">
+                        <i class="ph ph-pencil-simple mr-2"></i> Editar
                     </button>
                 @else
-                    <button wire:click="cancelEdit" class="btn-cancel">
-                        <i class="fas fa-times"></i> Cancelar
+                    <button wire:click="cancelEdit"
+                        class="inline-flex items-center px-4 py-2 bg-red-50 border border-red-200 rounded text-sm font-medium text-red-700 hover:bg-red-100">
+                        <i class="ph ph-x mr-2"></i> Cancelar
                     </button>
                 @endif
             </div>
 
             @if (!$editMode)
-                {{-- Vista de solo lectura --}}
-                <div class="info-section">
-                    <div class="info-section-title">
-                        <i class="fas fa-id-card"></i>
-                        <span>Datos del Responsable Económico</span>
+                <div class="w-full max-w-lg space-y-3 text-sm">
+                    <div class="flex justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500">Tipo de Documento</span>
+                        <span class="font-medium text-gray-800">{{ $matricula->tipo_documento_dj ?? 'N/A' }}</span>
                     </div>
-                    <table class="info-table">
-                        <tbody>
-                            <tr>
-                                <td>Tipo de Documento</td>
-                                <td>{{ $matricula->tipo_documento_dj ?? 'N/A' }}</td>
-                            </tr>
-                            <tr>
-                                <td>Número de Documento</td>
-                                <td>
-                                    {{ $matricula->numero_documento_dj ?? 'N/A' }}
-                                    @if ($matricula->numero_documento_dj)
-                                        <a class="copy-btn" @click="copiar('{{ $matricula->numero_documento_dj }}')">
-                                            <i class="fa fa-copy"></i>
-                                        </a>
-                                    @endif
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Nombres Completos</td>
-                                <td>
-                                    {{ $matricula->nombres_dj ?? 'N/A' }}
-                                    @if ($matricula->nombres_dj)
-                                        <a class="copy-btn" @click="copiar('{{ $matricula->nombres_dj }}')">
-                                            <i class="fa fa-copy"></i>
-                                        </a>
-                                    @endif
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div class="flex justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500">Número de Documento</span>
+                        <span class="font-medium text-gray-800 flex items-center gap-2">
+                            {{ $matricula->numero_documento_dj ?? 'N/A' }}
+                            @if ($matricula->numero_documento_dj)
+                                <button @click="copiar('{{ $matricula->numero_documento_dj }}')"
+                                    class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                            @endif
+                        </span>
+                    </div>
+                    <div class="flex justify-between py-3 border-b border-gray-100">
+                        <span class="text-gray-500">Nombres Completos</span>
+                        <span class="font-medium text-gray-800 flex items-center gap-2">
+                            {{ $matricula->nombres_dj ?? 'N/A' }}
+                            @if ($matricula->nombres_dj)
+                                <button @click="copiar('{{ $matricula->nombres_dj }}')"
+                                    class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                            @endif
+                        </span>
+                    </div>
                 </div>
             @else
-                {{-- Formulario de edición --}}
-                <form wire:submit.prevent="actualizarResponsableEconomico" class="form-improved">
-                    <div class="info-grid-3">
-                        <div class="field">
-                            <label class="label">Tipo de Documento</label>
-                            <div class="select is-fullwidth">
-                                <select wire:model="tipo_documento_dj">
-                                    <option value="DNI">DNI</option>
-                                    <option value="CE">CE</option>
-                                    <option value="PTP">PTP</option>
-                                    <option value="PN">PN</option>
-                                </select>
-                            </div>
+                <form wire:submit.prevent="actualizarResponsableEconomico" class="space-y-6 max-w-3xl">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Tipo Doc.</label>
+                            <select wire:model="tipo_documento_dj"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
+                                <option value="DNI">DNI</option>
+                                <option value="CE">CE</option>
+                                <option value="PTP">PTP</option>
+                                <option value="PN">PN</option>
+                            </select>
                         </div>
-                        <div class="field">
-                            <label class="label">Número de Documento</label>
-                            <input class="input" type="text" wire:model="numero_documento_dj">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Número Documento</label>
+                            <input type="text" wire:model="numero_documento_dj"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                             @error('numero_documento_dj')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div class="field">
-                            <label class="label">Nombres Completos</label>
-                            <input class="input" type="text" wire:model="nombres_dj">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-1">Nombres Completos</label>
+                            <input type="text" wire:model="nombres_dj"
+                                class="w-full rounded-lg border-gray-300 shadow-sm">
                             @error('nombres_dj')
-                                <p class="help is-danger">{{ $message }}</p>
+                                <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
                     </div>
-
-                    <div class="mt-4 has-text-right">
-                        <button type="submit" class="btn-save">
-                            <i class="fas fa-save"></i> Guardar Cambios
+                    <div class="flex justify-end pt-4" style="border-top:1px solid #f3f4f6;">
+                        <button type="submit"
+                            class="inline-flex items-center px-4 py-2 bg-colegio-600 text-white rounded-lg font-medium hover:bg-colegio-700">
+                            <i class="ph ph-floppy-disk mr-2"></i> Guardar
                         </button>
                     </div>
                 </form>
@@ -883,80 +776,79 @@
         </div>
 
         {{-- Tab: Pagos --}}
-        <div x-show="activeTab === 'pagos'">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <span>Historial de Pagos</span>
-                </div>
+        <div x-show="activeTab === 'pagos'" x-cloak>
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+                <i class="ph ph-money text-colegio-500"></i>
+                <span>Historial de Pagos</span>
             </div>
 
             @if (count($matricula->pagos) > 0)
-                <table class="payments-table">
-                    <thead>
-                        <tr>
-                            <th class="has-text-centered">Estado</th>
-                            <th>Concepto</th>
-                            <th>Método</th>
-                            <th>Operación</th>
-                            <th class="has-text-right">Monto</th>
-                            <th>Fecha</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($matricula->pagos as $pago)
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
                             <tr>
-                                <td class="has-text-centered">{!! $pago->status !!}</td>
-                                <td>{{ $pago->concepto == 'M' ? 'Matrícula' : 'Pensión' }}</td>
-                                <td>{{ $pago->tipo_pago | mp }}</td>
-                                <td>{{ $pago->numero_operacion }}</td>
-                                <td class="has-text-right"><strong>S./ {{ $pago->monto_pagado }}</strong></td>
-                                <td>{{ $pago->fecha_deposito | dateFormat }}</td>
+                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Estado
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Concepto
+                                </th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Método</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Operación
+                                </th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Monto</th>
+                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            @foreach ($matricula->pagos as $pago)
+                                <tr class="hover:bg-gray-50 transition-colors">
+                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">{!! $pago->status !!}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">
+                                        {{ $pago->concepto == 'M' ? 'Matrícula' : 'Pensión' }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                        {{ $pago->tipo_pago | mp }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $pago->numero_operacion }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-bold text-gray-900">
+                                        S./ {{ number_format($pago->monto_pagado, 2) }}</td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                        {{ $pago->fecha_deposito | dateFormat }}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             @else
-                <div class="empty-state">
-                    <i class="fas fa-money-bill-wave"></i>
-                    <p>No hay pagos registrados en esta matrícula</p>
+                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed">
+                    <i class="ph ph-money text-4xl text-gray-400 mb-2"></i>
+                    <p class="text-gray-500 font-medium">No hay pagos registrados en esta matrícula</p>
                 </div>
             @endif
         </div>
 
         {{-- Tab: Horario --}}
-        <div x-show="activeTab === 'horario'">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="fas fa-clock"></i>
-                    <span>Horario del Estudiante</span>
-                </div>
+        <div x-show="activeTab === 'horario'" x-cloak>
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+                <i class="ph ph-clock text-colegio-500"></i>
+                <span>Horario del Estudiante</span>
             </div>
-
-            <form wire:submit.prevent='actualizarHoras' class="form-improved">
-                <div class="schedule-form">
-                    <div class="field">
-                        <label class="label">Hora de Entrada</label>
-                        <div class="control">
-                            <input class="input" type="time" wire:model="hora_entrada" />
-                        </div>
-                        @error('hora_entrada')
-                            <p class="help is-danger">{{ $message }}</p>
-                        @enderror
+            <form wire:submit.prevent='actualizarHoras'
+                class="max-w-xl mx-auto bg-gray-50 p-6 rounded-xl border border-gray-100">
+                <div class="flex flex-col md:flex-row gap-6 items-end">
+                    <div class="flex-1 w-full">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hora de Entrada</label>
+                        <input type="time" wire:model="hora_entrada"
+                            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-colegio-500">
                     </div>
-                    <div class="field">
-                        <label class="label">Hora de Salida</label>
-                        <div class="control">
-                            <input class="input" type="time" wire:model="hora_salida" />
-                        </div>
-                        @error('hora_salida')
-                            <p class="help is-danger">{{ $message }}</p>
-                        @enderror
+                    <div class="flex-1 w-full">
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Hora de Salida</label>
+                        <input type="time" wire:model="hora_salida"
+                            class="w-full rounded-lg border-gray-300 shadow-sm focus:border-colegio-500">
                     </div>
-                    <div class="field">
-                        <label class="label">&nbsp;</label>
-                        <button type="submit" class="btn-save">
-                            <i class="fas fa-save"></i> Guardar Horario
+                    <div>
+                        <button type="submit"
+                            class="w-full inline-flex items-center justify-center px-4 py-2 bg-colegio-600 text-white rounded-lg font-medium hover:bg-colegio-700">
+                            <i class="ph ph-save mr-2"></i> Guardar
                         </button>
                     </div>
                 </div>
@@ -964,98 +856,95 @@
         </div>
 
         {{-- Tab: Usuarios --}}
-        <div x-show="activeTab === 'usuarios'">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="fas fa-user-shield"></i>
-                    <span>Acceso de Padres al Portal</span>
-                </div>
+        <div x-show="activeTab === 'usuarios'" x-cloak>
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+                <i class="ph ph-shield-check text-colegio-500"></i>
+                <span>Acceso de Padres al Portal</span>
             </div>
 
-            <div class="columns is-multiline">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 @forelse($matricula->alumno->padres as $padre)
-                    <div class="column is-6">
-                        <div class="info-section">
-                            <div class="is-flex is-justify-content-between is-align-items-start mb-3">
-                                <div>
-                                    <h5 class="title is-6 mb-1">{{ $padre->nombre_completo }}</h5>
-                                    <span class="tag is-light is-small">
-                                        {{ $padre->parentesco == 'P' ? 'PADRE' : 'MADRE' }}
-                                    </span>
-                                </div>
-                                @if ($padre->user)
-                                    <span class="tag-improved {{ $padre->user->is_active ? 'success' : 'danger' }}">
-                                        {{ $padre->user->is_active ? 'ACTIVO' : 'INACTIVO' }}
-                                    </span>
-                                @else
-                                    <span class="tag-improved warning">SIN CUENTA</span>
-                                @endif
+                    <div
+                        class="border border-gray-200 rounded-xl p-5 bg-white shadow-sm hover:shadow-md transition-shadow">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h5 class="text-base font-bold text-gray-800">{{ $padre->nombre_completo }}</h5>
+                                <span
+                                    class="px-2 py-0.5 mt-1 inline-block bg-gray-100 text-gray-600 text-xs rounded font-medium">
+                                    {{ $padre->parentesco == 'P' ? 'PADRE' : 'MADRE' }}
+                                </span>
                             </div>
-
                             @if ($padre->user)
-                                <table class="info-table mb-4">
-                                    <tbody>
-                                        <tr>
-                                            <td>Usuario (DNI)</td>
-                                            <td><strong>{{ $padre->user->document_number }}</strong></td>
-                                        </tr>
-                                        <tr>
-                                            <td>Último Acceso</td>
-                                            <td>{{ $padre->user->last_login_at ? $padre->user->last_login_at->diffForHumans() : 'Nunca' }}
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-
-                                <div class="buttons">
-                                    <button wire:click="resetearPasswordPadre({{ $padre->user->id }})"
-                                        class="button is-small is-warning is-light"
-                                        onclick="confirm('¿Estás seguro de restablecer la contraseña al número de documento?') || event.stopImmediatePropagation()">
-                                        <i class="fas fa-key mr-2"></i> Reset Clave
-                                    </button>
-
-                                    <button wire:click="toggleUsuarioPadre({{ $padre->user->id }})"
-                                        class="button is-small {{ $padre->user->is_active ? 'is-danger' : 'is-success' }} is-light">
-                                        <i
-                                            class="fas {{ $padre->user->is_active ? 'fa-user-slash' : 'fa-user-check' }} mr-2"></i>
-                                        {{ $padre->user->is_active ? 'Desactivar' : 'Activar' }}
-                                    </button>
-                                </div>
+                                <span
+                                    class="px-2 py-1 rounded text-xs font-bold {{ $padre->user->is_active ? 'bg-green-100 text-green-700' : 'bg-red-100 text-red-700' }}">
+                                    {{ $padre->user->is_active ? 'ACTIVO' : 'INACTIVO' }}
+                                </span>
                             @else
-                                <div class="empty-state py-4">
-                                    <p class="mb-3 is-size-7">Este padre no tiene un usuario para acceder a la
-                                        aplicación móvil.</p>
-                                    <button wire:click="crearUsuarioPadre({{ $padre->id }})"
-                                        class="button is-small is-success has-text-white is-rounded px-4">
-                                        <i class="fas fa-user-plus mr-2"></i> Crear Usuario de Acceso
-                                    </button>
-                                </div>
+                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded text-xs font-bold">SIN
+                                    CUENTA</span>
                             @endif
                         </div>
+
+                        @if ($padre->user)
+                            <div class="bg-gray-50 rounded-lg p-3 text-sm space-y-2 mb-4">
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Usuario (DNI)</span>
+                                    <span class="font-bold text-gray-800">{{ $padre->user->document_number }}</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-gray-500">Último Acceso</span>
+                                    <span
+                                        class="text-gray-800">{{ $padre->user->last_login_at ? $padre->user->last_login_at->diffForHumans() : 'Nunca' }}</span>
+                                </div>
+                            </div>
+
+                            <div class="flex gap-2 mt-4 pt-4 border-t border-gray-100">
+                                <button wire:click="resetearPasswordPadre({{ $padre->user->id }})"
+                                    class="flex-1 inline-flex justify-center items-center px-3 py-1.5 bg-yellow-50 text-yellow-700 border border-yellow-200 rounded text-sm hover:bg-yellow-100 transition-colors"
+                                    onclick="confirm('¿Estás seguro de restablecer la contraseña al número de documento?') || event.stopImmediatePropagation()">
+                                    <i class="ph ph-key mr-2"></i> Reset Clave
+                                </button>
+
+                                <button wire:click="toggleUsuarioPadre({{ $padre->user->id }})"
+                                    class="flex-1 inline-flex justify-center items-center px-3 py-1.5 border rounded text-sm transition-colors {{ $padre->user->is_active ? 'bg-red-50 text-red-700 border-red-200 hover:bg-red-100' : 'bg-green-50 text-green-700 border-green-200 hover:bg-green-100' }}">
+                                    <i
+                                        class="ph {{ $padre->user->is_active ? 'ph-user-minus' : 'ph-user-check' }} mr-2"></i>
+                                    {{ $padre->user->is_active ? 'Desactivar' : 'Activar' }}
+                                </button>
+                            </div>
+                        @else
+                            <div class="text-center py-4 bg-gray-50 rounded-lg">
+                                <p class="text-sm text-gray-500 mb-3 px-4">Este padre no tiene un usuario para acceder
+                                    a la aplicación móvil.</p>
+                                <button wire:click="crearUsuarioPadre({{ $padre->id }})"
+                                    class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 shadow-sm transition-colors">
+                                    <i class="ph ph-user-plus mr-2"></i> Crear Usuario
+                                </button>
+                            </div>
+                        @endif
                     </div>
                 @empty
-                    <div class="column is-12">
-                        <div class="empty-state">
-                            <i class="fas fa-user-friends"></i>
-                            <p>No hay información de padres registrada para este estudiante.</p>
-                        </div>
+                    <div
+                        class="col-span-full text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed">
+                        <i class="ph ph-users-three text-4xl text-gray-400 mb-2"></i>
+                        <p class="text-gray-500 font-medium">No hay información de padres registrada para este
+                            estudiante.</p>
                     </div>
                 @endforelse
             </div>
         </div>
+
     </div>
 
-    {{-- Loading Overlay --}}
-    <div class="loading-matricula" wire:loading
+    {{-- Loading Overlay Tailwind --}}
+    <div wire:loading.flex
         wire:target="actualizarAlumno,actualizarPadre,actualizarHoras,actualizarResponsableEconomico"
-        style="display: none;">
-        <div class="loading-matricula-body" style="margin: 100px auto;">
-            <div class="spinner" style="text-align: center;">
-                <img src="{{ asset('images/loader.svg') }}" />
-            </div>
-            <div class="mensaje">
-                Procesando.....
-            </div>
+        class="fixed inset-0 z-50 bg-white/70 backdrop-blur-sm flex-col items-center justify-center hidden">
+        <div class="animate-spin text-colegio-500 mb-4">
+            <i class="ph ph-circle-notch text-5xl"></i>
+        </div>
+        <div class="text-lg font-semibold text-gray-700 animate-pulse">
+            Procesando...
         </div>
     </div>
 </div>

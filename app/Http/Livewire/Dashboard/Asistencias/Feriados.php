@@ -96,7 +96,7 @@ class Feriados extends Component
         return view('livewire.dashboard.asistencias.feriados', [
             'feriados' => $feriados
         ])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

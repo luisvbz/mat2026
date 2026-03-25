@@ -29,10 +29,7 @@ class Index extends Component
 
     protected $listeners = ['confirm:matricula' => 'confirmMatricula', 'anular:matricula' => 'anularMatricula'];
 
-    public function paginationView()
-    {
-        return 'bulma-pagination';
-    }
+    protected $paginationTheme = 'tailwind';
 
     public function buscar()
     {
@@ -60,6 +57,7 @@ class Index extends Component
 
     public function showDialogAnularMatricula($id)
     {
+
         $this->emit("swal:confirm", [
             'type'        => 'warning',
             'title'       => 'Estas seguro(a)?',
@@ -639,7 +637,7 @@ class Index extends Component
             'confirmadas' => $totalConfirmadas,
             'anuladas' => $totalAnuladas,
         ])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

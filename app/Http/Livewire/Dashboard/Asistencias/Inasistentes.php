@@ -171,7 +171,7 @@ class Inasistentes extends Component
             ->get();
 
         return view('livewire.dashboard.asistencias.inasistentes', ['inasistentes' => $inasistentes])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

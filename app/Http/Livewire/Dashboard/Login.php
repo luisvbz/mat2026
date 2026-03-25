@@ -23,7 +23,7 @@ class Login extends Component
         ]);
     }
 
-    public function submitForm ()
+    public function submitForm()
     {
         $this->validate([
             'username' => 'required',

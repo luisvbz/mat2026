@@ -145,7 +145,7 @@ class Index extends Component
             ->get();
 
         return view('livewire.dashboard.profesores.index', ['teachers' => $teachers])
-            ->extends('layouts.panel')
+            ->extends('layouts.tailwind')
             ->section('content');
     }
 }

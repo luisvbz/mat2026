@@ -31,15 +31,9 @@
             <li @click='goUrl("{{ route('dashboard.eventos') }}")'
                 class="item-menu @if ($route == 'dashboard.eventos') item-active @endif"><i class="fas fa-calendar"></i>
                 Eventos</li>
-            <li @click='goUrl("{{ route('dashboard.recordatorios') }}")'
+            {{--             <li @click='goUrl("{{ route('dashboard.recordatorios') }}")'
                 class="item-menu @if ($route == 'dashboard.recordatorios') item-active @endif"><i
-                    class="fas fa-alarm-clock"></i> Recordatorios</li>
-            @if ($isAdmin)
-                <li @click='goUrl("{{ route('dashboard.configuracion') }}")'
-                    class="item-menu  @if ($route == 'dashboard.configuracion') item-active @endif"><i
-                        class="fas fa-cogs"></i>
-                    Configuración</li>
-            @endif
+                    class="fas fa-alarm-clock"></i> Recordatorios</li> --}}
             <li wire:click="logout" class="item-menu"><i class="fas fa-sign-out"></i> Cerrar Sesión</li>
         </ul>
     </div>

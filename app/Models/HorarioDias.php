@@ -10,4 +10,8 @@ class HorarioDias extends Model
     use HasFactory;
 
     protected $table = "schedule_days";
+
+    public $timestamps = false;
+
+    protected $guarded = [];
 }

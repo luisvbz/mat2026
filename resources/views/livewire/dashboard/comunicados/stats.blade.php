@@ -3,14 +3,14 @@
     <div class="sm:flex sm:justify-between sm:items-center mb-8">
         <div class="mb-4 sm:mb-0">
             <h1 class="text-2xl md:text-3xl font-bold text-gray-800">
-                <i class="fas fa-chart-bar text-colegio-600 mr-2"></i> Estadísticas: <span
+                <i class="ph ph-chart-bar text-colegio-600 mr-2"></i> Estadísticas: <span
                     class="text-gray-500 font-normal">{{ $communication->title }}</span>
             </h1>
         </div>
         <div>
             <a href="{{ route('dashboard.comunicados') }}"
                 class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 transition-colors">
-                <i class="fas fa-arrow-left mr-2"></i> Volver a Comunicados
+                <i class="ph ph-arrow-left mr-2"></i> Volver a Comunicados
             </a>
         </div>
     </div>
@@ -19,7 +19,7 @@
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 flex items-center p-6">
             <div class="p-3 bg-blue-100 rounded-lg">
-                <i class="fas fa-users text-blue-600 text-2xl"></i>
+                <i class="ph ph-users text-blue-600 text-2xl"></i>
             </div>
             <div class="ml-5">
                 <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Total de Lecturas</p>
@@ -28,7 +28,7 @@
         </div>
         <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 flex items-center p-6">
             <div class="p-3 bg-green-100 rounded-lg">
-                <i class="fas fa-percentage text-green-600 text-2xl"></i>
+                <i class="ph ph-percent text-green-600 text-2xl"></i>
             </div>
             <div class="ml-5">
                 <p class="text-sm font-medium text-gray-500 uppercase tracking-wider">Porcentaje Leído</p>
@@ -50,7 +50,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Buscar Alumno</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fas fa-user-graduate text-gray-400"></i>
+                        <i class="ph ph-student text-gray-400"></i>
                     </div>
                     <input wire:model.debounce.500ms="searchStudent" type="text"
                         class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
@@ -61,7 +61,7 @@
                 <label class="block text-sm font-medium text-gray-700 mb-1">Buscar Padre/Madre</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="fas fa-user text-gray-400"></i>
+                        <i class="ph ph-user text-gray-400"></i>
                     </div>
                     <input wire:model.debounce.500ms="searchParent" type="text"
                         class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
@@ -94,7 +94,7 @@
             <div class="flex items-end">
                 <button wire:click="resetFilters"
                     class="w-full inline-flex justify-center items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-colegio-500 transition-colors">
-                    <i class="fas fa-eraser mr-2"></i> Limpiar Filtros
+                    <i class="ph ph-eraser mr-2"></i> Limpiar Filtros
                 </button>
             </div>
         </div>
@@ -184,7 +184,7 @@
                             <td colspan="5" class="px-6 py-12 text-center">
                                 <div
                                     class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4">
-                                    <i class="fas fa-search text-2xl text-gray-400"></i>
+                                    <i class="ph ph-magnifying-glass text-2xl text-gray-400"></i>
                                 </div>
                                 <h3 class="text-lg font-medium text-gray-900">Sin resultados</h3>
                                 <p class="mt-1 text-sm text-gray-500">No se encontraron lecturas que coincidan con los
