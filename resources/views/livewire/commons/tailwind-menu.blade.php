@@ -9,33 +9,33 @@
         <nav class="space-y-1 px-3">
             <a href="{{ route('dashboard.principal') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'dashboard.principal' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.principal') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-house text-2xl w-6 text-center {{ $route == 'dashboard.principal' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-house text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.principal') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Inicio</span>
             </a>
 
             <a href="{{ route('dashboard.matriculas') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'dashboard.matriculas' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.matriculas') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-student text-2xl w-6 text-center {{ $route == 'dashboard.matriculas' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-student text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.matriculas') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Matrículas</span>
             </a>
 
             <a href="{{ route('dashboard.contabilidad') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'dashboard.contabilidad' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.contabilidad') || str_starts_with($route, 'contabilidad.') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-money text-2xl w-6 text-center {{ $route == 'dashboard.contabilidad' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-money text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.contabilidad') || str_starts_with($route, 'contabilidad.') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Contabilidad</span>
             </a>
 
             <a href="{{ route('asistencias.index') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'asistencias.index' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'asistencias') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-user-check text-2xl w-6 text-center {{ $route == 'asistencias.index' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-user-check text-2xl w-6 text-center {{ str_starts_with($route, 'asistencias') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Asistencias</span>
             </a>
 
@@ -49,33 +49,33 @@
 
             <a href="{{ route('dashboard.profesores') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'dashboard.profesores' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.profesores') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-chalkboard-teacher text-2xl w-6 text-center {{ $route == 'dashboard.profesores' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-chalkboard-teacher text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.profesores') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Profesores</span>
             </a>
 
             <a href="{{ route('dashboard.citas') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'dashboard.citas' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.citas') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-calendar-check text-2xl w-6 text-center {{ $route == 'dashboard.citas' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-calendar-check text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.citas') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Citas</span>
             </a>
 
             <a href="{{ route('dashboard.comunicados') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ in_array($route, ['dashboard.comunicados', 'dashboard.comunicados.stats']) ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.comunicados') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-megaphone text-2xl w-6 text-center {{ in_array($route, ['dashboard.comunicados', 'dashboard.comunicados.stats']) ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-megaphone text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.comunicados') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Comunicados</span>
             </a>
 
             <a href="{{ route('dashboard.eventos') }}"
                 class="flex items-center px-4 py-3 rounded-xl transition-all duration-200 group 
-               {{ $route == 'dashboard.eventos' ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
+               {{ str_starts_with($route, 'dashboard.eventos') ? 'bg-colegio-500 text-white shadow-md' : 'text-gray-600 hover:bg-colegio-50 hover:text-colegio-600' }}">
                 <i
-                    class="ph ph-calendar-star text-2xl w-6 text-center {{ $route == 'dashboard.eventos' ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
+                    class="ph ph-calendar-star text-2xl w-6 text-center {{ str_starts_with($route, 'dashboard.eventos') ? 'text-white' : 'text-gray-400 group-hover:text-colegio-500' }}"></i>
                 <span class="ml-3 font-medium">Eventos</span>
             </a>
 

@@ -82,42 +82,48 @@
     </div>
 
     {{-- Filters --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col md:flex-row gap-4">
-        <div class="flex-1 relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <i class="ph ph-magnifying-glass"></i>
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+            <div class="md:col-span-12 lg:col-span-5">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i class="ph ph-magnifying-glass"></i>
+                    </div>
+                    <input type="text" wire:keydown.enter="buscar" wire:model.defer="search"
+                        placeholder="Buscar por código de matrícula"
+                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm shadow-sm">
+                </div>
             </div>
-            <input type="text" wire:keydown.enter="buscar" wire:model.defer="search"
-                placeholder="Buscar por código de matrícula"
-                class="pl-10 w-full rounded-lg border-gray-300 shadow-sm focus:border-colegio-500 focus:ring-colegio-500">
-        </div>
-        <div class="w-full md:w-48 relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
-                <i class="ph ph-calendar"></i>
+            <div class="md:col-span-6 lg:col-span-2">
+                <div class="relative">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i class="ph ph-calendar"></i>
+                    </div>
+                    <input type="text" autocomplete="off" id="fecha" wire:model.lazy="fecha" placeholder="Fecha"
+                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm shadow-sm">
+                </div>
             </div>
-            <input type="text" autocomplete="off" id="fecha" wire:model.lazy="fecha" placeholder="Fecha"
-                class="pl-10 w-full rounded-lg border-gray-300 shadow-sm focus:border-colegio-500 focus:ring-colegio-500">
-        </div>
-        <div class="w-full md:w-48">
-            <select wire:model.defer="estado"
-                class="w-full rounded-lg border-gray-300 shadow-sm focus:border-colegio-500 focus:ring-colegio-500">
-                <option value="" selected>Todos los estados</option>
-                <option value="0">Por revisión</option>
-                <option value="1">Confirmados</option>
-                <option value="2">Anulados</option>
-            </select>
-        </div>
-        <div class="flex gap-2">
-            <button wire:click="buscar"
-                class="px-4 py-2 bg-colegio-600 hover:bg-colegio-700 text-white rounded-lg shadow-sm font-medium transition-colors"
-                title="Buscar">
-                <i class="ph ph-magnifying-glass"></i>
-            </button>
-            <button wire:click="limpiar"
-                class="px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-lg shadow-sm font-medium transition-colors border border-red-100"
-                title="Limpiar filtros">
-                <i class="ph ph-eraser"></i>
-            </button>
+            <div class="md:col-span-6 lg:col-span-3">
+                <select wire:model.defer="estado"
+                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm shadow-sm">
+                    <option value="" selected>Todos los estados</option>
+                    <option value="0">Por revisión</option>
+                    <option value="1">Confirmados</option>
+                    <option value="2">Anulados</option>
+                </select>
+            </div>
+            <div class="md:col-span-12 lg:col-span-2 flex space-x-2">
+                <button wire:click="buscar"
+                    class="flex-1 bg-colegio-600 hover:bg-colegio-700 text-white rounded-lg flex items-center justify-center hover:bg-colegio-700 transition-colors shadow-sm"
+                    title="Buscar">
+                    <i class="ph ph-magnifying-glass font-bold"></i>
+                </button>
+                <button wire:click="limpiar"
+                    class="flex-1 bg-red-500 hover:bg-red-600 text-white rounded-lg flex items-center justify-center transition-colors shadow-sm"
+                    title="Limpiar filtros">
+                    <i class="ph ph-eraser font-bold"></i>
+                </button>
+            </div>
         </div>
     </div>
 

@@ -47,6 +47,7 @@
     <!-- Icons & Third-party CSS -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/pikaday/css/pikaday.css">
     <link rel="stylesheet" href="https://unpkg.com/trix@2.0.8/dist/trix.css">
 
     @stack('css')
@@ -95,6 +96,7 @@
     <script src="https://unpkg.com/trix@2.0.8/dist/trix.umd.min.js"></script>
     <script src="{{ asset('js/globals.js') }}"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/pikaday/pikaday.js"></script>
     <script>
         const SwalModal = (icon, title, html) => {
             Swal.fire({
