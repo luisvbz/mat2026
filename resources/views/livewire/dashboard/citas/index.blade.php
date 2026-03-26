@@ -143,15 +143,16 @@
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative z-0">
         <div wire:loading
             wire:target="buscar, limpiar, nivel, grado, teacher_id, status, desde, hasta, exportarExcel, gotoPage, previousPage, nextPage"
-            style="display: none;"
-            class="absolute inset-0 bg-white/80 backdrop-blur-sm z-50 flex flex-col items-center justify-center transition-all">
-            <div class="w-16 h-16 bg-white rounded-2xl shadow-xl flex items-center justify-center mb-4">
-                <i class="ph ph-spinner-gap animate-spin text-3xl text-colegio-600 font-bold"></i>
+            style="display: none;" class="absolute inset-0 bg-white/50 backdrop-blur-[2px] z-50 transition-all">
+            <div class="p-6 space-y-4">
+                @for ($i = 0; $i < 5; $i++)
+                    <div class="flex items-center gap-4">
+                        <x-skeleton width="w-32" height="h-10" />
+                        <x-skeleton width="w-full" height="h-10" />
+                        <x-skeleton width="w-24" height="h-10" />
+                    </div>
+                @endfor
             </div>
-            <p class="text-[10px] font-bold uppercase tracking-widest text-gray-600">
-                <span wire:loading wire:target="exportarExcel">Generando reporte Excel...</span>
-                <span wire:loading.remove wire:target="exportarExcel">Cargando información...</span>
-            </p>
         </div>
 
         <div class="overflow-x-auto">

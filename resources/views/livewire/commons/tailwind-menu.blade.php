@@ -1,4 +1,4 @@
-<div class="flex flex-col h-full bg-white border-r border-gray-200">
+<div class="flex flex-col h-full bg-white border-r border-gray-200 animate-fade-in">
     <!-- Logo -->
     <div class="flex items-center justify-center p-6 border-b border-gray-100">
         <img src="{{ asset('images/logo.png') }}" alt="Logo Institucional" class="h-16 object-contain" />

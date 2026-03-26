@@ -129,6 +129,21 @@
 
     {{-- Table --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible relative z-20">
+        {{-- Table Loading Skeleton --}}
+        <div wire:loading wire:target="buscar, limpiar, estado, fecha, gotoPage, previousPage, nextPage"
+            class="absolute inset-0 bg-white/50 backdrop-blur-[2px] z-50 transition-all rounded-xl">
+            <div class="p-6 space-y-4">
+                @for ($i = 0; $i < 6; $i++)
+                    <div class="flex items-center gap-4">
+                        <x-skeleton width="w-24" height="h-10" />
+                        <x-skeleton width="w-full" height="h-10" />
+                        <x-skeleton width="w-32" height="h-10" />
+                        <x-skeleton width="w-16" height="h-10" />
+                    </div>
+                @endfor
+            </div>
+        </div>
+
         <div class="overflow-x-auto pb-32">
             <table class="w-full text-sm text-left text-gray-600">
                 <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
