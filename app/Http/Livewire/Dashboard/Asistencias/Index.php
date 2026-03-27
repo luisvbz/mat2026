@@ -33,7 +33,8 @@ class Index extends Component
     public $dias;
 
     protected $listeners = [
-        'justificar:tardanza' => 'justificarTardanza'
+        'justificar:tardanza' => 'justificarTardanza',
+        'justificar:ausencia' => 'justificarAusencia'
     ];
 
 
@@ -179,6 +180,19 @@ class Index extends Component
         ]);
     }
 
+    public function mostrarJustificarAusencia($id)
+    {
+        $this->emit("swal:confirm", [
+            'type'        => 'warning',
+            'title'       => 'Estas seguro(a)?',
+            'text'        => "Marcar como asistencia normal del alumno",
+            'confirmText' => 'Sí Confirmar!',
+            'method'      => 'justificar:ausencia',
+            'params'      => [$id], // optional, send params to success confirmation
+            'callback'    => '', // optional, fire event if no confirmed
+        ]);
+    }
+
 
     public function justificarTardanza($params)
     {
@@ -192,6 +206,29 @@ class Index extends Component
             'type'  => 'success',
             'title' => 'Exito!!',
             'text'  => "La tardanza se ha justificado",
+        ]);
+
+        $this->obtenerAlumnosConAsistencias();
+    }
+
+    public function justificarAusencia($params)
+    {
+        $asistencia = Asistencia::find($params[0]);
+        Asistencia::find($params[0])    
+            ->update([
+                'tipo' => Asistencia::NORMAL,
+                'entrada' => $asistencia->dia.' '.$asistencia->alumno->matricula->hora_entrada,
+                'salida' => $asistencia->dia.' '.$asistencia->alumno->matricula->hora_salida,
+                'tardanza_entrada' => null,
+                'salida_anticipada' => null,
+                'comentario_salida' => null,
+            ]);
+
+
+        $this->emit('swal:modal', [
+            'type'  => 'success',
+            'title' => 'Exito!!',
+            'text'  => "La ausencia se ha justificado",
         ]);
 
         $this->obtenerAlumnosConAsistencias();

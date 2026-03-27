@@ -160,7 +160,7 @@
     </noscript>
 </head>
 
-<body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-hidden">
+<body class="bg-gray-100 text-gray-800 font-sans antialiased overflow-hidden">
     <noscript>
         <div class="fixed inset-0 bg-red-100 flex items-center justify-center z-50">
             <div class="bg-white p-8 rounded-lg shadow-xl text-center">
@@ -171,14 +171,21 @@
         </div>
     </noscript>
 
-    <div class="global-container flex h-screen w-full">
+    <div x-data="{ sidebarOpen: false }" @sidebar-toggle.window="sidebarOpen = !sidebarOpen"
+        class="global-container flex h-screen w-full relative overflow-hidden">
+        <!-- Mobile Sidebar Overlay -->
+        <div x-show="sidebarOpen" x-transition.opacity
+            class="fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-sm md:hidden" @click="sidebarOpen = false"
+            style="display: none;"></div>
+
         <!-- Sidebar Navigation -->
-        <div class="w-64 flex-shrink-0 border-r border-gray-200 bg-white">
+        <div :class="sidebarOpen ? 'translate-x-0' : '-translate-x-full'"
+            class="fixed inset-y-0 left-0 z-50 w-64 transform bg-white border-r border-gray-200 transition-transform duration-300 ease-in-out md:relative md:translate-x-0 md:flex-shrink-0 flex flex-col h-full">
             <livewire:commons.tailwind-menu />
         </div>
 
         <!-- Main Content -->
-        <div class="flex-1 flex flex-col h-full overflow-hidden bg-gray-50">
+        <div class="flex-1 flex flex-col h-full overflow-hidden bg-gray-100 min-w-0 relative z-0">
             <!-- Header (Can also be replaced with a tailwind version later) -->
             <livewire:commons.header-dashboard />
 

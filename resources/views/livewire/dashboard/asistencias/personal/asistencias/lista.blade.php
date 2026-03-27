@@ -26,17 +26,17 @@
                 </span>
                 Asistencia de Personal
             </h1>
-            <p class="text-gray-500 text-sm mt-1 ml-16">Control de marcaciones de entrada y salida de los colaboradores.</p>
+            <p class="text-gray-800 text-sm mt-1 ml-16">Control de marcaciones de entrada y salida de los colaboradores.</p>
         </div>
     </div>
 
     {{-- Filters and Actions --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Fecha</label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                         <i class="ph ph-calendar"></i>
                     </div>
                     <input type="date" wire:model="date" max="{{ date('Y-m-d') }}"
@@ -45,7 +45,7 @@
             </div>
             
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Mes (Reporte)</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Mes (Reporte)</label>
                 <select wire:model.defer="mes"
                     class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm">
                     @foreach($meses as $mesItem)
@@ -65,22 +65,22 @@
     </div>
 
     {{-- Data Table --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible relative z-20">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-visible relative z-20">
         <div class="overflow-x-auto pb-6">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
-                        <th scope="col" class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/3">Colaborador</th>
-                        <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Entrada</th>
-                        <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Comentario E.</th>
-                        <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Salida</th>
-                        <th scope="col" class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">Comentario S.</th>
+                        <th scope="col" class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider w-1/3">Colaborador</th>
+                        <th scope="col" class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">Entrada</th>
+                        <th scope="col" class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">Comentario E.</th>
+                        <th scope="col" class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">Salida</th>
+                        <th scope="col" class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">Comentario S.</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
                     @forelse($profesores as $p)
                         <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-2 py-2 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
                                         <span class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold text-sm">
@@ -95,18 +95,18 @@
                             
                             @if($p->asistencia)
                                 @if($p->asistencia->tipo == 'N')
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                         {{ $p->asistencia->entrada | date:'h:i:s A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center">
                                         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
                                             A TIEMPO <i class="ph-bold ph-check-circle ml-1"></i>
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                         {{ $p->asistencia->salida ? date('h:i:s A', strtotime($p->asistencia->salida)) : '--:--:--' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs">
                                         @if($p->asistencia->salida_anticipada || $p->asistencia->comentario_salida)
                                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 max-w-xs truncate" title="{{ $p->asistencia->comentario_salida }}">
                                                 {{ $p->asistencia->comentario_salida }} 
@@ -117,23 +117,23 @@
                                                 A TIEMPO <i class="ph-bold ph-check-circle ml-1"></i>
                                             </span>
                                         @else
-                                            <span class="text-gray-400">-</span>
+                                            <span class="text-gray-800">-</span>
                                         @endif
                                     </td>
                                     
                                 @elseif($p->asistencia->tipo == 'T')
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                         {{ $p->asistencia->entrada | date:'h:i:s A' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center">
                                         <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 max-w-xs truncate" title="{{ $p->asistencia->tardanza_entrada }}">
                                             <b>{{ $p->asistencia->tardanza_entrada }}</b>
                                         </span>
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                         {{ $p->asistencia->salida ? date('h:i:s A', strtotime($p->asistencia->salida)) : '--:--:--' }}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs">
                                         @if($p->asistencia->salida_anticipada || $p->asistencia->comentario_salida)
                                             <span class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800 max-w-xs truncate" title="{{ $p->asistencia->comentario_salida }}">
                                                 {{ $p->asistencia->comentario_salida }} 
@@ -144,35 +144,35 @@
                                                 A TIEMPO <i class="ph-bold ph-check-circle ml-1"></i>
                                             </span>
                                         @else
-                                            <span class="text-gray-400">-</span>
+                                            <span class="text-gray-800">-</span>
                                         @endif
                                     </td>
                                     
                                 @elseif($p->asistencia->tipo == 'NL')
-                                    <td colspan="4" class="px-6 py-4 text-center bg-gray-50">
-                                        <span class="text-gray-500 font-medium italic">No laborable según horario</span>
+                                    <td colspan="4" class="px-2 py-2 text-center bg-gray-50">
+                                        <span class="text-gray-800 font-medium italic">No laborable según horario</span>
                                     </td>
                                 @elseif($p->asistencia->tipo == 'FI')
-                                    <td colspan="4" class="px-6 py-4 text-center bg-red-50">
+                                    <td colspan="4" class="px-2 py-2 text-center bg-red-50">
                                         <span class="text-red-600 font-bold">Falta Injustificada</span>
                                     </td>
                                 @elseif($p->asistencia->tipo == 'FJ')
-                                    <td colspan="4" class="px-6 py-4 text-center bg-blue-50">
+                                    <td colspan="4" class="px-2 py-2 text-center bg-blue-50">
                                         <span class="text-blue-600 font-bold">Falta Justificada</span>
                                     </td>
                                 @elseif($p->asistencia->tipo == 'F')
-                                    <td colspan="4" class="px-6 py-4 text-center bg-gray-50">
-                                        <span class="text-gray-500 font-medium">Día Feriado</span>
+                                    <td colspan="4" class="px-2 py-2 text-center bg-gray-50">
+                                        <span class="text-gray-800 font-medium">Día Feriado</span>
                                     </td>
                                 @endif
                                 
                             @else
                                 @if($p->tipo == 'NL')
-                                    <td colspan="4" class="px-6 py-4 text-center bg-gray-50">
-                                        <span class="text-gray-500 font-medium italic">No laborable según horario</span>
+                                    <td colspan="4" class="px-2 py-2 text-center bg-gray-50">
+                                        <span class="text-gray-800 font-medium italic">No laborable según horario</span>
                                     </td>
                                 @elseif($p->tipo == 'FI')
-                                    <td colspan="4" class="px-6 py-4 text-center bg-red-50">
+                                    <td colspan="4" class="px-2 py-2 text-center bg-red-50">
                                         <span class="text-red-600 font-bold">Falta Injustificada</span>
                                     </td>
                                 @endif
@@ -180,7 +180,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-12 text-center text-sm text-gray-500">
+                            <td colspan="5" class="px-2 py-12 text-center text-xs text-gray-800">
                                 No se encontraron profesores registrados en el sistema.
                             </td>
                         </tr>

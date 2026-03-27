@@ -26,6 +26,7 @@ class Appointment extends Model
         'cancelled_at',
         'cancelled_by',
         'cancellation_reason',
+        'absented_notes'
     ];
 
     protected $casts = [
@@ -66,6 +67,11 @@ class Appointment extends Model
     public function complete()
     {
         $this->update(['status' => 'completed']);
+    }
+
+    public function absent($notes)
+    {
+        $this->update(['status' => 'absented', 'absented_notes' => $notes]);
     }
 
     public function cancel($by, $reason = null)

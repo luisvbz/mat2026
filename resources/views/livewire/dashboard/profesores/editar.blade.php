@@ -2,12 +2,12 @@
     <div class="flex items-center justify-between mb-6">
         <div class="flex items-center gap-3">
             <div
-                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-colegio-600">
+                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-300 flex items-center justify-center text-colegio-600">
                 <i class="ph-fill ph-user-pencil text-2xl"></i>
             </div>
             <div>
                 <h1 class="text-2xl font-bold text-gray-800">Editar Profesor</h1>
-                <p class="text-sm text-gray-500">Actualizar información del personal docente</p>
+                <p class="text-sm text-gray-800">Actualizar información del personal docente</p>
             </div>
         </div>
         <a href="{{ route('dashboard.profesores') }}"
@@ -18,12 +18,12 @@
 
     <livewire:commons.mod-profesor />
 
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
         <div class="p-6 sm:p-8">
             <form wire:submit.prevent="update" class="space-y-8">
                 {{-- Sección: Información Personal --}}
                 <div>
-                    <div class="flex items-center gap-2 mb-6 pb-2 border-b border-gray-100">
+                    <div class="flex items-center gap-2 mb-6 pb-2 border-b border-gray-300">
                         <i class="ph-fill ph-identification-card text-colegio-500 text-lg"></i>
                         <h2 class="font-bold text-gray-800 uppercase tracking-wider text-xs">Información Personal</h2>
                     </div>
@@ -66,7 +66,7 @@
 
                 {{-- Sección: Contacto y Gestión --}}
                 <div>
-                    <div class="flex items-center gap-2 mb-6 pb-2 border-b border-gray-100">
+                    <div class="flex items-center gap-2 mb-6 pb-2 border-b border-gray-300">
                         <i class="ph-fill ph-phone-call text-colegio-500 text-lg"></i>
                         <h2 class="font-bold text-gray-800 uppercase tracking-wider text-xs">Contacto y Gestión</h2>
                     </div>
@@ -104,7 +104,7 @@
                                     @endforeach
                                 </select>
                                 <div
-                                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+                                    class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-800">
                                     <i class="ph ph-caret-down"></i>
                                 </div>
                             </div>
@@ -115,9 +115,9 @@
                     </div>
                 </div>
 
-                <div class="pt-6 border-t border-gray-100 flex justify-end gap-3">
+                <div class="pt-6 border-t border-gray-300 flex justify-end gap-3">
                     <a href="{{ route('dashboard.profesores') }}"
-                        class="px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-bold text-gray-500 hover:bg-gray-50 transition-all uppercase tracking-widest">
+                        class="px-6 py-2.5 border border-gray-200 rounded-xl text-sm font-bold text-gray-800 hover:bg-gray-50 transition-all uppercase tracking-widest">
                         Cancelar
                     </a>
                     <button type="submit" wire:loading.attr="disabled"

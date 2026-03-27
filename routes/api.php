@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/appointments/direct', [AppointmentController::class, 'teacherCreateDirect']);
         Route::put('/appointments/{id}/confirm', [AppointmentController::class, 'teacherConfirm']);
         Route::put('/appointments/{id}/complete', [AppointmentController::class, 'teacherComplete']);
+        Route::put('/appointments/{id}/absent', [AppointmentController::class, 'teacherAbsent']);
 
         Route::get('/events', [EventController::class, 'index']);
     });

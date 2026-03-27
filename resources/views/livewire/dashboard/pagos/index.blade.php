@@ -13,15 +13,15 @@
     </div>
 
     {{-- Header --}}
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-gray-100 pb-4">
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 border-b border-gray-300 pb-4">
         <div class="flex items-center gap-3">
             <div
-                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-colegio-600">
+                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-300 flex items-center justify-center text-colegio-600">
                 <i class="ph-fill ph-money text-2xl"></i>
             </div>
             <div>
                 <h1 class="text-2xl font-bold text-gray-800">Pagos Recibidos por Matrícula</h1>
-                <p class="text-sm text-gray-500">Gestión y confirmación de transferencias de matrículas</p>
+                <p class="text-sm text-gray-800">Gestión y confirmación de transferencias de matrículas</p>
             </div>
         </div>
         <div class="flex justify-end gap-2 relative z-10">
@@ -36,56 +36,56 @@
     {{-- Stats Cards Overview --}}
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
         <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
+            class="bg-white rounded-xl shadow-sm border border-gray-300 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
             <div
                 class="w-12 h-12 rounded-full bg-yellow-50 text-yellow-500 flex items-center justify-center flex-shrink-0">
                 <i class="ph-fill ph-clock-counter-clockwise text-xl"></i>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">POR REVISIÓN</p>
+                <p class="text-[10px] font-bold text-gray-800 uppercase tracking-wider mb-0.5">POR REVISIÓN</p>
                 <h3 class="text-2xl font-bold text-gray-800">{{ $pendientes }}</h3>
             </div>
         </div>
 
         <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
+            class="bg-white rounded-xl shadow-sm border border-gray-300 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
             <div
                 class="w-12 h-12 rounded-full bg-green-50 text-green-500 flex items-center justify-center flex-shrink-0">
                 <i class="ph-fill ph-check-circle text-xl"></i>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">CONFIRMADOS</p>
+                <p class="text-[10px] font-bold text-gray-800 uppercase tracking-wider mb-0.5">CONFIRMADOS</p>
                 <h3 class="text-2xl font-bold text-gray-800">{{ $confirmados }}</h3>
             </div>
         </div>
 
         <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
+            class="bg-white rounded-xl shadow-sm border border-gray-300 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
             <div class="w-12 h-12 rounded-full bg-red-50 text-red-500 flex items-center justify-center flex-shrink-0">
                 <i class="ph-fill ph-x-circle text-xl"></i>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">ANULADOS</p>
+                <p class="text-[10px] font-bold text-gray-800 uppercase tracking-wider mb-0.5">ANULADOS</p>
                 <h3 class="text-2xl font-bold text-gray-800">{{ $anulados }}</h3>
             </div>
         </div>
 
         <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
-            <div class="w-12 h-12 rounded-full bg-gray-50 text-gray-500 flex items-center justify-center flex-shrink-0">
+            class="bg-white rounded-xl shadow-sm border border-gray-300 p-4 flex items-center gap-4 hover:shadow-md transition-shadow">
+            <div class="w-12 h-12 rounded-full bg-gray-50 text-gray-800 flex items-center justify-center flex-shrink-0">
                 <i class="ph-fill ph-sigma text-xl"></i>
             </div>
             <div>
-                <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider mb-0.5">TOTAL</p>
+                <p class="text-[10px] font-bold text-gray-800 uppercase tracking-wider mb-0.5">TOTAL</p>
                 <h3 class="text-2xl font-bold text-gray-800">{{ $total }}</h3>
             </div>
         </div>
     </div>
 
     {{-- Filters --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex flex-col md:flex-row gap-4">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-4 flex flex-col md:flex-row gap-4">
         <div class="flex-1 relative">
-            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                 <i class="ph ph-magnifying-glass"></i>
             </div>
             <input type="text" wire:keydown.enter="buscar" wire:model.defer="search"
@@ -117,54 +117,54 @@
     </div>
 
     {{-- Table --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible relative z-20">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-visible relative z-20">
         <div class="overflow-x-auto pb-32">
             <table class="w-full text-sm text-left text-gray-600">
-                <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
+                <thead class="text-xs text-gray-800 uppercase bg-gray-50 border-b border-gray-300">
                     <tr>
-                        <th class="px-4 py-3 font-semibold text-center w-24">Estado</th>
-                        <th class="px-4 py-3 font-semibold">Concepto</th>
-                        <th class="px-4 py-3 font-semibold">Matrícula</th>
-                        <th class="px-4 py-3 font-semibold">Alumno</th>
-                        <th class="px-4 py-3 font-semibold">Nivel/Grado</th>
-                        <th class="px-4 py-3 font-semibold">Método</th>
-                        <th class="px-4 py-3 font-semibold">Operación</th>
-                        <th class="px-4 py-3 font-semibold text-right">Monto</th>
-                        <th class="px-4 py-3 font-semibold">Fecha de Pago</th>
-                        <th class="px-4 py-3 text-center">Acciones</th>
+                        <th class="px-2 py-2 font-semibold text-center w-24">Estado</th>
+                        <th class="px-2 py-2 font-semibold">Concepto</th>
+                        <th class="px-2 py-2 font-semibold">Matrícula</th>
+                        <th class="px-2 py-2 font-semibold">Alumno</th>
+                        <th class="px-2 py-2 font-semibold">Nivel/Grado</th>
+                        <th class="px-2 py-2 font-semibold">Método</th>
+                        <th class="px-2 py-2 font-semibold">Operación</th>
+                        <th class="px-2 py-2 font-semibold text-right">Monto</th>
+                        <th class="px-2 py-2 font-semibold">Fecha de Pago</th>
+                        <th class="px-2 py-2 text-center">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     @forelse($pagos as $pago)
                         <tr class="hover:bg-gray-50/50 transition-colors">
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-2 py-2 text-center">
                                 {!! str_replace(
                                     ['has-text-warning', 'has-text-success', 'has-text-danger', 'fas fa-circle'],
                                     ['text-yellow-500', 'text-green-500', 'text-red-500', 'ph-fill ph-circle text-lg'],
                                     explode('>', $pago->status)[0] . '>',
                                 ) !!}
                             </td>
-                            <td class="px-4 py-3 font-medium text-gray-800">
+                            <td class="px-2 py-2 font-medium text-gray-800">
                                 {{ $pago->concepto == 'M' ? 'Matrícula' : 'Pensión' }}</td>
-                            <td class="px-4 py-3">{{ $pago->codigo_matricula }}</td>
-                            <td class="px-4 py-3 font-medium">{{ $pago->matricula->alumno->apellido_paterno }},
+                            <td class="px-2 py-2">{{ $pago->codigo_matricula }}</td>
+                            <td class="px-2 py-2 font-medium">{{ $pago->matricula->alumno->apellido_paterno }},
                                 {{ $pago->matricula->alumno->nombres }}</td>
-                            <td class="px-4 py-3">
+                            <td class="px-2 py-2">
                                 <span
                                     class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs font-semibold mr-1">{{ $pago->matricula->nivel == 'P' ? 'PRI' : 'SEC' }}</span>
                                 {{ $pago->matricula->grado | grado }}
                             </td>
-                            <td class="px-4 py-3 font-bold text-gray-600">{{ $pago->tipo_pago | mp }}</td>
-                            <td class="px-4 py-3 font-mono text-xs">{{ $pago->numero_operacion }}</td>
-                            <td class="px-4 py-3 text-right font-bold text-gray-800">
+                            <td class="px-2 py-2 font-bold text-gray-600">{{ $pago->tipo_pago | mp }}</td>
+                            <td class="px-2 py-2 font-mono text-xs">{{ $pago->numero_operacion }}</td>
+                            <td class="px-2 py-2 text-right font-bold text-gray-800">
                                 <span
-                                    class="text-gray-400 font-normal mr-1">S/</span>{{ number_format($pago->monto_pagado, 2) }}
+                                    class="text-gray-800 font-normal mr-1">S/</span>{{ number_format($pago->monto_pagado, 2) }}
                             </td>
-                            <td class="px-4 py-3">{{ $pago->fecha_deposito | dateFormat }}</td>
-                            <td class="px-4 py-3 text-center">
+                            <td class="px-2 py-2">{{ $pago->fecha_deposito | dateFormat }}</td>
+                            <td class="px-2 py-2 text-center">
                                 <div class="relative" x-data="{ open: false }">
                                     <button @click="open = !open" @click.away="open = false"
-                                        class="p-1.5 rounded-md text-gray-500 hover:bg-gray-100 hover:text-gray-800 transition-colors">
+                                        class="p-1.5 rounded-md text-gray-800 hover:bg-gray-100 hover:text-gray-800 transition-colors">
                                         <i class="ph-bold ph-dots-three-vertical text-lg"></i>
                                     </button>
 
@@ -174,7 +174,7 @@
                                         x-transition:leave="transition ease-in duration-75"
                                         x-transition:leave-start="transform opacity-100 scale-100"
                                         x-transition:leave-end="transform opacity-0 scale-95"
-                                        class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-100 z-50 py-1 origin-top-right">
+                                        class="absolute right-0 mt-2 w-56 bg-white rounded-xl shadow-lg border border-gray-300 z-50 py-1 origin-top-right">
 
                                         <button wire:click="verComprobante('{{ $pago->comprobante }}')"
                                             class="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-colegio-600 flex items-center gap-2">
@@ -188,7 +188,7 @@
                                                 <i class="ph ph-check-circle text-green-500"></i> Confirmar matrícula
                                             </button>
 
-                                            <div class="border-t border-gray-100 my-1"></div>
+                                            <div class="border-t border-gray-300 my-1"></div>
                                             <button
                                                 wire:click="showDialogAnularPago({{ $pago->id }},  '{{ $pago->codigo_matricula }}')"
                                                 class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center gap-2">
@@ -201,7 +201,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="px-5 py-8 text-center text-gray-500">
+                            <td colspan="10" class="px-2 py-2 text-center text-gray-800">
                                 <i class="ph ph-file-dashed text-4xl mb-2 text-gray-300 block"></i>
                                 No hay resultados que mostrar
                             </td>
@@ -210,7 +210,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="px-5 py-4 border-t border-gray-100">
+        <div class="px-5 py-4 border-t border-gray-300">
             {{ $pagos->links() }}
         </div>
     </div>
@@ -228,7 +228,7 @@
 
             <div class="absolute top-0 right-0 pt-4 pr-4 z-10">
                 <button @click="show = false"
-                    class="bg-gray-100 rounded-full p-2 text-gray-500 hover:bg-gray-200 hover:text-gray-900 transition-colors focus:outline-none">
+                    class="bg-gray-100 rounded-full p-2 text-gray-800 hover:bg-gray-200 hover:text-gray-900 transition-colors focus:outline-none">
                     <span class="sr-only">Cerrar modal</span>
                     <i class="ph ph-x text-xl"></i>
                 </button>
@@ -238,7 +238,7 @@
                 <img src="{{ $imagenComprobante }}" alt="Comprobante de Pago"
                     class="w-full h-auto max-h-[70vh] object-contain rounded-lg">
             </div>
-            <div class="bg-gray-50 px-6 py-4 border-t border-gray-100 flex justify-end">
+            <div class="bg-gray-50 px-6 py-4 border-t border-gray-300 flex justify-end">
                 <button @click="show = false"
                     class="px-4 py-2 bg-white border border-gray-300 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-colegio-500 transition-colors">
                     Cerrar

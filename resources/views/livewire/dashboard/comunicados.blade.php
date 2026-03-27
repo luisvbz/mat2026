@@ -32,12 +32,12 @@
     </div>
 
     {{-- Filters --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
             <div class="md:col-span-6">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="ph ph-magnifying-glass text-gray-400"></i>
+                        <i class="ph ph-magnifying-glass text-gray-800"></i>
                     </div>
                     <input wire:model.debounce.500ms="search" type="text"
                         class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
@@ -72,38 +72,40 @@
     </div>
 
     {{-- Communications List --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Estado</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Título</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Categoría</th>
                         <th scope="col"
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Adjuntos</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fecha
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
+                            Fecha
                             Publicación</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Autor
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
+                            Autor
                         </th>
                         <th scope="col"
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-200">
                     @forelse($communications as $communication)
                         <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-2 py-2 whitespace-nowrap">
                                 @if ($communication->is_published)
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -116,13 +118,13 @@
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4">
+                            <td class="px-2 py-2">
                                 <div class="text-sm font-semibold text-gray-900">{{ $communication->title }}</div>
-                                <div class="text-sm text-gray-500 truncate max-w-xs">
+                                <div class="text-sm text-gray-800 truncate max-w-xs">
                                     {{ Str::limit(strip_tags($communication->content), 80) }}
                                 </div>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-2 py-2 whitespace-nowrap">
                                 @php
                                     $categoryColors = [
                                         'urgente' => 'bg-red-100 text-red-800',
@@ -137,7 +139,7 @@
                                     {{ ucfirst($communication->category) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <td class="px-2 py-2 whitespace-nowrap text-center">
                                 @if ($communication->attachments->count() > 0)
                                     <span
                                         class="inline-flex items-center justify-center bg-blue-50 text-blue-600 rounded-md px-2 py-1 text-xs font-semibold">
@@ -145,19 +147,19 @@
                                         {{ $communication->attachments->count() }}
                                     </span>
                                 @else
-                                    <span class="text-gray-400">-</span>
+                                    <span class="text-gray-800">-</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                 {{ $communication->published_at ? $communication->published_at->format('d/m/Y H:i') : '-' }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-900">
                                 {{ $communication->author_name }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                 <div class="relative inline-block text-left" x-data="{ open: false }">
                                     <button @click="open = !open" @click.away="open = false"
-                                        class="text-gray-400 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors">
+                                        class="text-gray-800 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors">
                                         <i class="ph ph-dots-three-vertical text-xl"></i>
                                     </button>
 
@@ -184,7 +186,7 @@
                                                     Publicar
                                                 @endif
                                             </button>
-                                            <div class="border-t border-gray-100 my-1"></div>
+                                            <div class="border-t border-gray-300 my-1"></div>
                                             <button wire:click="confirmDelete({{ $communication->id }})"
                                                 class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center">
                                                 <i class="ph ph-trash w-5 text-red-500 text-lg mr-2"></i> Eliminar
@@ -196,13 +198,13 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-12 text-center">
+                            <td colspan="7" class="px-2 py-12 text-center">
                                 <div
                                     class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-100 mb-4">
-                                    <i class="ph ph-tray text-3xl text-gray-400"></i>
+                                    <i class="ph ph-tray text-3xl text-gray-800"></i>
                                 </div>
                                 <h3 class="text-lg font-medium text-gray-900">No hay comunicados</h3>
-                                <p class="mt-1 text-sm text-gray-500">Aún no se ha creado ningún comunicado o ninguno
+                                <p class="mt-1 text-sm text-gray-800">Aún no se ha creado ningún comunicado o ninguno
                                     coincide con tu búsqueda.</p>
                             </td>
                         </tr>
@@ -232,7 +234,7 @@
                                 <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
                                     Confirmar Eliminación
                                 </h3>
-                                <div class="mt-2 text-sm text-gray-500">
+                                <div class="mt-2 text-sm text-gray-800">
                                     <p>¿Estás seguro de que deseas eliminar este comunicado?</p>
                                     <p class="text-red-600 mt-2 font-medium">Esta acción no se puede deshacer. Se
                                         eliminarán también todos los archivos adjuntos.</p>

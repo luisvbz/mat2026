@@ -17,24 +17,24 @@
 
     <div class="flex items-center gap-3 mb-6">
         <div
-            class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-colegio-600">
+            class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-300 flex items-center justify-center text-colegio-600">
             <i class="ph-fill ph-student text-2xl"></i>
         </div>
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Profesores</h1>
-            <p class="text-sm text-gray-500">Gestión del personal docente y administrativo</p>
+            <p class="text-sm text-gray-800">Gestión del personal docente y administrativo</p>
         </div>
     </div>
 
     <livewire:commons.mod-profesor />
 
     {{-- Filters --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
             <div class="md:col-span-6 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Buscar</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Buscar</label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                         <i class="ph ph-magnifying-glass"></i>
                     </div>
                     <input type="text" wire:model.defer="search" placeholder="Nombre, apellido o DNI..."
@@ -43,7 +43,7 @@
             </div>
 
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Estado</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Estado</label>
                 <select wire:model.defer="estado"
                     class="block w-full pl-3 pr-10 py-2 border border-gray-200 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm transition-all bg-gray-50/50">
                     <option value="">Todos</option>
@@ -58,7 +58,7 @@
                     <i class="ph ph-magnifying-glass mr-2"></i> Buscar
                 </button>
                 <button wire:click="limpiar"
-                    class="inline-flex items-center px-3 py-2 border border-gray-200 rounded-lg text-gray-500 bg-white hover:bg-gray-50 transition-colors shadow-sm">
+                    class="inline-flex items-center px-3 py-2 border border-gray-200 rounded-lg text-gray-800 bg-white hover:bg-gray-50 transition-colors shadow-sm">
                     <i class="ph ph-eraser"></i>
                 </button>
             </div>
@@ -66,23 +66,23 @@
     </div>
 
     {{-- Table --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden relative z-0">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden relative z-0">
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-600">
-                <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
+                <thead class="text-xs text-gray-800 uppercase bg-gray-50 border-b border-gray-300">
                     <tr>
-                        <th class="px-5 py-4 font-semibold text-center w-20">Estado</th>
-                        <th class="px-5 py-4 font-semibold">Profesor</th>
-                        <th class="px-5 py-4 font-semibold">Documento</th>
-                        <th class="px-5 py-4 font-semibold">Horario</th>
-                        <th class="px-5 py-4 font-semibold">Contacto</th>
-                        <th class="px-5 py-4 font-semibold text-right">Acciones</th>
+                        <th class="px-2 py-2 font-semibold text-center w-20">Estado</th>
+                        <th class="px-2 py-2 font-semibold">Profesor</th>
+                        <th class="px-2 py-2 font-semibold">Documento</th>
+                        <th class="px-2 py-2 font-semibold">Horario</th>
+                        <th class="px-2 py-2 font-semibold">Contacto</th>
+                        <th class="px-2 py-2 font-semibold text-right">Acciones</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50">
                     @forelse($teachers as $teacher)
                         <tr class="hover:bg-gray-50/50 transition-colors">
-                            <td class="px-5 py-4 text-center">
+                            <td class="px-2 py-2 text-center">
                                 @if ($teacher->estado == 1)
                                     <span
                                         class="inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold bg-green-50 text-green-700">
@@ -95,7 +95,7 @@
                                     </span>
                                 @endif
                             </td>
-                            <td class="px-5 py-4 font-bold text-gray-800">
+                            <td class="px-2 py-2 font-bold text-gray-800">
                                 <div class="flex items-center">
                                     <div
                                         class="w-10 h-10 rounded-full bg-colegio-50 flex items-center justify-center text-colegio-600 font-bold text-xs ring-2 ring-white shadow-sm mr-3">
@@ -104,25 +104,25 @@
                                     <div>
                                         <p class="font-bold text-gray-800 leading-tight uppercase">
                                             {{ $teacher->apellidos }}</p>
-                                        <p class="text-xs text-gray-500 font-normal">{{ $teacher->nombres }}</p>
+                                        <p class="text-xs text-gray-800 font-normal">{{ $teacher->nombres }}</p>
                                     </div>
                                 </div>
                             </td>
-                            <td class="px-5 py-4 font-medium text-gray-700 font-mono tracking-tighter">
+                            <td class="px-2 py-2 font-medium text-gray-700 font-mono tracking-tighter">
                                 {{ $teacher->documento }}</td>
-                            <td class="px-5 py-4">
+                            <td class="px-2 py-2">
                                 <span
                                     class="inline-block px-2 py-1 bg-blue-50 text-blue-700 rounded-md text-[11px] font-bold">
                                     {{ $teacher->horario->name }}
                                 </span>
                             </td>
-                            <td class="px-5 py-4 space-y-1">
-                                <div class="flex items-center text-xs text-gray-500 leading-none">
-                                    <i class="ph ph-envelope-simple mr-1.5 text-gray-400"></i>
+                            <td class="px-2 py-2 space-y-1">
+                                <div class="flex items-center text-xs text-gray-800 leading-none">
+                                    <i class="ph ph-envelope-simple mr-1.5 text-gray-800"></i>
                                     {{ strtolower($teacher->email) }}
                                 </div>
                                 <div class="flex items-center text-xs leading-none">
-                                    <i class="ph ph-phone mr-1.5 text-gray-400"></i>
+                                    <i class="ph ph-phone mr-1.5 text-gray-800"></i>
                                     <span class="text-gray-700 font-semibold">{{ $teacher->telefono }}</span>
                                     @if ($teacher->telefono)
                                         <a href="https://wa.me/51{{ $teacher->telefono }}" target="_blank"
@@ -132,27 +132,27 @@
                                     @endif
                                 </div>
                             </td>
-                            <td class="px-5 py-4 text-right">
+                            <td class="px-2 py-2 text-right">
                                 <div class="flex justify-end gap-2" x-data="{ open: false }">
                                     <a href="{{ route('dashboard.profesores.detalle', $teacher->id) }}"
-                                        class="p-2 text-gray-400 hover:text-colegio-600 hover:bg-colegio-50 rounded-lg transition-all"
+                                        class="p-2 text-gray-800 hover:text-colegio-600 hover:bg-colegio-50 rounded-lg transition-all"
                                         title="Ver Detalle">
                                         <i class="ph ph-eye text-xl"></i>
                                     </a>
                                     <a href="{{ route('dashboard.profesores.editar', $teacher->id) }}"
-                                        class="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
+                                        class="p-2 text-gray-800 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all"
                                         title="Editar">
                                         <i class="ph ph-pencil-simple text-xl"></i>
                                     </a>
 
                                     <div class="relative" x-data="{ open: false }">
                                         <button @click="open = !open" @click.away="open = false"
-                                            class="p-2 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
+                                            class="p-2 text-gray-800 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-all">
                                             <i class="ph ph-dots-three-vertical text-xl"></i>
                                         </button>
                                         <template x-if="open">
                                             <div x-show="open"
-                                                class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 z-50 py-2 origin-top-right transition-all">
+                                                class="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-300 z-50 py-2 origin-top-right transition-all">
                                                 @if ($teacher->estado == 0)
                                                     <button wire:click="activar({{ $teacher->id }})"
                                                         class="w-full flex items-center px-4 py-2 text-sm text-green-600 hover:bg-green-50 transition-colors">
@@ -179,7 +179,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="6" class="px-5 py-12 text-center text-gray-400">
+                            <td colspan="6" class="px-2 py-12 text-center text-gray-800">
                                 <i class="ph ph-users-three text-4xl mb-3 opacity-20 block mx-auto"></i>
                                 No se encontraron profesores registrados
                             </td>

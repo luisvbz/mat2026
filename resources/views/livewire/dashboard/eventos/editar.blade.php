@@ -3,12 +3,12 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
         <div class="flex items-center gap-3">
             <div
-                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-colegio-600">
+                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-300 flex items-center justify-center text-colegio-600">
                 <i class="ph-fill ph-calendar-pencil text-2xl"></i>
             </div>
             <div>
                 <h1 class="text-2xl font-bold text-gray-800 tracking-tight">Editar Evento</h1>
-                <p class="text-sm text-gray-500 font-medium">Actualizar información de la actividad</p>
+                <p class="text-sm text-gray-800 font-medium">Actualizar información de la actividad</p>
             </div>
         </div>
         <a href="{{ route('dashboard.eventos') }}"
@@ -19,7 +19,7 @@
 
     <livewire:commons.mod-eventos />
 
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-300 overflow-hidden">
         <div class="p-6 sm:p-8">
             <form wire:submit.prevent="save" class="space-y-8">
                 {{-- Sección: Datos del Evento --}}
@@ -33,20 +33,20 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-1.5">
                             <label
-                                class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Fecha
+                                class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1">Fecha
                                 del Evento <span class="text-red-500">*</span></label>
                             <input type="date" wire:model="date"
-                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('date') ? 'border-red-300 ring-red-50' : 'border-gray-100 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner">
+                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('date') ? 'border-red-300 ring-red-50' : 'border-gray-300 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner">
                             @error('date')
                                 <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
                             @enderror
                         </div>
 
                         <div class="space-y-1.5">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Hora
+                            <label class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1">Hora
                                 <span class="text-red-500">*</span></label>
                             <input type="time" wire:model="time"
-                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('time') ? 'border-red-300 ring-red-50' : 'border-gray-100 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner">
+                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('time') ? 'border-red-300 ring-red-50' : 'border-gray-300 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner">
                             @error('time')
                                 <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
                             @enderror
@@ -54,10 +54,10 @@
 
                         <div class="space-y-1.5 md:col-span-2">
                             <label
-                                class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Descripción
+                                class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1">Descripción
                                 del Evento <span class="text-red-500">*</span></label>
                             <textarea wire:model="description" rows="3"
-                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('description') ? 'border-red-300 ring-red-50' : 'border-gray-100 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner"
+                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('description') ? 'border-red-300 ring-red-50' : 'border-gray-300 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner"
                                 placeholder="Describa el evento o aviso..."></textarea>
                             @error('description')
                                 <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
@@ -76,17 +76,17 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="space-y-1.5 relative">
-                            <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Tipo
+                            <label class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1">Tipo
                                 de Evento <span class="text-red-500">*</span></label>
                             <select wire:model="type"
-                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('type') ? 'border-red-300 ring-red-50' : 'border-gray-100 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner appearance-none">
+                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('type') ? 'border-red-300 ring-red-50' : 'border-gray-300 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner appearance-none">
                                 <option value="actividad">Actividad</option>
                                 <option value="anuncio">Anuncio / Aviso</option>
                                 <option value="reunion">Reunión</option>
                                 <option value="otro">Otro</option>
                             </select>
                             <div
-                                class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400 pt-5">
+                                class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-800 pt-5">
                                 <i class="ph ph-caret-down font-bold"></i>
                             </div>
                             @error('type')
@@ -96,10 +96,10 @@
 
                         <div class="space-y-1.5">
                             <label
-                                class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Enlace
+                                class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1">Enlace
                                 Externo (URL)</label>
                             <input type="url" wire:model="link"
-                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('link') ? 'border-red-300 ring-red-50' : 'border-gray-100 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner"
+                                class="block w-full px-4 py-3 bg-gray-50 border {{ $errors->has('link') ? 'border-red-300 ring-red-50' : 'border-gray-300 focus:ring-colegio-500 focus:border-colegio-500' }} rounded-xl text-sm font-bold text-gray-700 transition-all shadow-inner"
                                 placeholder="https://ejemplo.com/evento">
                             @error('link')
                                 <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
@@ -108,18 +108,18 @@
 
                         <div class="space-y-1.5 md:col-span-2">
                             <label
-                                class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1">Archivo
+                                class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1">Archivo
                                 Adjunto (Actual:
                                 {{ $currentAttachment ? basename($currentAttachment) : 'Ninguno' }})</label>
                             <div class="relative group">
                                 <input type="file" wire:model="attachment"
-                                    class="block w-full text-sm font-bold text-gray-500 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-colegio-50 file:text-colegio-700 hover:file:bg-colegio-100 transition-all bg-gray-50 border border-gray-100 rounded-xl cursor-pointer">
+                                    class="block w-full text-sm font-bold text-gray-800 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-[10px] file:font-bold file:uppercase file:tracking-widest file:bg-colegio-50 file:text-colegio-700 hover:file:bg-colegio-100 transition-all bg-gray-50 border border-gray-300 rounded-xl cursor-pointer">
                                 <div wire:loading wire:target="attachment"
                                     class="absolute top-1/2 -translate-y-1/2 right-4">
                                     <i class="ph ph-spinner-gap animate-spin text-colegio-600 text-xl font-bold"></i>
                                 </div>
                             </div>
-                            <p class="text-[10px] text-gray-400 italic mt-1 ml-1 font-medium font-medium">Máximo 10MB.
+                            <p class="text-[10px] text-gray-800 italic mt-1 ml-1 font-medium font-medium">Máximo 10MB.
                                 Deje vacío para mantener el actual.</p>
                             @error('attachment')
                                 <p class="text-xs text-red-600 font-medium mt-1">{{ $message }}</p>
@@ -128,9 +128,9 @@
                     </div>
                 </div>
 
-                <div class="pt-6 border-t border-gray-100 flex justify-end gap-3">
+                <div class="pt-6 border-t border-gray-300 flex justify-end gap-3">
                     <button type="button" wire:click="cancel"
-                        class="px-8 py-3 bg-white border border-gray-200 rounded-xl text-[10px] font-bold uppercase tracking-widest text-gray-500 hover:bg-gray-100 transition-all shadow-sm">
+                        class="px-8 py-3 bg-white border border-gray-200 rounded-xl text-[10px] font-bold uppercase tracking-widest text-gray-800 hover:bg-gray-100 transition-all shadow-sm">
                         Cancelar
                     </button>
                     <button type="submit" wire:loading.attr="disabled"

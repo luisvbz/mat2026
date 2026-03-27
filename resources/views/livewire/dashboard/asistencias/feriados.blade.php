@@ -9,7 +9,7 @@
                 </span>
                 Gestión de Feriados
             </h1>
-            <p class="text-gray-500 text-sm mt-1 ml-16">Administra los días feriados o sin asistencia obligatoria del año
+            <p class="text-gray-800 text-sm mt-1 ml-16">Administra los días feriados o sin asistencia obligatoria del año
                 escolar.</p>
         </div>
         <div>
@@ -22,8 +22,8 @@
 
     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {{-- Nuevo Feriado Form --}}
-        <div class="lg:col-span-1 border border-gray-100 bg-white rounded-xl shadow-sm p-6">
-            <h3 class="text-lg font-bold text-gray-800 flex items-center mb-6 border-b border-gray-100 pb-4">
+        <div class="lg:col-span-1 border border-gray-300 bg-white rounded-xl shadow-sm p-6">
+            <h3 class="text-lg font-bold text-gray-800 flex items-center mb-6 border-b border-gray-300 pb-4">
                 <i class="ph-fill ph-plus-circle text-colegio-500 mr-2 text-xl"></i> Nuevo Feriado
             </h3>
 
@@ -31,7 +31,7 @@
                 <div class="space-y-1">
                     <label class="block text-sm font-medium text-gray-700">Fecha del Feriado</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                             <i class="ph ph-calendar"></i>
                         </div>
                         <input type="date" wire:model.defer="fecha_feriado"
@@ -46,7 +46,7 @@
                 <div class="space-y-1">
                     <label class="block text-sm font-medium text-gray-700">Descripción</label>
                     <div class="relative">
-                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                             <i class="ph ph-text-aa"></i>
                         </div>
                         <input type="text" wire:model.defer="descripcion"
@@ -69,8 +69,8 @@
         </div>
 
         {{-- Lista de Feriados --}}
-        <div class="lg:col-span-2 border border-gray-100 bg-white rounded-xl shadow-sm overflow-hidden flex flex-col">
-            <div class="px-6 py-5 border-b border-gray-100">
+        <div class="lg:col-span-2 border border-gray-300 bg-white rounded-xl shadow-sm overflow-hidden flex flex-col">
+            <div class="px-6 py-5 border-b border-gray-300">
                 <h3 class="text-lg font-bold text-gray-800 flex items-center">
                     <i class="ph-fill ph-list-dashes text-colegio-500 mr-2 text-xl"></i> Listado de Feriados
                 </h3>
@@ -81,13 +81,13 @@
                     <thead class="bg-gray-50">
                         <tr>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                                 Fecha</th>
                             <th scope="col"
-                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                                 Descripción</th>
                             <th scope="col"
-                                class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-24">
+                                class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider w-24">
                                 Acciones</th>
                         </tr>
                     </thead>
@@ -98,17 +98,17 @@
                                 $esPasado = $fechaRaw->isPast() && !$fechaRaw->isToday();
                             @endphp
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-2 py-2 whitespace-nowrap">
                                     <span
                                         class="inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium {{ $esPasado ? 'bg-gray-100 text-gray-600' : 'bg-blue-100 text-blue-800' }}">
                                         <i class="ph-fill ph-calendar-blank mr-2"></i> {{ $feriado->fecha_feriado }}
                                     </span>
                                 </td>
                                 <td
-                                    class="px-6 py-4 text-sm {{ $esPasado ? 'text-gray-500 italic' : 'text-gray-900 font-medium' }}">
+                                    class="px-2 py-2 text-xs {{ $esPasado ? 'text-gray-800 italic' : 'text-gray-900 font-medium' }}">
                                     {{ $feriado->descripcion }}
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                                <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                     @if (!$esPasado)
                                         <button wire:click="showDialogEliminar({{ $feriado->id }})"
                                             class="text-red-500 hover:text-red-700 bg-red-50 hover:bg-red-100 p-2 rounded-lg transition-colors focus:outline-none"
@@ -117,7 +117,7 @@
                                         </button>
                                     @else
                                         <button disabled
-                                            class="text-gray-400 bg-gray-50 p-2 rounded-lg cursor-not-allowed"
+                                            class="text-gray-800 bg-gray-50 p-2 rounded-lg cursor-not-allowed"
                                             title="No se puede eliminar un feriado que ya ha pasado">
                                             <i class="ph-bold ph-trash text-lg opacity-50"></i>
                                         </button>
@@ -126,10 +126,10 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="3" class="px-6 py-12 text-center text-sm text-gray-500">
+                                <td colspan="3" class="px-2 py-12 text-center text-xs text-gray-800">
                                     <div
                                         class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-50 mb-3">
-                                        <i class="ph-fill ph-calendar-slash text-2xl text-gray-400"></i>
+                                        <i class="ph-fill ph-calendar-slash text-2xl text-gray-800"></i>
                                     </div>
                                     <p class="font-medium text-gray-900">No hay feriados registrados</p>
                                     <p class="mt-1">Aparecerán aquí tras registrar al menos uno.</p>

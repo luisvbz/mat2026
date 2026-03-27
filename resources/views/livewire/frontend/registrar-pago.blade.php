@@ -46,7 +46,7 @@
                     @endif
                 </div>
                 <span
-                    class="mt-2 text-xs font-semibold @if ($step == 1) text-primary @elseif($step > 1) text-green-600 @else text-gray-400 @endif">
+                    class="mt-2 text-xs font-semibold @if ($step == 1) text-primary @elseif($step > 1) text-green-600 @else text-gray-800 @endif">
                     Buscar Matrícula
                 </span>
             </div>
@@ -70,7 +70,7 @@
                     @endif
                 </div>
                 <span
-                    class="mt-2 text-xs font-semibold @if ($step == 2) text-primary @elseif($step > 2) text-green-600 @else text-gray-400 @endif">
+                    class="mt-2 text-xs font-semibold @if ($step == 2) text-primary @elseif($step > 2) text-green-600 @else text-gray-800 @endif">
                     Concepto
                 </span>
             </div>
@@ -94,7 +94,7 @@
                     @endif
                 </div>
                 <span
-                    class="mt-2 text-xs font-semibold @if ($step == 3) text-primary @elseif($step > 3) text-green-600 @else text-gray-400 @endif">
+                    class="mt-2 text-xs font-semibold @if ($step == 3) text-primary @elseif($step > 3) text-green-600 @else text-gray-800 @endif">
                     Registrar Pago
                 </span>
             </div>
@@ -117,7 +117,7 @@
                     @endif
                 </div>
                 <span
-                    class="mt-2 text-xs font-semibold @if ($step == 4) text-green-600 @else text-gray-400 @endif">
+                    class="mt-2 text-xs font-semibold @if ($step == 4) text-green-600 @else text-gray-800 @endif">
                     Finalizado
                 </span>
             </div>
@@ -141,7 +141,7 @@
                 <form wire:submit.prevent="buscarMatricula" class="space-y-6">
                     <div class="max-w-sm mx-auto">
                         <label class="block text-sm font-semibold text-gray-700 mb-2">DNI/CE/PTP del alumno</label>
-                        <input type="text" wire:model.defer="codigo"  placeholder="12345678"
+                        <input type="text" wire:model.defer="codigo" placeholder="12345678"
                             class="w-full px-4 py-3 text-center text-lg font-mono border rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary @error('codigo') border-red-500 @enderror" />
                         @error('codigo')
                             <p class="text-red-600 text-xs mt-1">{{ $message }}</p>

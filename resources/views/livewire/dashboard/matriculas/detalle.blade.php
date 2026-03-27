@@ -7,19 +7,19 @@
 }">
 
     {{-- Header --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 flex justify-between items-center">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5 flex justify-between items-center">
         <div class="text-xl font-bold text-gray-800 flex items-center gap-2">
             <i class="ph ph-graduation-cap text-colegio-600 text-2xl"></i>
             Detalle Matrícula: {{ $matricula->codigo }}
             @if ($matricula->numero_matricula != null)
-                <span class="text-gray-400 font-normal text-lg">#{{ $matricula->numero_matricula }}</span>
+                <span class="text-gray-800 font-normal text-lg">#{{ $matricula->numero_matricula }}</span>
             @endif
         </div>
         <div>{!! $matricula->status !!}</div>
     </div>
 
     {{-- Quick Info Card --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-6">
         <div class="flex flex-col md:flex-row items-center gap-6">
             <div class="flex-shrink-0">
                 <img src="{{ $matricula->alumno->foto }}"
@@ -65,7 +65,7 @@
             <button @click="activeTab = '{{ $tab['id'] }}'"
                 class="px-5 py-3 text-sm font-medium rounded-t-lg transition-colors flex items-center gap-2 border-b-2 whitespace-nowrap"
                 :class="activeTab === '{{ $tab['id'] }}' ? 'border-colegio-500 text-colegio-600 bg-white' :
-                    'border-transparent text-gray-500 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300'">
+                    'border-transparent text-gray-800 hover:text-gray-700 hover:bg-gray-50 hover:border-gray-300'">
                 <i class="ph {{ $tab['icon'] }} text-lg"></i>
                 <span>{{ $tab['label'] }}</span>
             </button>
@@ -73,11 +73,11 @@
     </div>
 
     {{-- Tab Content Container --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 min-h-[400px]">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-6 min-h-[400px]">
 
         {{-- Tab: Estudiante --}}
         <div x-show="activeTab === 'estudiante'" x-cloak>
-            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+            <div class="flex justify-between items-center mb-6 border-b border-gray-300 pb-4">
                 <div class="flex items-center gap-2 text-lg font-bold text-gray-800">
                     <i class="ph ph-student text-colegio-500"></i>
                     <span>Información del Estudiante</span>
@@ -101,37 +101,37 @@
                     {{-- Datos Personales --}}
                     <div>
                         <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                            <i class="ph ph-identification-card text-gray-500"></i> Datos Personales
+                            <i class="ph ph-identification-card text-gray-800"></i> Datos Personales
                         </h3>
                         <div class="space-y-3 text-sm">
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Tipo de Documento</span>
+                                <span class="text-gray-800">Tipo de Documento</span>
                                 <span class="font-medium text-gray-800">{{ $matricula->alumno->tipo_documento }}</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Número de Documento</span>
+                                <span class="text-gray-800">Número de Documento</span>
                                 <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->numero_documento }}
                                     <button @click="copiar('{{ $matricula->alumno->numero_documento }}')"
-                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                        class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                                 </span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Nombres Completos</span>
+                                <span class="text-gray-800">Nombres Completos</span>
                                 <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->nombre_completo }}
                                     <button @click="copiar('{{ $matricula->alumno->nombre_completo }}')"
-                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                        class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                                 </span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Fecha de Nacimiento</span>
+                                <span class="text-gray-800">Fecha de Nacimiento</span>
                                 <span
                                     class="font-medium text-gray-800">{{ $matricula->alumno->fecha_nacimiento | dateFormat }}
                                     ({{ $matricula->alumno->edad }} años)</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Género</span>
+                                <span class="text-gray-800">Género</span>
                                 <span
                                     class="font-medium text-gray-800">{{ $matricula->alumno->genero == 'M' ? 'Masculino' : 'Femenino' }}</span>
                             </div>
@@ -141,31 +141,31 @@
                     {{-- Datos de Contacto --}}
                     <div>
                         <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                            <i class="ph ph-phone text-gray-500"></i> Datos de Contacto
+                            <i class="ph ph-phone text-gray-800"></i> Datos de Contacto
                         </h3>
                         <div class="space-y-3 text-sm">
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Celular</span>
+                                <span class="text-gray-800">Celular</span>
                                 <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->celular }}
                                     <button @click="copiar('{{ $matricula->alumno->celular }}')"
-                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                        class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                                 </span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Teléfono de Emergencia</span>
+                                <span class="text-gray-800">Teléfono de Emergencia</span>
                                 <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ $matricula->alumno->telefono_emergencia }}
                                     <button @click="copiar('{{ $matricula->alumno->telefono_emergencia }}')"
-                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                        class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                                 </span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Correo Electrónico</span>
+                                <span class="text-gray-800">Correo Electrónico</span>
                                 <span class="font-medium text-gray-800 flex items-center gap-2">
                                     {{ strtolower($matricula->alumno->correo) }}
                                     <button @click="copiar('{{ strtolower($matricula->alumno->correo) }}')"
-                                        class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                        class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                                 </span>
                             </div>
                         </div>
@@ -174,15 +174,15 @@
                     {{-- Datos de Ubicación --}}
                     <div>
                         <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                            <i class="ph ph-map-pin text-gray-500"></i> Datos de Ubicación
+                            <i class="ph ph-map-pin text-gray-800"></i> Datos de Ubicación
                         </h3>
                         <div class="space-y-3 text-sm">
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Dirección</span>
+                                <span class="text-gray-800">Dirección</span>
                                 <span class="font-medium text-gray-800">{{ $matricula->alumno->domicilio }}</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Lugar</span>
+                                <span class="text-gray-800">Lugar</span>
                                 <span class="font-medium text-gray-800">
                                     {{ $matricula->alumno->departamento->nombre ?? '' }},
                                     {{ $matricula->alumno->provincia->nombre ?? '' }},
@@ -195,21 +195,21 @@
                     {{-- Datos Académicos --}}
                     <div>
                         <h3 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                            <i class="ph ph-books text-gray-500"></i> Datos Académicos y Religiosos
+                            <i class="ph ph-books text-gray-800"></i> Datos Académicos y Religiosos
                         </h3>
                         <div class="space-y-3 text-sm">
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Colegio de Procedencia</span>
+                                <span class="text-gray-800">Colegio de Procedencia</span>
                                 <span
                                     class="font-medium text-gray-800">{{ $matricula->alumno->colegio_procedencia }}</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Religión</span>
+                                <span class="text-gray-800">Religión</span>
                                 <span
                                     class="font-medium text-gray-800">{{ $matricula->alumno->religion ?? 'N/A' }}</span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Exonerado de Religión</span>
+                                <span class="text-gray-800">Exonerado de Religión</span>
                                 <span class="font-medium">
                                     <span
                                         class="px-2 py-1 rounded text-xs {{ $matricula->alumno->exonerado_religion ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
@@ -218,7 +218,7 @@
                                 </span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Bautizado</span>
+                                <span class="text-gray-800">Bautizado</span>
                                 <span class="font-medium">
                                     <span
                                         class="px-2 py-1 rounded text-xs {{ $matricula->alumno->bautizado ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
@@ -227,7 +227,7 @@
                                 </span>
                             </div>
                             <div class="flex justify-between py-2 border-b border-gray-50">
-                                <span class="text-gray-500">Primera Comunión</span>
+                                <span class="text-gray-800">Primera Comunión</span>
                                 <span class="font-medium">
                                     <span
                                         class="px-2 py-1 rounded text-xs {{ $matricula->alumno->comunion ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600' }}">
@@ -362,7 +362,7 @@
                         </label>
                     </div>
 
-                    <div class="flex justify-end pt-4 border-t border-gray-100">
+                    <div class="flex justify-end pt-4 border-t border-gray-300">
                         <button type="submit"
                             class="inline-flex items-center px-4 py-2 bg-colegio-600 text-white rounded-lg font-medium hover:bg-colegio-700 transition-colors">
                             <i class="ph ph-floppy-disk mr-2"></i> Guardar Cambios
@@ -377,7 +377,7 @@
             @forelse($matricula->alumno->padres as $padre)
                 <div
                     class="border {{ $editMode && $padre_edit_id == $padre->id ? 'border-colegio-500 bg-blue-50/10 shadow-md' : 'border-gray-200' }} rounded-xl p-6">
-                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-100">
+                    <div class="flex justify-between items-center mb-6 pb-4 border-b border-gray-300">
                         <div class="flex items-center gap-2 text-lg font-bold text-gray-800">
                             <i class="ph ph-user text-colegio-500"></i>
                             <span>
@@ -407,34 +407,34 @@
                             <div>
                                 <h3
                                     class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                                    <i class="ph ph-identification-card text-gray-500"></i> Datos Personales
+                                    <i class="ph ph-identification-card text-gray-800"></i> Datos Personales
                                 </h3>
                                 <div class="space-y-3 text-sm">
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Documento</span>
+                                        <span class="text-gray-800">Documento</span>
                                         <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ $padre->tipo_documento }}: {{ $padre->numero_documento }}
                                             <button @click="copiar('{{ $padre->numero_documento }}')"
-                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                class="text-gray-800 hover:text-colegio-600"><i
                                                     class="ph ph-copy"></i></button>
                                         </span>
                                     </div>
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Nombre Completo</span>
+                                        <span class="text-gray-800">Nombre Completo</span>
                                         <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ $padre->nombre_completo }}
                                             <button @click="copiar('{{ $padre->nombre_completo }}')"
-                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                class="text-gray-800 hover:text-colegio-600"><i
                                                     class="ph ph-copy"></i></button>
                                         </span>
                                     </div>
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Estado Civil</span>
+                                        <span class="text-gray-800">Estado Civil</span>
                                         <span
                                             class="font-medium text-gray-800">{{ $padre->estado_civil | edoCivil }}</span>
                                     </div>
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Nivel Escolaridad</span>
+                                        <span class="text-gray-800">Nivel Escolaridad</span>
                                         <span class="font-medium text-gray-800">{{ $padre->nivel_escolaridad }}</span>
                                     </div>
                                 </div>
@@ -443,44 +443,44 @@
                             <div>
                                 <h3
                                     class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                                    <i class="ph ph-phone text-gray-500"></i> Datos de Contacto
+                                    <i class="ph ph-phone text-gray-800"></i> Datos de Contacto
                                 </h3>
                                 <div class="space-y-3 text-sm">
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Celular</span>
+                                        <span class="text-gray-800">Celular</span>
                                         <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ $padre->telefono_celular }}
                                             <button @click="copiar('{{ $padre->telefono_celular }}')"
-                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                class="text-gray-800 hover:text-colegio-600"><i
                                                     class="ph ph-copy"></i></button>
                                         </span>
                                     </div>
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Correo</span>
+                                        <span class="text-gray-800">Correo</span>
                                         <span class="font-medium text-gray-800 flex items-center gap-2">
                                             {{ strtolower($padre->correo_electronico) }}
                                             <button @click="copiar('{{ strtolower($padre->correo_electronico) }}')"
-                                                class="text-gray-400 hover:text-colegio-600"><i
+                                                class="text-gray-800 hover:text-colegio-600"><i
                                                     class="ph ph-copy"></i></button>
                                         </span>
                                     </div>
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Dirección</span>
+                                        <span class="text-gray-800">Dirección</span>
                                         <span class="font-medium text-gray-800">{{ $padre->domicilio }}</span>
                                     </div>
                                 </div>
 
                                 <h3
                                     class="flex items-center gap-2 font-semibold text-gray-700 mt-6 mb-4 bg-gray-50 p-2 rounded-lg">
-                                    <i class="ph ph-briefcase text-gray-500"></i> Laboral
+                                    <i class="ph ph-briefcase text-gray-800"></i> Laboral
                                 </h3>
                                 <div class="space-y-3 text-sm">
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Centro Trabajo</span>
+                                        <span class="text-gray-800">Centro Trabajo</span>
                                         <span class="font-medium text-gray-800">{{ $padre->centro_trabajo }}</span>
                                     </div>
                                     <div class="flex justify-between py-2 border-b border-gray-50">
-                                        <span class="text-gray-500">Cargo</span>
+                                        <span class="text-gray-800">Cargo</span>
                                         <span class="font-medium text-gray-800">{{ $padre->cargo_ocupacion }}</span>
                                     </div>
                                 </div>
@@ -611,7 +611,7 @@
                                 </label>
                             </div>
 
-                            <div class="flex justify-end pt-4 border-t border-gray-100">
+                            <div class="flex justify-end pt-4 border-t border-gray-300">
                                 <button type="submit"
                                     class="inline-flex items-center px-4 py-2 bg-colegio-600 text-white rounded-lg font-medium hover:bg-colegio-700">
                                     <i class="ph ph-floppy-disk mr-2"></i> Guardar Cambios
@@ -621,9 +621,9 @@
                     @endif
                 </div>
             @empty
-                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed mb-4">
-                    <i class="ph ph-users-three text-4xl text-gray-400 mb-2"></i>
-                    <p class="text-gray-500 font-medium">No hay información de padres registrada</p>
+                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-300 border-dashed mb-4">
+                    <i class="ph ph-users-three text-4xl text-gray-800 mb-2"></i>
+                    <p class="text-gray-800 font-medium">No hay información de padres registrada</p>
                 </div>
             @endforelse
         </div>
@@ -633,7 +633,7 @@
             @forelse($matricula->alumno->apoderados as $apoderado)
                 <div class="border border-gray-200 rounded-xl p-6">
                     <div
-                        class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+                        class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-300 pb-4 mb-6">
                         <i class="ph ph-user-focus text-colegio-500"></i>
                         <span>Tutor / Apoderado</span>
                     </div>
@@ -642,21 +642,21 @@
                         <div>
                             <h3
                                 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                                <i class="ph ph-identification-card text-gray-500"></i> Datos Personales
+                                <i class="ph ph-identification-card text-gray-800"></i> Datos Personales
                             </h3>
                             <div class="space-y-3 text-sm">
                                 <div class="flex justify-between py-2 border-b border-gray-50">
-                                    <span class="text-gray-500">Documento</span>
+                                    <span class="text-gray-800">Documento</span>
                                     <span class="font-medium text-gray-800">{{ $apoderado->tipo_documento }}:
                                         {{ $apoderado->numero_documento }}</span>
                                 </div>
                                 <div class="flex justify-between py-2 border-b border-gray-50">
-                                    <span class="text-gray-500">Nombre Completo</span>
+                                    <span class="text-gray-800">Nombre Completo</span>
                                     <span class="font-medium text-gray-800">{{ $apoderado->apellidos }},
                                         {{ ucfirst(strtolower($apoderado->nombres)) }}</span>
                                 </div>
                                 <div class="flex justify-between py-2 border-b border-gray-50">
-                                    <span class="text-gray-500">Parentesco</span>
+                                    <span class="text-gray-800">Parentesco</span>
                                     <span class="font-medium text-gray-800">{{ $apoderado->parentesco }}</span>
                                 </div>
                             </div>
@@ -664,15 +664,15 @@
                         <div>
                             <h3
                                 class="flex items-center gap-2 font-semibold text-gray-700 mb-4 bg-gray-50 p-2 rounded-lg">
-                                <i class="ph ph-phone text-gray-500"></i> Contacto
+                                <i class="ph ph-phone text-gray-800"></i> Contacto
                             </h3>
                             <div class="space-y-3 text-sm">
                                 <div class="flex justify-between py-2 border-b border-gray-50">
-                                    <span class="text-gray-500">Celular</span>
+                                    <span class="text-gray-800">Celular</span>
                                     <span class="font-medium text-gray-800">{{ $apoderado->telefono_celular }}</span>
                                 </div>
                                 <div class="flex justify-between py-2 border-b border-gray-50">
-                                    <span class="text-gray-500">Correo</span>
+                                    <span class="text-gray-800">Correo</span>
                                     <span
                                         class="font-medium text-gray-800">{{ strtolower($apoderado->correo_electronico) }}</span>
                                 </div>
@@ -681,16 +681,16 @@
                     </div>
                 </div>
             @empty
-                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed mb-4">
-                    <i class="ph ph-user-focus text-4xl text-gray-400 mb-2"></i>
-                    <p class="text-gray-500 font-medium">No hay apoderados registrados extra.</p>
+                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-300 border-dashed mb-4">
+                    <i class="ph ph-user-focus text-4xl text-gray-800 mb-2"></i>
+                    <p class="text-gray-800 font-medium">No hay apoderados registrados extra.</p>
                 </div>
             @endforelse
         </div>
 
         {{-- Tab: Responsable Económico --}}
         <div x-show="activeTab === 'responsable_economico'" x-cloak>
-            <div class="flex justify-between items-center mb-6 border-b border-gray-100 pb-4">
+            <div class="flex justify-between items-center mb-6 border-b border-gray-300 pb-4">
                 <div class="flex items-center gap-2 text-lg font-bold text-gray-800">
                     <i class="ph ph-wallet text-colegio-500"></i>
                     <span>Responsable Económico</span>
@@ -710,27 +710,27 @@
 
             @if (!$editMode)
                 <div class="w-full max-w-lg space-y-3 text-sm">
-                    <div class="flex justify-between py-3 border-b border-gray-100">
-                        <span class="text-gray-500">Tipo de Documento</span>
+                    <div class="flex justify-between py-3 border-b border-gray-300">
+                        <span class="text-gray-800">Tipo de Documento</span>
                         <span class="font-medium text-gray-800">{{ $matricula->tipo_documento_dj ?? 'N/A' }}</span>
                     </div>
-                    <div class="flex justify-between py-3 border-b border-gray-100">
-                        <span class="text-gray-500">Número de Documento</span>
+                    <div class="flex justify-between py-3 border-b border-gray-300">
+                        <span class="text-gray-800">Número de Documento</span>
                         <span class="font-medium text-gray-800 flex items-center gap-2">
                             {{ $matricula->numero_documento_dj ?? 'N/A' }}
                             @if ($matricula->numero_documento_dj)
                                 <button @click="copiar('{{ $matricula->numero_documento_dj }}')"
-                                    class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                    class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                             @endif
                         </span>
                     </div>
-                    <div class="flex justify-between py-3 border-b border-gray-100">
-                        <span class="text-gray-500">Nombres Completos</span>
+                    <div class="flex justify-between py-3 border-b border-gray-300">
+                        <span class="text-gray-800">Nombres Completos</span>
                         <span class="font-medium text-gray-800 flex items-center gap-2">
                             {{ $matricula->nombres_dj ?? 'N/A' }}
                             @if ($matricula->nombres_dj)
                                 <button @click="copiar('{{ $matricula->nombres_dj }}')"
-                                    class="text-gray-400 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
+                                    class="text-gray-800 hover:text-colegio-600"><i class="ph ph-copy"></i></button>
                             @endif
                         </span>
                     </div>
@@ -777,7 +777,7 @@
 
         {{-- Tab: Pagos --}}
         <div x-show="activeTab === 'pagos'" x-cloak>
-            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-300 pb-4 mb-6">
                 <i class="ph ph-money text-colegio-500"></i>
                 <span>Historial de Pagos</span>
             </div>
@@ -787,31 +787,37 @@
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
                             <tr>
-                                <th class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase">Estado
+                                <th class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase">
+                                    Estado
                                 </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Concepto
+                                <th class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase">
+                                    Concepto
                                 </th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Método</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Operación
+                                <th class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase">Método
                                 </th>
-                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase">Monto</th>
-                                <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase">Fecha</th>
+                                <th class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase">
+                                    Operación
+                                </th>
+                                <th class="px-2 py-2 text-right text-[11px] font-medium text-gray-800 uppercase">Monto
+                                </th>
+                                <th class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase">Fecha
+                                </th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">
                             @foreach ($matricula->pagos as $pago)
                                 <tr class="hover:bg-gray-50 transition-colors">
-                                    <td class="px-6 py-4 whitespace-nowrap text-center text-sm">{!! $pago->status !!}
+                                    <td class="px-2 py-2 whitespace-nowrap text-center text-xs">{!! $pago->status !!}
                                     </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 font-medium">
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800 font-medium">
                                         {{ $pago->concepto == 'M' ? 'Matrícula' : 'Pensión' }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-600">
                                         {{ $pago->tipo_pago | mp }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                         {{ $pago->numero_operacion }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-right font-bold text-gray-900">
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-right font-bold text-gray-900">
                                         S./ {{ number_format($pago->monto_pagado, 2) }}</td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                    <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                         {{ $pago->fecha_deposito | dateFormat }}</td>
                                 </tr>
                             @endforeach
@@ -819,21 +825,21 @@
                     </table>
                 </div>
             @else
-                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed">
-                    <i class="ph ph-money text-4xl text-gray-400 mb-2"></i>
-                    <p class="text-gray-500 font-medium">No hay pagos registrados en esta matrícula</p>
+                <div class="text-center py-10 bg-gray-50 rounded-xl border border-gray-300 border-dashed">
+                    <i class="ph ph-money text-4xl text-gray-800 mb-2"></i>
+                    <p class="text-gray-800 font-medium">No hay pagos registrados en esta matrícula</p>
                 </div>
             @endif
         </div>
 
         {{-- Tab: Horario --}}
         <div x-show="activeTab === 'horario'" x-cloak>
-            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-300 pb-4 mb-6">
                 <i class="ph ph-clock text-colegio-500"></i>
                 <span>Horario del Estudiante</span>
             </div>
             <form wire:submit.prevent='actualizarHoras'
-                class="max-w-xl mx-auto bg-gray-50 p-6 rounded-xl border border-gray-100">
+                class="max-w-xl mx-auto bg-gray-50 p-6 rounded-xl border border-gray-300">
                 <div class="flex flex-col md:flex-row gap-6 items-end">
                     <div class="flex-1 w-full">
                         <label class="block text-sm font-medium text-gray-700 mb-1">Hora de Entrada</label>
@@ -857,7 +863,7 @@
 
         {{-- Tab: Usuarios --}}
         <div x-show="activeTab === 'usuarios'" x-cloak>
-            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-100 pb-4 mb-6">
+            <div class="flex items-center gap-2 text-lg font-bold text-gray-800 border-b border-gray-300 pb-4 mb-6">
                 <i class="ph ph-shield-check text-colegio-500"></i>
                 <span>Acceso de Padres al Portal</span>
             </div>
@@ -888,17 +894,17 @@
                         @if ($padre->user)
                             <div class="bg-gray-50 rounded-lg p-3 text-sm space-y-2 mb-4">
                                 <div class="flex justify-between">
-                                    <span class="text-gray-500">Usuario (DNI)</span>
+                                    <span class="text-gray-800">Usuario (DNI)</span>
                                     <span class="font-bold text-gray-800">{{ $padre->user->document_number }}</span>
                                 </div>
                                 <div class="flex justify-between">
-                                    <span class="text-gray-500">Último Acceso</span>
+                                    <span class="text-gray-800">Último Acceso</span>
                                     <span
                                         class="text-gray-800">{{ $padre->user->last_login_at ? $padre->user->last_login_at->diffForHumans() : 'Nunca' }}</span>
                                 </div>
                             </div>
 
-                            <div class="flex gap-2 mt-4 pt-4 border-t border-gray-100">
+                            <div class="flex gap-2 mt-4 pt-4 border-t border-gray-300">
                                 <button wire:click="resetearPasswordPadre({{ $padre->user->id }})"
                                     class="flex-1 inline-flex justify-center items-center px-3 py-1.5 bg-yellow-50 text-yellow-700 border border-yellow-200 rounded text-sm hover:bg-yellow-100 transition-colors"
                                     onclick="confirm('¿Estás seguro de restablecer la contraseña al número de documento?') || event.stopImmediatePropagation()">
@@ -914,7 +920,7 @@
                             </div>
                         @else
                             <div class="text-center py-4 bg-gray-50 rounded-lg">
-                                <p class="text-sm text-gray-500 mb-3 px-4">Este padre no tiene un usuario para acceder
+                                <p class="text-sm text-gray-800 mb-3 px-4">Este padre no tiene un usuario para acceder
                                     a la aplicación móvil.</p>
                                 <button wire:click="crearUsuarioPadre({{ $padre->id }})"
                                     class="inline-flex items-center px-4 py-2 bg-green-600 text-white rounded-full text-sm font-medium hover:bg-green-700 shadow-sm transition-colors">
@@ -925,9 +931,9 @@
                     </div>
                 @empty
                     <div
-                        class="col-span-full text-center py-10 bg-gray-50 rounded-xl border border-gray-100 border-dashed">
-                        <i class="ph ph-users-three text-4xl text-gray-400 mb-2"></i>
-                        <p class="text-gray-500 font-medium">No hay información de padres registrada para este
+                        class="col-span-full text-center py-10 bg-gray-50 rounded-xl border border-gray-300 border-dashed">
+                        <i class="ph ph-users-three text-4xl text-gray-800 mb-2"></i>
+                        <p class="text-gray-800 font-medium">No hay información de padres registrada para este
                             estudiante.</p>
                     </div>
                 @endforelse

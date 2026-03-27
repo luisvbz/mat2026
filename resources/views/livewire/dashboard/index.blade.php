@@ -42,13 +42,13 @@
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 animate-slide-up" style="animation-delay: 0.1s">
         {{-- Total Alumnos Card --}}
         <div
-            class="bg-white rounded-2xl p-6 flex items-center gap-5 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group card-hover">
+            class="bg-white rounded-2xl p-6 flex items-center gap-5 border border-gray-300 shadow-sm hover:shadow-xl transition-all duration-300 group card-hover">
             <div
                 class="w-16 h-16 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center flex-shrink-0 group-hover:scale-110 transition-transform duration-300">
                 <i class="ph-fill ph-users text-3xl"></i>
             </div>
             <div>
-                <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Total Alumnos</p>
+                <p class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-1">Total Alumnos</p>
                 <div class="flex items-baseline gap-2">
                     <h3 class="text-4xl font-black text-gray-800 tracking-tight">{{ $totalGeneral }}</h3>
                     <span
@@ -59,7 +59,7 @@
 
         {{-- Primaria Card --}}
         <div
-            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group card-hover">
+            class="bg-white rounded-2xl p-6 border border-gray-300 shadow-sm hover:shadow-xl transition-all duration-300 group card-hover">
             <div class="flex items-center justify-between mb-4">
                 <div
                     class="w-12 h-12 rounded-xl bg-green-50 text-green-600 flex items-center justify-center group-hover:bg-green-600 group-hover:text-white transition-colors duration-300">
@@ -67,7 +67,7 @@
                 </div>
                 <span class="text-2xl font-black text-gray-800">{{ $totalPrimaria }}</span>
             </div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Población Primaria</p>
+            <p class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Población Primaria</p>
             <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
                 <div class="bg-gradient-to-r from-green-400 to-green-600 h-full rounded-full transition-all duration-1000"
                     style="width: {{ $totalGeneral > 0 ? ($totalPrimaria / $totalGeneral) * 100 : 0 }}%"></div>
@@ -76,7 +76,7 @@
 
         {{-- Secundaria Card --}}
         <div
-            class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group card-hover">
+            class="bg-white rounded-2xl p-6 border border-gray-300 shadow-sm hover:shadow-xl transition-all duration-300 group card-hover">
             <div class="flex items-center justify-between mb-4">
                 <div
                     class="w-12 h-12 rounded-xl bg-purple-50 text-purple-600 flex items-center justify-center group-hover:bg-purple-600 group-hover:text-white transition-colors duration-300">
@@ -84,7 +84,7 @@
                 </div>
                 <span class="text-2xl font-black text-gray-800">{{ $totalSecundaria }}</span>
             </div>
-            <p class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Población Secundaria</p>
+            <p class="text-xs font-bold text-gray-800 uppercase tracking-wider mb-2">Población Secundaria</p>
             <div class="w-full bg-gray-100 rounded-full h-3 overflow-hidden">
                 <div class="bg-gradient-to-r from-purple-400 to-purple-600 h-full rounded-full transition-all duration-1000"
                     style="width: {{ $totalGeneral > 0 ? ($totalSecundaria / $totalGeneral) * 100 : 0 }}%"></div>
@@ -99,8 +99,8 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
                 {{-- Primaria Detailed Table --}}
                 <div
-                    class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-                    <div class="bg-gray-50/50 px-6 py-4 flex items-center justify-between border-b border-gray-100">
+                    class="bg-white rounded-2xl shadow-sm border border-gray-300 overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="bg-gray-50/50 px-6 py-4 flex items-center justify-between border-b border-gray-300">
                         <h3 class="font-bold text-gray-800 flex items-center gap-2 uppercase text-xs tracking-widest">
                             <i class="ph-fill ph-list-numbers text-green-500 text-lg"></i>
                             Base Primaria
@@ -114,8 +114,8 @@
                             <tbody class="divide-y divide-gray-50">
                                 @foreach ($primaria as $p)
                                     <tr class="hover:bg-gray-50/50 transition-colors group">
-                                        <td class="px-4 py-3 font-bold text-gray-700">{{ $p->grado | grado }}</td>
-                                        <td class="px-4 py-3 text-right">
+                                        <td class="px-2 py-2 font-bold text-gray-700">{{ $p->grado | grado }}</td>
+                                        <td class="px-2 py-2 text-right">
                                             <span
                                                 class="inline-flex items-center px-4 py-1 bg-green-50 text-green-700 rounded-lg font-black text-xs border border-green-100 group-hover:bg-green-500 group-hover:text-white transition-all cursor-default">
                                                 {{ $p->alumnos }}
@@ -130,8 +130,8 @@
 
                 {{-- Secundaria Detailed Table --}}
                 <div
-                    class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden hover:shadow-md transition-shadow">
-                    <div class="bg-gray-50/50 px-6 py-4 flex items-center justify-between border-b border-gray-100">
+                    class="bg-white rounded-2xl shadow-sm border border-gray-300 overflow-hidden hover:shadow-md transition-shadow">
+                    <div class="bg-gray-50/50 px-6 py-4 flex items-center justify-between border-b border-gray-300">
                         <h3 class="font-bold text-gray-800 flex items-center gap-2 uppercase text-xs tracking-widest">
                             <i class="ph-fill ph-list-numbers text-purple-500 text-lg"></i>
                             Base Secundaria
@@ -145,8 +145,8 @@
                             <tbody class="divide-y divide-gray-50">
                                 @foreach ($secundaria as $p)
                                     <tr class="hover:bg-gray-50/50 transition-colors group">
-                                        <td class="px-4 py-3 font-bold text-gray-700">{{ $p->grado | grado }}</td>
-                                        <td class="px-4 py-3 text-right">
+                                        <td class="px-2 py-2 font-bold text-gray-700">{{ $p->grado | grado }}</td>
+                                        <td class="px-2 py-2 text-right">
                                             <span
                                                 class="inline-flex items-center px-4 py-1 bg-purple-50 text-purple-700 rounded-lg font-black text-xs border border-purple-100 group-hover:bg-purple-500 group-hover:text-white transition-all cursor-default">
                                                 {{ $p->alumnos }}
@@ -163,7 +163,7 @@
 
         {{-- Right Side Actions --}}
         <div class="space-y-6">
-            <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+            <div class="bg-white rounded-2xl shadow-sm border border-gray-300 p-6">
                 <h3
                     class="font-bold text-gray-800 flex items-center gap-2 mb-6 uppercase text-xs tracking-widest border-b border-gray-50 pb-4">
                     <i class="ph-bold ph-lightning text-yellow-500"></i>
@@ -178,7 +178,7 @@
                         </div>
                         <div class="flex-1">
                             <h4 class="text-sm font-black text-gray-800">Matrículas</h4>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-tighter">Gestión de alumnos
+                            <p class="text-[10px] text-gray-800 font-bold uppercase tracking-tighter">Gestión de alumnos
                             </p>
                         </div>
                         <i class="ph ph-arrow-right text-gray-300 group-hover:text-colegio-600 transition-colors"></i>
@@ -192,7 +192,7 @@
                         </div>
                         <div class="flex-1">
                             <h4 class="text-sm font-black text-gray-800">Contabilidad</h4>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-tighter">Control de pagos
+                            <p class="text-[10px] text-gray-800 font-bold uppercase tracking-tighter">Control de pagos
                             </p>
                         </div>
                         <i class="ph ph-arrow-right text-gray-300 group-hover:text-green-600 transition-colors"></i>
@@ -206,7 +206,7 @@
                         </div>
                         <div class="flex-1">
                             <h4 class="text-sm font-black text-gray-800">Comunicados</h4>
-                            <p class="text-[10px] text-gray-500 font-bold uppercase tracking-tighter">Difusión masiva
+                            <p class="text-[10px] text-gray-800 font-bold uppercase tracking-tighter">Difusión masiva
                             </p>
                         </div>
                         <i class="ph ph-arrow-right text-gray-300 group-hover:text-orange-600 transition-colors"></i>
@@ -217,7 +217,7 @@
             {{-- Secondary Info Card --}}
             <div class="relative overflow-hidden bg-gray-900 rounded-2xl p-6 text-white shadow-lg">
                 <div class="relative z-10">
-                    <p class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-1">Estado del Servidor</p>
+                    <p class="text-xs font-bold text-gray-800 uppercase tracking-widest mb-1">Estado del Servidor</p>
                     <div class="flex items-center gap-2">
                         <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
                         <span class="text-sm font-black">Sistema Operativo</span>

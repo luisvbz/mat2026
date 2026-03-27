@@ -25,16 +25,16 @@
                 </span>
                 Estudiantes sin marcación
             </h1>
-            <p class="text-gray-500 text-sm mt-1 ml-16">Lista de alumnos que aún no han registrado asistencia en la
+            <p class="text-gray-800 text-sm mt-1 ml-16">Lista de alumnos que aún no han registrado asistencia en la
                 fecha de hoy.</p>
         </div>
     </div>
 
     {{-- Search Filters and Actions Bar --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Nivel</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Nivel</label>
                 <select wire:model="nivel"
                     class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm">
                     <option value="">Seleccione..</option>
@@ -43,9 +43,9 @@
                 </select>
             </div>
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Grado</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Grado</label>
                 <select wire:model="grado" @if (!$grados || count($grados) == 0) disabled @endif
-                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm disabled:bg-gray-100 disabled:text-gray-400">
+                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm disabled:bg-gray-100 disabled:text-gray-800">
                     <option value="">Seleccione..</option>
                     @foreach ($grados as $g)
                         <option value="{{ $g->numero }}">{{ $g->nombre }}</option>
@@ -53,13 +53,13 @@
                 </select>
             </div>
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha (Hoy)</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Fecha (Hoy)</label>
                 <div class="relative">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                         <i class="ph ph-calendar"></i>
                     </div>
                     <input type="date" wire:model='date' max="{{ date('Y-m-d') }}" min="{{ date('Y-m-d') }}" readonly
-                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 bg-gray-50 text-gray-500 rounded-lg sm:text-sm cursor-not-allowed">
+                        class="block w-full pl-10 pr-3 py-2 border border-gray-300 bg-gray-50 text-gray-800 rounded-lg sm:text-sm cursor-not-allowed">
                 </div>
             </div>
 
@@ -75,46 +75,46 @@
     </div>
 
     {{-- Data Table --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
         <div class="overflow-x-auto">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col"
-                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             DNI/CE/PTP</th>
                         <th scope="col"
-                            class="px-6 py-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Alumno</th>
                         <th scope="col"
-                            class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Nivel</th>
                         <th scope="col"
-                            class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Grado</th>
                         <th scope="col"
-                            class="px-6 py-4 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Acciones (Marcar)</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white divide-y divide-gray-100">
                     @forelse($inasistentes as $matricula)
                         <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 font-mono">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800 font-mono">
                                 {{ $matricula->alumno->numero_documento }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap">
+                            <td class="px-2 py-2 whitespace-nowrap">
                                 <span class="text-sm font-medium text-gray-900">
                                     {{ trim($matricula->alumno->apellido_paterno . ' ' . $matricula->alumno->apellido_materno . ' ' . $matricula->alumno->nombres) }}
                                 </span>
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-600">
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-xs text-gray-600">
                                 {{ $matricula->nivel == 'P' ? 'Primaria' : 'Secundaria' }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-semibold text-gray-900">
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-semibold text-gray-900">
                                 {{ $matricula->grado | grado }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <td class="px-2 py-2 whitespace-nowrap text-center">
                                 <div class="flex items-center justify-center space-x-2">
                                     <button wire:click="showDialogMarcarAsistencia({{ $matricula->id }}, true)"
                                         title="Hora Actual"
@@ -131,13 +131,13 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="5" class="px-6 py-12 text-center">
+                            <td colspan="5" class="px-2 py-12 text-center">
                                 <div
                                     class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4">
                                     <i class="ph-fill ph-check-circle text-3xl text-green-400"></i>
                                 </div>
                                 <h3 class="text-lg font-medium text-gray-900">Excelente</h3>
-                                <p class="text-sm text-gray-500 mt-1">Todos los estudiantes presentes han marcado su
+                                <p class="text-sm text-gray-800 mt-1">Todos los estudiantes presentes han marcado su
                                     asistencia o no hay resultados para tus filtros.</p>
                             </td>
                         </tr>

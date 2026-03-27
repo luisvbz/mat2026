@@ -3,12 +3,12 @@
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 text-dashboard-header">
         <div class="flex items-center gap-3">
             <div
-                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-colegio-600">
+                class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-300 flex items-center justify-center text-colegio-600">
                 <i class="ph-fill ph-calendar-check text-2xl"></i>
             </div>
             <div>
                 <h1 class="text-2xl font-bold text-gray-800 tracking-tight">Gestión de Citas</h1>
-                <p class="text-sm text-gray-500 font-medium">Seguimiento de entrevistas y reuniones</p>
+                <p class="text-sm text-gray-800 font-medium">Seguimiento de entrevistas y reuniones</p>
             </div>
         </div>
         <div class="flex items-center gap-3">
@@ -20,17 +20,17 @@
     </div>
 
     {{-- Filters --}}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-300 p-6">
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-6">
             {{-- Search --}}
             <div class="xl:col-span-2">
-                <label class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Buscar
+                <label class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Buscar
                     Alumno / Padre</label>
                 <div class="relative">
                     <input type="text" wire:model.defer="search" wire:keydown.enter="buscar"
-                        class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 pl-10 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner"
+                        class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 pl-10 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner"
                         placeholder="Nombres o apellidos...">
-                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-800">
                         <i class="ph ph-magnifying-glass font-bold"></i>
                     </div>
                 </div>
@@ -39,15 +39,15 @@
             {{-- Nivel --}}
             <div>
                 <label
-                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Nivel</label>
+                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Nivel</label>
                 <div class="relative">
                     <select wire:model="nivel"
-                        class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
+                        class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
                         <option value="">Todos</option>
                         <option value="P">Primaria</option>
                         <option value="S">Secundaria</option>
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-800">
                         <i class="ph ph-caret-down font-bold text-xs"></i>
                     </div>
                 </div>
@@ -56,16 +56,16 @@
             {{-- Grado --}}
             <div>
                 <label
-                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Grado</label>
+                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Grado</label>
                 <div class="relative">
                     <select wire:model="grado"
-                        class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
+                        class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
                         <option value="">Todos</option>
                         @foreach ($grados as $g)
                             <option value="{{ $g->numero }}">{{ $g->nombre }}</option>
                         @endforeach
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-800">
                         <i class="ph ph-caret-down font-bold text-xs"></i>
                     </div>
                 </div>
@@ -74,16 +74,16 @@
             {{-- Profesor --}}
             <div>
                 <label
-                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Profesor</label>
+                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Profesor</label>
                 <div class="relative">
                     <select wire:model="teacher_id"
-                        class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
+                        class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
                         <option value="">Todos</option>
                         @foreach ($teachers as $tu)
                             <option value="{{ $tu->teacher_id }}">{{ $tu->teacher->nombre_completo ?? 'N/A' }}</option>
                         @endforeach
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-800">
                         <i class="ph ph-caret-down font-bold text-xs"></i>
                     </div>
                 </div>
@@ -92,10 +92,10 @@
             {{-- Estado --}}
             <div>
                 <label
-                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Estado</label>
+                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Estado</label>
                 <div class="relative">
                     <select wire:model="status"
-                        class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
+                        class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2.5 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner appearance-none">
                         <option value="">Todos</option>
                         <option value="pending">Pendiente</option>
                         <option value="confirmed">Confirmada</option>
@@ -103,7 +103,7 @@
                         <option value="completed">Completada</option>
                         <option value="cancelled">Cancelada</option>
                     </select>
-                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-400">
+                    <div class="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none text-gray-800">
                         <i class="ph ph-caret-down font-bold text-xs"></i>
                     </div>
                 </div>
@@ -112,17 +112,17 @@
             {{-- Desde --}}
             <div>
                 <label
-                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Desde</label>
+                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Desde</label>
                 <input type="date" wire:model="desde"
-                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner">
+                    class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner">
             </div>
 
             {{-- Hasta --}}
             <div>
                 <label
-                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest ml-1 mb-1.5">Hasta</label>
+                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest ml-1 mb-1.5">Hasta</label>
                 <input type="date" wire:model="hasta"
-                    class="w-full bg-gray-50 border border-gray-100 rounded-xl px-4 py-2 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner">
+                    class="w-full bg-gray-50 border border-gray-300 rounded-xl px-4 py-2 text-sm focus:ring-colegio-500 focus:border-colegio-500 transition-all font-bold text-gray-600 shadow-inner">
             </div>
 
             {{-- Actions --}}
@@ -132,7 +132,7 @@
                     <i class="ph ph-magnifying-glass text-xl font-bold"></i>
                 </button>
                 <button wire:click="limpiar" title="Limpiar filtros"
-                    class="w-11 h-11 bg-white border border-gray-200 text-gray-400 rounded-xl flex items-center justify-center hover:bg-gray-50 hover:text-gray-600 transition-all shadow-sm">
+                    class="w-11 h-11 bg-white border border-gray-200 text-gray-800 rounded-xl flex items-center justify-center hover:bg-gray-50 hover:text-gray-600 transition-all shadow-sm">
                     <i class="ph ph-eraser text-xl font-bold"></i>
                 </button>
             </div>
@@ -140,7 +140,7 @@
     </div>
 
     {{-- Appointments Content --}}
-    <div class="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden relative z-0">
+    <div class="bg-white rounded-2xl shadow-sm border border-gray-300 overflow-hidden relative z-0">
         <div wire:loading
             wire:target="buscar, limpiar, nivel, grado, teacher_id, status, desde, hasta, exportarExcel, gotoPage, previousPage, nextPage"
             style="display: none;" class="absolute inset-0 bg-white/50 backdrop-blur-[2px] z-50 transition-all">
@@ -158,35 +158,35 @@
         <div class="overflow-x-auto">
             <table class="w-full text-sm text-left text-gray-600">
                 <thead
-                    class="text-[10px] text-gray-500 uppercase font-bold tracking-widest bg-gray-50 border-b border-gray-100">
+                    class="text-[10px] text-gray-800 uppercase font-bold tracking-widest bg-gray-50 border-b border-gray-300">
                     <tr>
-                        <th class="px-6 py-4">Fecha / Hora</th>
-                        <th class="px-6 py-4">Padre / Madre</th>
-                        <th class="px-6 py-4">Alumno</th>
-                        <th class="px-6 py-4 text-center">Ubicación</th>
-                        <th class="px-6 py-4">Profesor</th>
-                        <th class="px-6 py-4 text-center text-center">Estado</th>
-                        <th class="px-6 py-4 text-center">Detalle</th>
+                        <th class="px-2 py-2">Fecha / Hora</th>
+                        <th class="px-2 py-2">Padre / Madre</th>
+                        <th class="px-2 py-2">Alumno</th>
+                        <th class="px-2 py-2 text-center">Ubicación</th>
+                        <th class="px-2 py-2">Profesor</th>
+                        <th class="px-2 py-2 text-center text-center">Estado</th>
+                        <th class="px-2 py-2 text-center">Detalle</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-gray-50 font-medium">
                     @forelse($appointments as $appointment)
                         <tr class="hover:bg-gray-50/50 transition-colors group">
-                            <td class="px-6 py-5 whitespace-nowrap">
+                            <td class="px-2 py-2 whitespace-nowrap">
                                 <p class="font-bold text-gray-800 tracking-tight">
                                     {{ $appointment->date ? $appointment->date->format('d/m/Y') : '-' }}</p>
                                 <p class="text-[10px] text-colegio-500 font-bold uppercase">
                                     {{ $appointment->time ? $appointment->time->format('h:i A') : '' }}</p>
                             </td>
-                            <td class="px-6 py-5">
+                            <td class="px-2 py-2">
                                 <p class="font-bold text-gray-700 leading-tight uppercase tracking-tight text-xs">
                                     {{ $appointment->parent->nombre_completo ?? 'N/A' }}</p>
                             </td>
-                            <td class="px-6 py-5">
+                            <td class="px-2 py-2">
                                 <p class="font-bold text-gray-800 leading-tight uppercase tracking-tight text-xs">
                                     {{ $appointment->student->nombre_completo ?? 'N/A' }}</p>
                             </td>
-                            <td class="px-6 py-5 text-center whitespace-nowrap">
+                            <td class="px-2 py-2 text-center whitespace-nowrap">
                                 @if ($appointment->student && $appointment->student->matricula)
                                     <p
                                         class="text-[10px] font-bold text-gray-700 uppercase tracking-widest bg-gray-100 px-2 py-1 rounded-lg inline-block shadow-sm grayscale opacity-70 group-hover:grayscale-0 group-hover:opacity-100 transition-all">
@@ -197,11 +197,11 @@
                                     <span class="text-gray-300 font-bold text-[10px] uppercase">N/A</span>
                                 @endif
                             </td>
-                            <td class="px-6 py-5">
+                            <td class="px-2 py-2">
                                 <p class="text-xs font-bold text-gray-600 uppercase tracking-tight leading-tight">
                                     {{ $appointment->teacher->nombre_completo ?? 'N/A' }}</p>
                             </td>
-                            <td class="px-6 py-5 text-center">
+                            <td class="px-2 py-2 text-center">
                                 @php
                                     $statusClasses = [
                                         'pending' => 'bg-amber-100 text-amber-700',
@@ -219,13 +219,13 @@
                                     ];
                                 @endphp
                                 <span
-                                    class="inline-flex px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest {{ $statusClasses[$appointment->status] ?? 'bg-gray-100 text-gray-400' }}">
+                                    class="inline-flex px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest {{ $statusClasses[$appointment->status] ?? 'bg-gray-100 text-gray-800' }}">
                                     {{ $statusNames[$appointment->status] ?? $appointment->status }}
                                 </span>
                             </td>
-                            <td class="px-6 py-5 text-center">
+                            <td class="px-2 py-2 text-center">
                                 <button wire:click="verDetalle({{ $appointment->id }})"
-                                    class="p-2 text-gray-400 hover:text-colegio-600 hover:bg-colegio-50 rounded-xl transition-all"
+                                    class="p-2 text-gray-800 hover:text-colegio-600 hover:bg-colegio-50 rounded-xl transition-all"
                                     title="Ver detalle">
                                     <i class="ph ph-eye text-xl font-bold"></i>
                                 </button>
@@ -233,7 +233,7 @@
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="7" class="px-6 py-20 text-center text-gray-300 italic">
+                            <td colspan="7" class="px-2 py-20 text-center text-gray-300 italic">
                                 <i class="ph ph-calendar-blank text-6xl mb-4 opacity-20 block mx-auto font-bold"></i>
                                 <span class="uppercase font-bold tracking-widest text-[10px]">No se encontraron citas
                                     con los filtros seleccionados</span>
@@ -244,7 +244,7 @@
             </table>
         </div>
         @if ($appointments->hasPages())
-            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100">
+            <div class="px-6 py-4 bg-gray-50 border-t border-gray-300">
                 {{ $appointments->links() }}
             </div>
         @endif
@@ -261,7 +261,7 @@
                 <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
 
                 <div
-                    class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full border border-gray-100">
+                    class="inline-block align-bottom bg-white rounded-3xl text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-xl sm:w-full border border-gray-300">
                     {{-- Modal Header --}}
                     <div
                         class="bg-gradient-to-r from-colegio-600 to-colegio-500 px-8 py-5 flex items-center justify-between shadow-lg shadow-colegio-100/50 relative z-10">
@@ -280,9 +280,9 @@
                         <div class="grid grid-cols-2 gap-x-8 gap-y-10">
                             <div>
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Fecha</label>
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1">Fecha</label>
                                 <div
-                                    class="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 shadow-inner">
+                                    class="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-2xl border border-gray-300 shadow-inner">
                                     <i class="ph ph-calendar text-colegio-500 text-lg font-bold"></i>
                                     <span
                                         class="text-sm font-bold text-gray-800 tracking-tight">{{ $selected_appointment->date->format('d/m/Y') }}</span>
@@ -290,9 +290,9 @@
                             </div>
                             <div>
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Hora</label>
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1">Hora</label>
                                 <div
-                                    class="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-2xl border border-gray-100 shadow-inner">
+                                    class="flex items-center gap-3 bg-gray-50 px-4 py-3 rounded-2xl border border-gray-300 shadow-inner">
                                     <i class="ph ph-clock text-colegio-500 text-lg font-bold"></i>
                                     <span
                                         class="text-sm font-bold text-gray-800 tracking-tight">{{ $selected_appointment->time ? $selected_appointment->time->format('h:i A') : 'N/A' }}</span>
@@ -300,19 +300,19 @@
                             </div>
                             <div class="col-span-2">
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1 border-b border-gray-50 pb-1 w-full">Padre
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1 border-b border-gray-50 pb-1 w-full">Padre
                                     / Madre</label>
                                 <div class="flex flex-col">
                                     <p
                                         class="text-base font-bold text-gray-800 uppercase tracking-tight leading-tight pt-1">
                                         {{ $selected_appointment->parent->nombre_completo ?? 'N/A' }}</p>
-                                    <p class="text-[10px] text-gray-400 font-bold uppercase tracking-widest mt-0.5">
+                                    <p class="text-[10px] text-gray-800 font-bold uppercase tracking-widest mt-0.5">
                                         Responsable legal</p>
                                 </div>
                             </div>
                             <div class="col-span-2">
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1 border-b border-gray-50 pb-1 w-full">Alumno
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1 border-b border-gray-50 pb-1 w-full">Alumno
                                     / Estudiante</label>
                                 <div class="flex items-center gap-4">
                                     <div class="flex flex-col flex-1">
@@ -333,9 +333,9 @@
                             </div>
                             <div class="col-span-2 space-y-2 pt-2">
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1 border-b border-gray-50 pb-1 w-full">Profesor
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1 border-b border-gray-50 pb-1 w-full">Profesor
                                     Asignado</label>
-                                <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-100">
+                                <div class="flex items-center gap-4 p-4 bg-gray-50 rounded-2xl border border-gray-300">
                                     <div
                                         class="w-10 h-10 rounded-xl bg-colegio-100 flex items-center justify-center text-colegio-600">
                                         <i class="ph-fill ph-user-gear text-xl"></i>
@@ -346,27 +346,27 @@
                             </div>
                             <div class="col-span-2">
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Asunto
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1">Asunto
                                     de la reunión</label>
                                 <div
-                                    class="text-xs font-bold text-gray-600 bg-gray-50 px-5 py-4 rounded-2xl border border-gray-100 shadow-inner italic leading-relaxed">
+                                    class="text-xs font-bold text-gray-600 bg-gray-50 px-5 py-4 rounded-2xl border border-gray-300 shadow-inner italic leading-relaxed">
                                     "{{ $selected_appointment->subject ?? 'Sin asunto especificado' }}"
                                 </div>
                             </div>
                             <div class="col-span-2">
                                 <label
-                                    class="block text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-2 ml-1">Notas
+                                    class="block text-[10px] font-bold text-gray-800 uppercase tracking-widest mb-2 ml-1">Notas
                                     y Observaciones</label>
                                 <div
-                                    class="text-xs font-bold text-gray-500 bg-white px-5 py-5 rounded-2xl border border-gray-100 shadow-sm min-h-[100px] leading-relaxed">
+                                    class="text-xs font-bold text-gray-800 bg-white px-5 py-5 rounded-2xl border border-gray-300 shadow-sm min-h-[100px] leading-relaxed">
                                     {{ $selected_appointment->notes ?? 'No se registraron notas adicionales para esta cita.' }}
                                 </div>
                             </div>
                             <div class="col-span-2 flex items-center gap-4">
-                                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest">Estado
+                                <label class="text-[10px] font-bold text-gray-800 uppercase tracking-widest">Estado
                                     Actual:</label>
                                 <span
-                                    class="inline-flex px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest shadow-sm {{ $statusClasses[$selected_appointment->status] ?? 'bg-gray-100 text-gray-400' }}">
+                                    class="inline-flex px-5 py-2 rounded-xl text-[10px] font-bold uppercase tracking-widest shadow-sm {{ $statusClasses[$selected_appointment->status] ?? 'bg-gray-100 text-gray-800' }}">
                                     {{ $statusNames[$selected_appointment->status] ?? $selected_appointment->status }}
                                 </span>
                             </div>
@@ -389,7 +389,7 @@
                     </div>
 
                     {{-- Modal Footer --}}
-                    <div class="px-8 py-6 bg-gray-50 border-t border-gray-100 flex justify-end">
+                    <div class="px-8 py-6 bg-gray-50 border-t border-gray-300 flex justify-end">
                         <button wire:click="cerrarModal"
                             class="px-12 py-3 bg-white border border-gray-200 text-[10px] font-bold uppercase tracking-widest text-gray-600 rounded-2xl hover:bg-gray-100 hover:text-gray-800 transition-all shadow-sm">
                             Cerrar Ventana

@@ -10,17 +10,17 @@
                 </span>
                 Marcación de Asistencia
             </h1>
-            <p class="text-gray-500 text-sm mt-1 ml-16">Sistema de marcación manual o integración biométrica.</p>
+            <p class="text-gray-800 text-sm mt-1 ml-16">Sistema de marcación manual o integración biométrica.</p>
         </div>
     </div>
 
     {{-- Contenido Pendiente --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-12 text-center mt-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-12 text-center mt-6">
         <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-yellow-50 mb-6">
             <i class="ph-fill ph-person-simple-bike text-4xl text-yellow-500"></i>
         </div>
         <h2 class="text-2xl font-bold text-gray-800 mb-2">Sección en Construcción</h2>
-        <p class="text-gray-500 max-w-md mx-auto">
+        <p class="text-gray-800 max-w-md mx-auto">
             El módulo de marcación de asistencia estará disponible en futuras actualizaciones del sistema.
         </p>
     </div>

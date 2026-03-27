@@ -34,4 +34,9 @@ class Asistencia extends Model
     {
         return $this->belongsTo(AsistenciaFeriado::class, 'dia', 'fecha_feriado');
     }
+
+    public function alumno()
+    {
+        return $this->belongsTo(Alumno::class);
+    }
 }

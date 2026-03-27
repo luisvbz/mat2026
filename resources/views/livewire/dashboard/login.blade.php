@@ -8,7 +8,7 @@
             <i class="ph ph-bank text-colegio-600 mr-2 text-3xl"></i>
             Matrícula 2026
         </h2>
-        <p class="text-gray-500 mt-2 text-sm">Bienvenido al panel administrativo</p>
+        <p class="text-gray-800 mt-2 text-sm">Bienvenido al panel administrativo</p>
     </div>
 
     <form wire:submit.prevent="submitForm" class="space-y-6">
@@ -18,7 +18,7 @@
             </label>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ph ph-user text-gray-400 text-lg"></i>
+                    <i class="ph ph-user text-gray-800 text-lg"></i>
                 </div>
                 <input type="text" wire:model.debounce.500ms="username"
                     class="block w-full pl-10 pr-3 py-3 border @error('username') border-red-300 ring-1 ring-red-300 @else border-gray-300 @enderror rounded-xl focus:ring-colegio-500 focus:border-colegio-500 transition-colors shadow-sm bg-gray-50 focus:bg-white"
@@ -37,7 +37,7 @@
             </label>
             <div class="relative">
                 <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <i class="ph ph-lock text-gray-400 text-lg"></i>
+                    <i class="ph ph-lock text-gray-800 text-lg"></i>
                 </div>
                 <input type="password" wire:model.debounce.500ms="password"
                     class="block w-full pl-10 pr-3 py-3 border @error('password') border-red-300 ring-1 ring-red-300 @else border-gray-300 @enderror rounded-xl focus:ring-colegio-500 focus:border-colegio-500 transition-colors shadow-sm bg-gray-50 focus:bg-white"

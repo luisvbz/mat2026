@@ -1,5 +1,11 @@
-<div class="bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
+<div
+    class="bg-white border-b border-gray-200 px-4 md:px-6 py-4 flex items-center justify-between sticky top-0 z-30 shadow-sm">
     <div class="flex items-center">
+        <!-- Mobile Sidebar Toggle -->
+        <button @click="$dispatch('sidebar-toggle')"
+            class="md:hidden mr-4 text-gray-600 hover:text-colegio-600 focus:outline-none transition-colors">
+            <i class="ph ph-list text-2xl"></i>
+        </button>
         <!-- Placeholder for breadcrumbs or page title -->
         <h2 class="text-lg font-medium text-gray-800 hidden sm:block">Panel de Administración</h2>
     </div>

@@ -31,13 +31,53 @@
         </div>
     </div>
 
+    {{-- Stats Cards --}}
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-2 flex items-center">
+            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
+                <i class="ph ph-circle text-yellow-500 text-xl font-bold"></i>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-800 uppercase"><span class="font-bold">{{ $pendientes }}</span>
+                    Pendientes </p>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-2 flex items-center">
+            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
+                <i class="ph ph-check-circle text-green-500 text-xl font-bold"></i>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-800 uppercase"><span class="font-bold">{{ $confirmadas }}</span>
+                    Confirmadas</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-2 flex items-center">
+            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
+                <i class="ph ph-prohibit text-red-500 text-xl font-bold"></i>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-800 uppercase"><span class="font-bold">{{ $anuladas }}</span>
+                    Anuladas</p>
+            </div>
+        </div>
+        <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-2 flex items-center">
+            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
+                <i class="ph ph-users text-gray-800 text-xl font-bold"></i>
+            </div>
+            <div>
+                <p class="font-semibold text-gray-800 uppercase"><span class="font-bold">{{ $total }}</span>
+                    Total</p>
+            </div>
+        </div>
+    </div>
+
     {{-- Search & Filters --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5 mb-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5 mb-6">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
             <div class="md:col-span-5">
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <i class="ph ph-magnifying-glass text-gray-400"></i>
+                        <i class="ph ph-magnifying-glass text-gray-800"></i>
                     </div>
                     <input type="text" wire:keydown.enter="buscar" wire:model.defer="search"
                         class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm"
@@ -90,45 +130,7 @@
         </div>
     </div>
 
-    {{-- Stats Cards --}}
-    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center">
-            <div class="w-10 h-10 rounded-full bg-yellow-100 flex items-center justify-center mr-4">
-                <i class="ph ph-circle text-yellow-500 text-xl font-bold"></i>
-            </div>
-            <div>
-                <p class="text-xs font-semibold text-gray-500 uppercase">Pendientes</p>
-                <p class="text-xl font-bold text-gray-800">{{ $pendientes }}</p>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center">
-            <div class="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center mr-4">
-                <i class="ph ph-check-circle text-green-500 text-xl font-bold"></i>
-            </div>
-            <div>
-                <p class="text-xs font-semibold text-gray-500 uppercase">Confirmadas</p>
-                <p class="text-xl font-bold text-gray-800">{{ $confirmadas }}</p>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center">
-            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center mr-4">
-                <i class="ph ph-prohibit text-red-500 text-xl font-bold"></i>
-            </div>
-            <div>
-                <p class="text-xs font-semibold text-gray-500 uppercase">Anuladas</p>
-                <p class="text-xl font-bold text-gray-800">{{ $anuladas }}</p>
-            </div>
-        </div>
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-4 flex items-center">
-            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center mr-4">
-                <i class="ph ph-users text-gray-500 text-xl font-bold"></i>
-            </div>
-            <div>
-                <p class="text-xs font-semibold text-gray-500 uppercase">Total</p>
-                <p class="text-xl font-bold text-gray-800">{{ $total }}</p>
-            </div>
-        </div>
-    </div>
+
 
     {{-- Actions Bar --}}
     <div class="flex flex-wrap items-center justify-end gap-2 mb-6">
@@ -152,50 +154,53 @@
             class="inline-flex items-center px-4 py-2 border border-gray-300 rounded-lg shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
             Rep. DNI <i class="ph ph-identification-card ml-2 text-indigo-500 text-lg"></i>
         </button>
-        <button wire:click="generarQrs"
+        {{--      <button wire:click="generarQrs"
             class="inline-flex items-center px-4 py-2 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-colegio-600 hover:bg-colegio-700">
             Generar QR's <i class="ph ph-qr-code ml-2 text-lg"></i>
-        </button>
+        </button> --}}
     </div>
 
     {{-- Data Table --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible relative z-20">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-visible relative z-20">
         <div class="overflow-x-auto pb-32">
             <table class="min-w-full divide-y divide-gray-200">
                 <thead class="bg-gray-50">
                     <tr>
                         <th scope="col"
-                            class="px-6 py-3 text-center w-12 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center w-8 text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             SEL.</th>
                         <th scope="col"
-                            class="px-3 py-3 text-center w-12 text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center w-8 text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             #</th>
                         <th scope="col"
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Estado</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">COD
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
+                            COD
                         </th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">N.
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
+                            N.
                             MAT.</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Doc.
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
+                            Doc.
                         </th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Alumno</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Nivel</th>
                         <th scope="col"
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Grado</th>
                         <th scope="col"
-                            class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-left text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Fecha</th>
                         <th scope="col"
-                            class="px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            class="px-2 py-2 text-center text-[11px] font-medium text-gray-800 uppercase tracking-wider">
                             Acciones</th>
                     </tr>
                 </thead>
@@ -203,45 +208,37 @@
                     @php $i = 1; @endphp
                     @forelse($matriculas as $matricula)
                         <tr class="hover:bg-gray-50 transition-colors">
-                            <td class="px-6 py-4 whitespace-nowrap text-center">
+                            <td class="px-2 py-2 whitespace-nowrap text-center">
                                 <input value="{{ $matricula->id }}" type="checkbox" wire:model="matriculas_selected"
                                     class="h-4 w-4 text-colegio-600 focus:ring-colegio-500 border-gray-300 rounded">
                             </td>
-                            <td class="px-3 py-4 whitespace-nowrap text-center text-sm text-gray-500">
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-xs text-gray-800">
                                 {{ $i }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm">
-                                {!! str_replace(
-                                    'has-text-warning',
-                                    'text-yellow-600',
-                                    str_replace(
-                                        'has-text-success',
-                                        'text-green-600',
-                                        str_replace('has-text-danger', 'text-red-600', $matricula->status),
-                                    ),
-                                ) !!}
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-lg">
+                                {!! $matricula->status !!}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs font-medium text-gray-900">
                                 {{ $matricula->codigo }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                 {{ $matricula->numero_matricula }}</td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                 {{ $matricula->alumno->numero_documento }}</td>
-                            <td class="px-6 py-4 text-sm text-gray-900 font-medium">
+                            <td class="px-2 py-2 text-xs text-gray-900 font-medium leading-tight min-w-[150px]">
                                 {{ trim($matricula->alumno->apellido_paterno . ' ' . $matricula->alumno->apellido_materno . ' ' . $matricula->alumno->nombres) }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                 {{ $matricula->nivel == 'P' ? 'Primaria' : 'Secundaria' }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm text-gray-900 font-medium">
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-xs text-gray-900 font-medium">
                                 {{ $matricula->grado | grado }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                            <td class="px-2 py-2 whitespace-nowrap text-xs text-gray-800">
                                 {{ $matricula->created_at | dateFormat }}
                             </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-center text-sm font-medium">
+                            <td class="px-2 py-2 whitespace-nowrap text-center text-xs font-medium">
                                 <div class="relative inline-block text-left" x-data="{ open: false }">
                                     <button @click="open = !open" @click.away="open = false"
-                                        class="text-gray-400 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors">
+                                        class="text-gray-800 hover:text-gray-600 focus:outline-none p-2 rounded-full hover:bg-gray-100 transition-colors">
                                         <i class="ph ph-list text-xl"></i>
                                     </button>
 
@@ -260,14 +257,14 @@
                                             </button>
 
                                             @if ($matricula->estado == 0)
-                                                <div class="border-t border-gray-100 my-1"></div>
+                                                <div class="border-t border-gray-300 my-1"></div>
                                                 <button wire:click="showDialogConfirmMatricula({{ $matricula->id }})"
                                                     class="w-full text-left px-4 py-2 text-sm text-green-600 hover:bg-green-50 flex items-center">
                                                     <i class="ph ph-check-circle text-green-500 text-lg mr-2"></i>
                                                     Confirmar
                                                 </button>
                                             @elseif($matricula->estado == 1)
-                                                <div class="border-t border-gray-100 my-1"></div>
+                                                <div class="border-t border-gray-300 my-1"></div>
                                                 <button wire:click="showDialogAnularMatricula({{ $matricula->id }})"
                                                     class="w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-red-50 flex items-center">
                                                     <i class="ph ph-prohibit text-red-500 text-lg mr-2"></i> Anular
@@ -281,13 +278,13 @@
                         @php $i++; @endphp
                     @empty
                         <tr>
-                            <td colspan="11" class="px-6 py-12 text-center">
+                            <td colspan="11" class="px-2 py-12 text-center">
                                 <div
                                     class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gray-50 mb-4">
-                                    <i class="ph ph-magnifying-glass text-2xl text-gray-400"></i>
+                                    <i class="ph ph-magnifying-glass text-2xl text-gray-800"></i>
                                 </div>
                                 <h3 class="text-lg font-medium text-gray-900">No hay matrículas</h3>
-                                <p class="mt-1 text-sm text-gray-500">Aún no se ha registrado ninguna matrícula o
+                                <p class="mt-1 text-sm text-gray-800">Aún no se ha registrado ninguna matrícula o
                                     ninguna coincide con los filtros aplicados.</p>
                             </td>
                         </tr>
@@ -296,7 +293,7 @@
             </table>
         </div>
 
-        <div class="px-6 py-4 border-t border-gray-100">
+        <div class="px-6 py-4 border-t border-gray-300">
             {{ $matriculas->links() }}
         </div>
     </div>

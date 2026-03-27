@@ -13,17 +13,17 @@
     {{-- Header --}}
     <div class="flex items-center gap-3 mb-6">
         <div
-            class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-100 flex items-center justify-center text-colegio-600">
+            class="w-12 h-12 bg-white rounded-xl shadow-sm border border-gray-300 flex items-center justify-center text-colegio-600">
             <i class="ph-fill ph-pencil-simple text-2xl"></i>
         </div>
         <div>
             <h1 class="text-2xl font-bold text-gray-800">Editar Comunicado</h1>
-            <p class="text-sm text-gray-500">Actualiza la información del comunicado seleccionado.</p>
+            <p class="text-sm text-gray-800">Actualiza la información del comunicado seleccionado.</p>
         </div>
     </div>
 
     {{-- Form Container --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-6 md:p-8 space-y-6">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-6 md:p-8 space-y-6">
 
         <div class="space-y-1">
             <label class="block text-sm font-medium text-gray-700">Título <span class="text-red-500">*</span></label>
@@ -88,7 +88,7 @@
             </div>
         </div>
 
-        <div class="p-4 bg-gray-50 rounded-lg border border-gray-100">
+        <div class="p-4 bg-gray-50 rounded-lg border border-gray-300">
             <label class="flex items-center gap-3 cursor-pointer">
                 <input type="checkbox" wire:model="is_published"
                     class="form-checkbox h-5 w-5 text-colegio-600 rounded border-gray-300 focus:ring-colegio-500 transition duration-150 ease-in-out">
@@ -107,10 +107,10 @@
                         @foreach ($existingAttachments as $attachment)
                             <div
                                 class="inline-flex items-center bg-white border border-gray-200 rounded-full pl-3 pr-1 py-1 shadow-sm text-sm">
-                                <i class="ph ph-file-text text-gray-400 mr-2"></i>
+                                <i class="ph ph-file-text text-gray-800 mr-2"></i>
                                 <span class="text-gray-700 mr-2 truncate max-w-[200px]">{{ $attachment['name'] }}</span>
                                 <button type="button" wire:click="markAttachmentForDeletion({{ $attachment['id'] }})"
-                                    class="p-1 rounded-full text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors"
+                                    class="p-1 rounded-full text-gray-800 hover:text-red-500 hover:bg-red-50 transition-colors"
                                     title="Eliminar archivo">
                                     <i class="ph ph-x"></i>
                                 </button>
@@ -125,10 +125,10 @@
                 <label
                     class="flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer bg-gray-50 border-gray-300 hover:bg-gray-100 focus:outline-none transition-colors">
                     <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                        <i class="ph ph-upload-simple text-3xl text-gray-400 mb-2"></i>
-                        <p class="mb-1 text-sm text-gray-500"><span class="font-semibold">Haz clic para buscar</span> o
+                        <i class="ph ph-upload-simple text-3xl text-gray-800 mb-2"></i>
+                        <p class="mb-1 text-sm text-gray-800"><span class="font-semibold">Haz clic para buscar</span> o
                             arrastra nuevos archivos</p>
-                        <p class="text-xs text-gray-400">Archivos múltiples, máximo 10MB por archivo.</p>
+                        <p class="text-xs text-gray-800">Archivos múltiples, máximo 10MB por archivo.</p>
                     </div>
                     <input type="file" wire:model="attachments" multiple class="hidden" />
                 </label>
@@ -145,7 +145,7 @@
             @enderror
         </div>
 
-        <div class="pt-6 border-t border-gray-100 flex flex-col sm:flex-row gap-3 justify-end">
+        <div class="pt-6 border-t border-gray-300 flex flex-col sm:flex-row gap-3 justify-end">
             <button wire:click="cancel" type="button"
                 class="inline-flex items-center justify-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-lg text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-200 transition-colors">
                 <i class="ph ph-x mr-2"></i> Cancelar

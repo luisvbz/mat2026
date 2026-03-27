@@ -33,10 +33,10 @@
     </div>
 
     {{-- Search & Filters --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 p-5">
         <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
             <div class="md:col-span-2 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Nivel</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Nivel</label>
                 <select wire:model="nivel"
                     class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 text-sm">
                     <option value="">Seleccione nivel...</option>
@@ -46,9 +46,9 @@
             </div>
 
             <div class="md:col-span-2 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Grado</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Grado</label>
                 <select wire:model="grado" @if (!$grados || count($grados) == 0) disabled @endif
-                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 text-sm disabled:bg-gray-100 disabled:text-gray-400">
+                    class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 text-sm disabled:bg-gray-100 disabled:text-gray-800">
                     <option value="">Seleccione grado...</option>
                     @foreach ($grados as $g)
                         <option value="{{ $g->numero }}">{{ $g->nombre }}</option>
@@ -57,13 +57,13 @@
             </div>
 
             <div class="md:col-span-3 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Fecha</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Fecha</label>
                 <input type="date" wire:model='day'
                     class="block w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-colegio-500 focus:border-colegio-500 text-sm" />
             </div>
 
             <div class="md:col-span-5 space-y-1">
-                <label class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">Vista</label>
+                <label class="block text-xs font-semibold text-gray-800 uppercase tracking-wider">Vista</label>
                 <div class="flex shadow-sm rounded-lg w-full">
                     <button @click="tipo = 'dia'"
                         :class="tipo == 'dia' ? 'bg-colegio-600 text-white border-colegio-600' :
@@ -184,36 +184,36 @@
 
     {{-- Vista por Día --}}
     @if ($vista == 'dia' && sizeof($alumnos) > 0)
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible relative z-20">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-visible relative z-20">
             <div class="overflow-x-auto pb-6">
                 <table class="w-full text-sm text-left text-gray-600">
-                    <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100">
+                    <thead class="text-xs text-gray-800 uppercase bg-gray-50 border-b border-gray-300">
                         <tr>
-                            <th scope="col" class="px-6 py-4 font-semibold">
+                            <th scope="col" class="px-2 py-2 font-semibold">
                                 <div class="flex items-center"><i
-                                        class="ph-fill ph-student text-gray-400 mr-2 text-lg"></i> Alumno</div>
+                                        class="ph-fill ph-student text-gray-800 mr-2 text-lg"></i> Alumno</div>
                             </th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">Estado</th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">
+                            <th scope="col" class="px-2 py-2 font-semibold text-center w-32">Estado</th>
+                            <th scope="col" class="px-2 py-2 font-semibold text-center w-32">
                                 <div class="flex justify-center items-center"><i
-                                        class="ph-fill ph-clock text-gray-400 mr-1 text-lg"></i> Entrada</div>
+                                        class="ph-fill ph-clock text-gray-800 mr-1 text-lg"></i> Entrada</div>
                             </th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">Obs. E.</th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">
+                            <th scope="col" class="px-2 py-2 font-semibold text-center w-32">Obs. E.</th>
+                            <th scope="col" class="px-2 py-2 font-semibold text-center w-32">
                                 <div class="flex justify-center items-center"><i
-                                        class="ph-fill ph-door-open text-gray-400 mr-1 text-lg"></i> Salida</div>
+                                        class="ph-fill ph-door-open text-gray-800 mr-1 text-lg"></i> Salida</div>
                             </th>
-                            <th scope="col" class="px-6 py-4 font-semibold text-center w-32">Obs. S.</th>
+                            <th scope="col" class="px-2 py-2 font-semibold text-center w-32">Obs. S.</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
                         @foreach ($alumnos as $alumno)
                             <tr class="hover:bg-gray-50 transition-colors">
-                                <td class="px-6 py-3 font-semibold text-gray-900">
+                                <td class="px-2 py-2 font-semibold text-gray-900">
                                     {{ $alumno['nombre'] }}
                                 </td>
                                 @foreach ($alumno['dias'] as $dia)
-                                    <td class="px-6 py-3 text-center">
+                                    <td class="px-2 py-2 text-center">
                                         @if ($dia['tipo'] == 'N')
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
@@ -237,10 +237,12 @@
                                                 <i class="ph-bold ph-calendar-plus mr-1"></i> Feriado
                                             </span>
                                         @elseif($dia['tipo'] == 'FI')
-                                            <span
-                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
-                                                <i class="ph-bold ph-x mr-1"></i> Falta
-                                            </span>
+                                            <button type="button"
+                                                wire:click="mostrarJustificarAusencia({{ $dia['asistencia_id'] }})"
+                                                title="Click para regularizar"
+                                                class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-600 text-white hover:bg-red-700 focus:outline-none transition-colors shadow-sm">
+                                                <i class="ph-bold ph-warning-circle mr-1"></i> Falta
+                                            </button>
                                         @elseif($dia['tipo'] == 'FJ')
                                             <span
                                                 class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
@@ -255,57 +257,58 @@
                                     </td>
 
                                     @if ($dia['tipo'] == 'FI')
-                                        <td colspan="4" class="px-6 py-3 text-center bg-red-50">
+                                        <td colspan="4" class="px-2 py-2 text-center bg-red-50">
                                             <span class="text-sm font-bold text-red-700">Falta Injustificada</span>
                                         </td>
                                     @elseif($dia['tipo'] == 'FJ')
-                                        <td colspan="4" class="px-6 py-3 text-center bg-blue-50">
+                                        <td colspan="4" class="px-2 py-2 text-center bg-blue-50">
                                             <span class="text-sm font-bold text-blue-700">Falta Justificada
-                                                (Permiso)</span>
+                                                (Permiso)
+                                            </span>
                                         </td>
                                     @elseif($dia['tipo'] == 'F')
-                                        <td colspan="4" class="px-6 py-3 text-center bg-gray-50">
-                                            <span class="text-sm font-bold text-gray-500">Día Feriado</span>
+                                        <td colspan="4" class="px-2 py-2 text-center bg-gray-50">
+                                            <span class="text-sm font-bold text-gray-800">Día Feriado</span>
                                         </td>
                                     @else
-                                        <td class="px-6 py-3 text-center">
+                                        <td class="px-2 py-2 text-center">
                                             @if ($dia['entrada'])
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-teal-100 text-teal-800">
                                                     {{ \Carbon\Carbon::parse($dia['entrada'])->format('h:i A') }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400">-</span>
+                                                <span class="text-gray-800">-</span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-3 text-center">
+                                        <td class="px-2 py-2 text-center">
                                             @if ($dia['tardanza_entrada'])
                                                 <span
                                                     class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-yellow-100 text-yellow-800">
                                                     {{ $dia['tardanza_entrada'] }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400">-</span>
+                                                <span class="text-gray-800">-</span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-3 text-center">
+                                        <td class="px-2 py-2 text-center">
                                             @if ($dia['salida'])
                                                 <span
                                                     class="inline-flex items-center px-2.5 py-0.5 rounded-md text-xs font-medium bg-indigo-100 text-indigo-800">
                                                     {{ \Carbon\Carbon::parse($dia['salida'])->format('h:i A') }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400">-</span>
+                                                <span class="text-gray-800">-</span>
                                             @endif
                                         </td>
-                                        <td class="px-6 py-3 text-center">
+                                        <td class="px-2 py-2 text-center">
                                             @if ($dia['salida_anticipada'])
                                                 <span
                                                     class="inline-flex items-center px-2 py-0.5 rounded text-xs font-bold bg-yellow-100 text-yellow-800">
                                                     {{ $dia['salida_anticipada'] }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400">-</span>
+                                                <span class="text-gray-800">-</span>
                                             @endif
                                         </td>
                                     @endif
@@ -319,15 +322,15 @@
 
         {{-- Vista por Semana/Mes --}}
     @elseif(in_array($vista, ['semana', 'mes']) && sizeof($alumnos) > 0)
-        <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-visible relative z-20">
+        <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-visible relative z-20">
             <div class="overflow-x-auto pb-6">
                 <table class="w-full text-sm text-left text-gray-600">
-                    <thead class="text-xs text-gray-500 uppercase bg-gray-50 border-b border-gray-100 bg-gray-100">
+                    <thead class="text-xs text-gray-800 uppercase bg-gray-50 border-b border-gray-300 bg-gray-100">
                         <tr>
                             <th scope="col" rowspan="2"
-                                class="px-6 py-4 font-semibold w-1/4 align-middle border-r border-gray-200">
+                                class="px-2 py-2 font-semibold w-1/4 align-middle border-r border-gray-200">
                                 <div class="flex items-center"><i
-                                        class="ph-fill ph-student text-gray-500 mr-2 text-lg"></i> Alumno</div>
+                                        class="ph-fill ph-student text-gray-800 mr-2 text-lg"></i> Alumno</div>
                             </th>
                             @foreach ($dias as $dia)
                                 <th scope="col"
@@ -348,7 +351,7 @@
                         @foreach ($alumnos as $alumno)
                             <tr>
                                 <td rowspan="2"
-                                    class="px-6 py-3 font-semibold text-gray-900 border-r border-gray-100 align-middle">
+                                    class="px-2 py-2 font-semibold text-gray-900 border-r border-gray-300 align-middle">
                                     <div class="flex items-center">
                                         <div
                                             class="w-8 h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mr-3 font-bold text-xs shrink-0">
@@ -398,12 +401,12 @@
     {{-- Estado vacío --}}
     @if (sizeof($alumnos) == 0 && !empty($nivel) && !empty($grado))
         <div
-            class="bg-white rounded-xl shadow-sm border border-gray-100 p-12 flex flex-col items-center justify-center">
+            class="bg-white rounded-xl shadow-sm border border-gray-300 p-12 flex flex-col items-center justify-center">
             <div class="w-20 h-20 bg-gray-50 rounded-full flex items-center justify-center mb-4">
-                <i class="ph-fill ph-users-three text-4xl text-gray-400"></i>
+                <i class="ph-fill ph-users-three text-4xl text-gray-800"></i>
             </div>
             <h3 class="text-xl font-bold text-gray-800 mb-2">No hay registros de asistencia</h3>
-            <p class="text-gray-500 text-center max-w-md">
+            <p class="text-gray-800 text-center max-w-md">
                 No se encontraron estudiantes matriculados en {{ $nivel == 'P' ? 'Primaria' : 'Secundaria' }} -
                 @if ($grados && $grado)
                     {{ collect($grados)->where('numero', $grado)->first()->nombre ?? $grado }}

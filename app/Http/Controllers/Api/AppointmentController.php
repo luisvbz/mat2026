@@ -36,6 +36,7 @@ class AppointmentController extends Controller
                 'location' => $apt->location,
                 'createdAt' => $apt->created_at->toIso8601String(),
                 'createdBy' => $apt->created_by,
+                'absented_notes' => $apt->absented_notes,
             ];
         });
         return response()->json([
@@ -157,6 +158,7 @@ class AppointmentController extends Controller
                 'location' => $apt->location,
                 'createdAt' => $apt->created_at->toIso8601String(),
                 'createdBy' => $apt->created_by,
+                'absented_notes' => $apt->absented_notes,
             ];
         });
         return response()->json([
@@ -270,6 +272,23 @@ class AppointmentController extends Controller
         return response()->json([
             'success' => true,
             'message' => 'Cita marcada como completada',
+        ]);
+    }
+    /**
+     * Marcar cita como ausente (Profesores)
+     */
+    public function teacherAbsent(Request $request, $id)
+    {
+        $request->validate([
+            'notes' => 'required|string',
+        ]);
+
+        $appointment = Appointment::findOrFail($id);
+        $appointment->absent($request->notes);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Cita marcada como ausente',
         ]);
     }
 

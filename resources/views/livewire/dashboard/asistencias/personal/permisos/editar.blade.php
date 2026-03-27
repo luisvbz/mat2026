@@ -9,7 +9,7 @@
                 </span>
                 Editar Permiso de Personal
             </h1>
-            <p class="text-gray-500 text-sm mt-1 ml-16">Modifica la información de un permiso existente.</p>
+            <p class="text-gray-800 text-sm mt-1 ml-16">Modifica la información de un permiso existente.</p>
         </div>
         <div>
             <a href="{{ route('permisos-profesores.index') }}"
@@ -20,12 +20,12 @@
     </div>
 
     {{-- Formulario --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
         <div class="p-6 sm:p-8">
             <form wire:submit.prevent="guardarPermiso" class="space-y-6">
 
                 {{-- Sección 1: Selección de Personal --}}
-                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 mb-6">
+                <div class="bg-gray-50 rounded-lg p-5 border border-gray-300 mb-6">
                     <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center">
                         <i class="ph-fill ph-user-circle mr-2 text-blue-500 text-lg"></i> 1. Selección de Colaborador
                     </h3>
@@ -50,7 +50,7 @@
                 </div>
 
                 {{-- Sección 2: Detalles del Permiso --}}
-                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 mb-6">
+                <div class="bg-gray-50 rounded-lg p-5 border border-gray-300 mb-6">
                     <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center">
                         <i class="ph-fill ph-calendar-plus mr-2 text-blue-500 text-lg"></i> 2. Detalles del Permiso
                     </h3>
@@ -135,7 +135,7 @@
                                 @else
                                     <div
                                         class="col-span-2 flex items-center justify-center p-4 bg-white border border-dashed border-gray-300 rounded-lg">
-                                        <p class="text-gray-400 text-sm"><i class="ph-fill ph-info mr-1"></i> Seleccione
+                                        <p class="text-gray-800 text-sm"><i class="ph-fill ph-info mr-1"></i> Seleccione
                                             un tipo de permiso para ver las opciones de fecha y hora.</p>
                                     </div>
                                 @endif
@@ -157,7 +157,7 @@
                 </div>
 
                 {{-- Acciones --}}
-                <div class="flex justify-end pt-4 border-t border-gray-100">
+                <div class="flex justify-end pt-4 border-t border-gray-300">
                     <button type="submit"
                         class="inline-flex justify-center items-center px-6 py-2.5 bg-colegio-600 border border-transparent rounded-lg font-medium text-white hover:bg-colegio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-colegio-500 transition-colors shadow-sm text-sm">
                         <i class="ph-bold ph-floppy-disk mr-2 text-lg"></i> Guardar Cambios

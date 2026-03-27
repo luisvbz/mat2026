@@ -63,13 +63,13 @@
                         <i class="fas fa-file-invoice text-xl"></i>
                     </div>
                     <h2 class="text-xl font-bold text-gray-800">Consultar Estado de Cuenta</h2>
-                    <p class="text-gray-500 text-sm">Ingrese el DNI/CE/PTP del alumno para ver el estado de sus pensiones</p>
+                    <p class="text-gray-500 text-sm">Ingrese el DNI/CE/PTP del alumno para ver el estado de sus
+                        pensiones</p>
                 </div>
 
                 <form wire:submit.prevent="buscarMatricula" class="space-y-4">
                     <div class="max-w-xs mx-auto">
-                        <input type="text" wire:model.defer="codigo" onkeyup="mayus(this);"
-                            placeholder="12345678"
+                        <input type="text" wire:model.defer="codigo" onkeyup="mayus(this);" placeholder="12345678"
                             class="w-full px-4 py-3 text-center text-lg font-mono border rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary @error('codigo') border-red-500 @enderror" />
                         @error('codigo')
                             <p class="text-red-600 text-xs mt-1">{{ $message }}</p>
@@ -218,7 +218,7 @@
                                                 </span>
                                             @else
                                                 <span
-                                                    class="inline-flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-400 rounded-full">
+                                                    class="inline-flex items-center justify-center w-8 h-8 bg-gray-100 text-gray-800 rounded-full">
                                                     <i class="fas fa-clock text-sm"></i>
                                                 </span>
                                             @endif
@@ -231,7 +231,7 @@
                                                     {{ $pension->fecha_pago | dateFormat }}
                                                 </span>
                                             @else
-                                                <span class="text-gray-400">
+                                                <span class="text-gray-800">
                                                     <i class="fas fa-minus"></i>
                                                 </span>
                                             @endif

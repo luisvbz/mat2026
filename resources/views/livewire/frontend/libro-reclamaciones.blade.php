@@ -66,7 +66,7 @@
 
     <!-- Información Institucional Card -->
     {{-- <div class="max-w-6xl mx-auto mb-8">
-        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-100">
+        <div class="bg-white rounded-xl p-6 shadow-md border border-gray-300">
             <div class="flex items-center mb-4">
                 <div
                     class="w-8 h-8 bg-gradient-to-r from-primary to-red-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -96,7 +96,7 @@
         <form wire:submit.prevent="submit" class="space-y-8">
 
             <!-- Identificación del Reclamo -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -145,7 +145,7 @@
                             <input type="date" wire:model.defer="form.fechaIncidente"
                                 class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary/40 focus:border-primary @error('form.fechaIncidente') border-red-500 @enderror">
                             <i
-                                class="fas fa-calendar-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                                class="fas fa-calendar-alt absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-800"></i>
                         </div>
                         @error('form.fechaIncidente')
                             <p class="text-red-600 text-sm mt-2">{{ $message }}</p>
@@ -155,7 +155,7 @@
             </div>
 
             <!-- Identificación del Consumidor -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-blue-500 to-blue-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -303,7 +303,7 @@
             </div>
 
             <!-- Identificación del Padre o Apoderado -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-green-500 to-green-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -378,7 +378,7 @@
             </div>
 
             <!-- Identificación del Bien Contratado -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-purple-500 to-purple-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -453,7 +453,7 @@
             </div>
 
             <!-- Detalle de la Reclamación -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-red-500 to-red-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -493,7 +493,7 @@
             </div>
 
             <!-- Observaciones y Acciones Adoptadas -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-yellow-500 to-yellow-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -527,7 +527,7 @@
             </div>
 
             <!-- Términos y Condiciones -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100 animate-fade-in">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300 animate-fade-in">
                 <div class="flex items-center mb-6">
                     <div
                         class="w-10 h-10 bg-gradient-to-r from-indigo-500 to-indigo-700 text-white flex items-center justify-center rounded-lg mr-3">
@@ -589,7 +589,7 @@
             </div>
 
             <!-- Botones de Acción -->
-            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-100">
+            <div class="bg-white rounded-xl p-8 shadow-md border border-gray-300">
                 <div class="flex flex-col sm:flex-row gap-4 justify-end">
                     <!-- Botón limpiar, no depende del envío -->
                     <button type="button" wire:loading.remove wire:target="submit" wire:click="limpiarFormulario"

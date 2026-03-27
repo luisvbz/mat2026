@@ -38,13 +38,13 @@ class Matricula extends Model
         $value = $this->estado;
         switch ($value) {
             case 0:
-                return '<i class="fas fa-circle has-text-warning"></i>';
+                return '<i class="ph ph-circle text-yellow-600"></i>';
                 break;
             case 1:
-                return '<i class="fas fa-circle has-text-success"></i>';
+                return '<i class="ph ph-check-circle text-green-600"></i>';
                 break;
             case 2:
-                return '<i class="fas fa-circle has-text-danger"></i>';
+                return '<i class="ph ph-prohibit text-red-600"></i>';
                 break;
         }
     }

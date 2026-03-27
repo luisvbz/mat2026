@@ -9,7 +9,7 @@
                 </span>
                 Nuevo Permiso
             </h1>
-            <p class="text-gray-500 text-sm mt-1 ml-16">Registra un nuevo permiso para un estudiante.</p>
+            <p class="text-gray-800 text-sm mt-1 ml-16">Registra un nuevo permiso para un estudiante.</p>
         </div>
         <div>
             <a href="{{ route('permisos-alumnos.index') }}"
@@ -20,12 +20,12 @@
     </div>
 
     {{-- Formulario --}}
-    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
+    <div class="bg-white rounded-xl shadow-sm border border-gray-300 overflow-hidden">
         <div class="p-6 sm:p-8">
             <form wire:submit.prevent="guardarPermiso" class="space-y-6">
 
                 {{-- Sección 1: Selección de Alumno --}}
-                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 mb-6">
+                <div class="bg-gray-50 rounded-lg p-5 border border-gray-300 mb-6">
                     <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center">
                         <i class="ph-fill ph-student mr-2 text-blue-500 text-lg"></i> 1. Selección de Estudiante
                     </h3>
@@ -44,7 +44,7 @@
                         <div class="space-y-1">
                             <label class="block text-sm font-medium text-gray-700">Grado</label>
                             <select wire:model="grado" @if (sizeof($grados) == 0) disabled @endif
-                                class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm disabled:bg-gray-100 disabled:text-gray-400">
+                                class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm disabled:bg-gray-100 disabled:text-gray-800">
                                 <option value="">Seleccione..</option>
                                 @foreach ($grados as $g)
                                     <option value="{{ $g->numero }}">{{ $g->nombre }}</option>
@@ -55,7 +55,7 @@
                         <div class="lg:col-span-2 space-y-1">
                             <label class="block text-sm font-medium text-gray-700">Alumno</label>
                             <select wire:model="alumno" @if (sizeof($alumnos) == 0) disabled @endif
-                                class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm disabled:bg-gray-100 disabled:text-gray-400 @error('alumno') border-red-500 ring-1 ring-red-500 @enderror">
+                                class="block w-full pl-3 pr-10 py-2 border border-gray-300 rounded-lg focus:ring-colegio-500 focus:border-colegio-500 sm:text-sm disabled:bg-gray-100 disabled:text-gray-800 @error('alumno') border-red-500 ring-1 ring-red-500 @enderror">
                                 <option value="">Seleccione el alumno</option>
                                 @foreach ($alumnos as $a)
                                     <option value="{{ $a->id }}">{{ $a->nombre_completo }}</option>
@@ -70,7 +70,7 @@
                 </div>
 
                 {{-- Sección 2: Detalles del Permiso --}}
-                <div class="bg-gray-50 rounded-lg p-5 border border-gray-100 mb-6">
+                <div class="bg-gray-50 rounded-lg p-5 border border-gray-300 mb-6">
                     <h3 class="text-sm font-bold text-gray-700 uppercase tracking-wider mb-4 flex items-center">
                         <i class="ph-fill ph-calendar-plus mr-2 text-blue-500 text-lg"></i> 2. Detalles del Permiso
                     </h3>
@@ -155,7 +155,7 @@
                                 @else
                                     <div
                                         class="col-span-2 flex items-center justify-center p-4 bg-white border border-dashed border-gray-300 rounded-lg">
-                                        <p class="text-gray-400 text-sm"><i class="ph-fill ph-info mr-1"></i>
+                                        <p class="text-gray-800 text-sm"><i class="ph-fill ph-info mr-1"></i>
                                             Seleccione un tipo de permiso para ver las opciones de fecha y hora.</p>
                                     </div>
                                 @endif
@@ -176,7 +176,7 @@
                 </div>
 
                 {{-- Acciones --}}
-                <div class="flex justify-end pt-4 border-t border-gray-100">
+                <div class="flex justify-end pt-4 border-t border-gray-300">
                     <button type="submit"
                         class="inline-flex justify-center items-center px-6 py-2.5 bg-colegio-600 border border-transparent rounded-lg font-medium text-white hover:bg-colegio-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-colegio-500 transition-colors shadow-sm text-sm">
                         <i class="ph-bold ph-floppy-disk mr-2 text-lg"></i> Guardar Permiso
